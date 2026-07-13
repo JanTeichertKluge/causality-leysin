@@ -1,6 +1,6 @@
-"""Kapitel ML: Bäume & Ensembles.
+"""Kapitel ML: Trees & Ensembles.
 
-Entscheidungsbäume interaktiv, Random Forests und Feature Importance —
+Decision Trees interaktiv, Random Forests und Feature Importance als
 Grundlage für die Gruppenthemen Explainable ML und Causal ML.
 """
 
@@ -17,16 +17,18 @@ from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
 
 kapitel_kopf(
     "🌲",
-    "Bäume & Ensembles",
-    "Vorhersagen als Wenn-dann-Regeln — und die Weisheit der vielen Bäume",
+    "Trees & Ensembles",
+    "Vorhersagen als Wenn-dann-Regeln und die Stärke der Aggregation",
 )
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
     """
-Ein **Entscheidungsbaum** stellt Fragen an die Daten, eine nach der anderen:
-*Ist das Einkommen über 3 000 €? Ist die Person jünger als 30?* Jede Frage
-teilt die Daten in zwei Gruppen — am Ende jedes Astes steht eine Vorhersage.
+Ein **Decision Tree** stellt nacheinander Fragen an die Daten: Liegt das
+Einkommen über 3 000 €? Ist die Person jünger als 30? Jede Frage teilt die
+Daten in zwei Gruppen, und am Ende jedes Astes steht eine Vorhersage. Je
+nach Zielgröße spricht man von **Classification Trees** (kategoriales Label)
+oder **Regression Trees** (stetiges Label).
 """
 )
 
@@ -40,10 +42,10 @@ digraph {
     A [label="Einkommen > 3 000 €?"];
     B [label="Schuldenquote < 40 %?"];
     C [label="Bürgschaft vorhanden?"];
-    D [label="✅ Kredit", fillcolor="#EDF6F0", color="#4C956C"];
-    E [label="❌ kein Kredit", fillcolor="#FCF1E9", color="#E8804C"];
-    F [label="✅ Kredit", fillcolor="#EDF6F0", color="#4C956C"];
-    G [label="❌ kein Kredit", fillcolor="#FCF1E9", color="#E8804C"];
+    D [label="Kredit", fillcolor="#EDF6F0", color="#4C956C"];
+    E [label="kein Kredit", fillcolor="#FCF1E9", color="#E8804C"];
+    F [label="Kredit", fillcolor="#EDF6F0", color="#4C956C"];
+    G [label="kein Kredit", fillcolor="#FCF1E9", color="#E8804C"];
     A -> B [label="ja"];
     A -> C [label="nein"];
     B -> D [label="ja"];
@@ -57,33 +59,37 @@ digraph {
 
 st.markdown(
     """
-Der Lernalgorithmus sucht automatisch die Fragen (Splits), die die Klassen am
-saubersten trennen. Das macht Bäume herrlich **interpretierbar** — man kann
-jede Vorhersage als Regelkette vorlesen. Aber sie haben eine Schwäche, die
-dir aus dem Kapitel „Was ist Maschinelles Lernen?“ bekannt vorkommen wird …
+Der Lernalgorithmus wählt die Splits automatisch: In jedem Knoten sucht er
+die Frage, die die Klassen am besten trennt (gemessen etwa an der
+Gini-Impurity), und unterteilt rekursiv weiter. Das macht Decision Trees
+außerordentlich **interpretierbar**, denn jede Vorhersage lässt sich als
+Regelkette vorlesen. Zugleich haben sie eine Schwäche, die dir aus dem
+Kapitel „Was ist Maschinelles Lernen?“ vertraut vorkommen dürfte.
 """
 )
 
 # --------------------------------------- Demo 1: Baumtiefe & Overfitting
-st.markdown("## 🎛️ Demo: Wie tief darf der Baum fragen?")
+st.markdown("## Demo: Tiefe des Trees und Overfitting")
 st.markdown(
     """
-Die **Tiefe** eines Baums ist seine Biegsamkeit: Jede zusätzliche Frageebene
-erlaubt feinere Aufteilungen. Unten trennt ein Baum zwei verschränkte
-Punktwolken („Monde“). Spiel mit der Tiefe und beobachte die
-**Entscheidungsgrenze** — und die Lücke zwischen Trainings- und Testgenauigkeit.
+Die maximale **Tiefe** eines Decision Trees bestimmt seine Flexibilität,
+denn jede zusätzliche Frageebene erlaubt feinere Aufteilungen des
+Feature-Raums. In der Abbildung trennt ein Classification Tree zwei
+ineinander verschränkte Punktwolken. Variiere die Tiefe und beobachte
+sowohl die **Decision Boundary** als auch die Lücke zwischen Trainings- und
+Testgenauigkeit.
 """
 )
 
 X, y = monde_daten(n=400, rauschen=0.3)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
-tiefe = st.slider("Maximale Baumtiefe", 1, 15, 2)
+tiefe = st.slider("Maximale Tiefe (max_depth)", 1, 15, 2)
 
 baum = DecisionTreeClassifier(max_depth=tiefe, random_state=0)
 baum.fit(X_train, y_train)
 
-fig_baum = entscheidungsgrenze(baum, X_train, y_train, titel=f"Entscheidungsbaum, Tiefe {tiefe}")
+fig_baum = entscheidungsgrenze(baum, X_train, y_train, titel=f"Decision Tree, Tiefe {tiefe}")
 st.plotly_chart(fig_baum, use_container_width=True)
 
 acc_train = baum.score(X_train, y_train)
@@ -94,29 +100,43 @@ metrik_test.metric("Genauigkeit Test", f"{acc_test:.1%}")
 
 if tiefe <= 2:
     st.info(
-        "**Underfitting:** Wenige kantige Schnitte — die Mondform ist so nicht "
-        "zu fassen. Gib dem Baum mehr Tiefe."
+        "**Underfitting:** Wenige achsenparallele Schnitte können die "
+        "Mondform nicht abbilden. Erhöhe die Tiefe des Trees."
     )
 elif tiefe >= 8:
     st.warning(
-        "**Overfitting:** Der Baum schnitzt Mini-Rechtecke um einzelne "
-        "Rausch-Punkte. Trainingsgenauigkeit nahe 100 %, Testgenauigkeit fällt "
-        "zurück — dasselbe U-Kurven-Drama wie bei der Polynomregression."
+        "**Overfitting:** Der Tree bildet kleinste Regionen um einzelne "
+        "Rauschpunkte. Die Trainingsgenauigkeit nähert sich 100 %, während "
+        "die Testgenauigkeit zurückfällt. Es ist dieselbe Systematik wie bei "
+        "der Polynomregression."
     )
 
 # ---------------------------------------------- Demo 2: Random Forest
-st.markdown("## 🌲🌲🌲 Demo: Der Wald ist schlauer als der Baum")
+st.markdown("## Demo: Vom Tree zum Random Forest")
 st.markdown(
-    """
-Die geniale Idee der **Ensembles**: Trainiere viele *unterschiedliche* Bäume
-(jeder sieht eine zufällige Stichprobe der Daten und der Features) und lass
-sie **abstimmen**. Einzelne Bäume irren wild in verschiedene Richtungen —
-im Mittel heben sich die Irrtümer weg. Das ist der **Random Forest**.
+    r"""
+Die zentrale Idee der **Ensembles** besteht darin, viele *unterschiedliche*
+Trees zu trainieren, jeden auf einer Bootstrap-Stichprobe der Daten und mit
+zufälliger Feature-Auswahl je Split, und ihre Vorhersagen per
+Mehrheitsentscheid zu aggregieren. Das Ergebnis ist der **Random Forest**.
+Warum die Aggregation hilft, zeigt eine kurze Rechnung. Für $B$ Schätzer mit
+Varianz $\sigma^2$ und paarweiser Korrelation $\rho$ gilt
+
+$$
+\mathrm{Var}\!\left(\frac{1}{B}\sum_{b=1}^{B} \hat{f}_b(x)\right)
+= \rho\,\sigma^2 + \frac{1-\rho}{B}\,\sigma^2 .
+$$
+
+Der zweite Term verschwindet mit wachsender Ensemblegröße $B$; übrig bleibt
+allein der korrelierte Anteil $\rho\,\sigma^2$. Genau deshalb dekorreliert
+der Random Forest seine Trees durch doppelte Zufälligkeit in Daten *und*
+Features: Je kleiner $\rho$, desto stärker die Varianzreduktion, und das bei
+unverändertem Bias.
 """
 )
 
 anzahl_baeume = st.select_slider(
-    "Anzahl Bäume im Wald", options=[1, 2, 5, 10, 25, 50, 100, 200], value=1
+    "Anzahl Trees (n_estimators)", options=[1, 2, 5, 10, 25, 50, 100, 200], value=1
 )
 
 
@@ -144,7 +164,7 @@ spalte_grenze, spalte_kurve = st.columns(2)
 with spalte_grenze:
     st.plotly_chart(
         entscheidungsgrenze(
-            wald, X_train, y_train, titel=f"Random Forest, {anzahl_baeume} Bäume"
+            wald, X_train, y_train, titel=f"Random Forest, {anzahl_baeume} Trees"
         ),
         use_container_width=True,
     )
@@ -157,31 +177,33 @@ with spalte_kurve:
     )
     fig_kurve.add_vline(x=anzahl_baeume, line_dash="dot", line_color=FARBEN["schiefer"])
     fig_kurve.update_layout(
-        title="Testgenauigkeit vs. Waldgröße",
-        xaxis_title="Anzahl Bäume (log)", xaxis_type="log",
+        title="Testgenauigkeit über die Anzahl Trees",
+        xaxis_title="Anzahl Trees (log)", xaxis_type="log",
         yaxis_title="Genauigkeit", height=420,
     )
     st.plotly_chart(fig_kurve, use_container_width=True)
 
 st.markdown(
     """
-Mit einem Baum: zackige, nervöse Grenze. Mit vielen: **glatt und stabil** —
-und die Testgenauigkeit steigt, obwohl jeder Einzelbaum tief (also
-overfitting-anfällig) ist. Mittelung senkt **Varianz**, ohne den Bias zu
-erhöhen. Verwandte Idee mit anderem Dreh: **Gradient Boosting** baut Bäume
-nacheinander, wobei jeder die Fehler des bisherigen Ensembles korrigiert
-(XGBoost, LightGBM — die Arbeitspferde auf Tabellendaten).
+Mit einem einzelnen Tree ist die Decision Boundary zerklüftet und instabil.
+Mit vielen Trees wird sie glatt, und die Testgenauigkeit steigt, obwohl
+jeder einzelne Tree tief und damit anfällig für Overfitting ist. Eine
+verwandte Ensemble-Strategie ist das **Gradient Boosting**: Dort werden
+Trees sequenziell trainiert, wobei jeder die Residuen des bisherigen
+Ensembles korrigiert. Die bekanntesten Implementierungen, XGBoost und
+LightGBM, gelten auf tabellarischen Daten häufig als Stand der Technik.
 """
 )
 
 # ------------------------------------------ Demo 3: Feature Importance
-st.markdown("## 📊 Demo: Welche Features zählen?")
+st.markdown("## Demo: Feature Importance")
 st.markdown(
     """
-Ein Wald aus 200 Bäumen ist keine vorlesbare Regelkette mehr — dafür kann er
-verraten, **welche Features seine Vorhersagen am stärksten beeinflussen**
-(Feature Importance): Wie oft und wie gewinnbringend wurde über ein Feature
-gesplittet? Hier für ein fiktives Kreditausfall-Modell:
+Ein Random Forest aus 200 Trees ist keine vorlesbare Regelkette mehr. Er
+kann jedoch ausweisen, welche Features seine Vorhersagen am stärksten
+beeinflussen (**Feature Importance**): Wie oft und mit welchem Gewinn an
+Trennschärfe wurde über ein Feature gesplittet? Die folgende Abbildung
+zeigt dies für ein fiktives Kreditausfall-Modell.
 """
 )
 
@@ -214,42 +236,52 @@ fig_imp.update_layout(
 st.plotly_chart(fig_imp, use_container_width=True)
 
 merkkasten(
-    "Achtung — wichtig ≠ ursächlich",
-    "Feature Importance sagt: <i>Das Modell nutzt dieses Feature stark für "
-    "Vorhersagen.</i> Sie sagt <b>nicht</b>: <i>Dieses Feature verursacht das "
-    "Ergebnis.</i> Ein Confounder oder ein bloßes Korrelat kann ganz oben "
-    "stehen. Diese Unterscheidung wird im Kapitel Explainable ML und in der "
-    "ganzen Kausalitäts-Sektion zentral.",
+    "Achtung: wichtig ist nicht ursächlich",
+    "Feature Importance besagt, dass das Modell ein Feature stark für seine "
+    "Vorhersagen nutzt. Sie besagt <b>nicht</b>, dass dieses Feature das "
+    "Ergebnis verursacht. Ein Confounder oder ein bloßes Korrelat kann an "
+    "erster Stelle stehen. Diese Unterscheidung wird im Kapitel Explainable "
+    "ML und in der gesamten Kausalitäts-Sektion zentral sein.",
     typ="achtung",
 )
 
 # ------------------------------------------------------------------ Quiz
 quiz(
-    "Warum overfittet ein Random Forest weniger als ein einzelner tiefer Baum?",
+    "Warum overfittet ein Random Forest weniger als ein einzelner tiefer "
+    "Decision Tree?",
     [
-        "Weil jeder Baum im Wald flacher ist als ein Einzelbaum",
-        "Weil die Mittelung vieler unterschiedlich irrender Bäume die Varianz senkt",
-        "Weil der Wald weniger Features benutzt",
-        "Er overfittet nicht weniger — er ist nur schneller",
+        "Weil jeder Tree im Forest flacher ist als ein Einzelbaum",
+        "Weil die Mittelung vieler unterschiedlich irrender Trees die Varianz senkt",
+        "Weil der Forest weniger Features benutzt",
+        "Er overfittet nicht weniger, er ist nur schneller",
     ],
     richtig=1,
     erklaerung=(
-        "Die Bäume sind einzeln tief und wackelig (hohe Varianz), aber ihre "
-        "Fehler sind teils unkorreliert — beim Abstimmen mitteln sie sich weg."
+        "Die Trees sind einzeln tief und instabil, haben also hohe Varianz. "
+        "Ihre Fehler sind jedoch teilweise unkorreliert und mitteln sich bei "
+        "der Aggregation heraus."
     ),
     key="quiz_ml_baeume",
 )
 
 # -------------------------------------------------------------- Ausblick
-st.markdown("## Wie geht's weiter?")
+st.markdown("## Weiterführende Literatur")
+st.markdown(
+    """
+- G. James, D. Witten, T. Hastie & R. Tibshirani (2021), *An Introduction to Statistical Learning*, 2. Aufl., Springer, Kap. 8 (frei online)
+- T. Hastie, R. Tibshirani & J. Friedman (2009), *The Elements of Statistical Learning*, 2. Aufl., Springer, Kap. 9, 10 und 15 (frei online)
+"""
+)
+
+st.markdown("## Wie geht es weiter?")
 weiter_xai, weiter_nn = st.columns(2)
 with weiter_xai:
     st.page_link(
         "views/ml/explainable_ml.py",
-        label="Weiter: Explainable ML — Black Boxes öffnen",
+        label="Weiter: Explainable ML",
         icon="🔍",
     )
 with weiter_nn:
     st.page_link(
-        "views/ml/neuronale_netze.py", label="Oder: Neuronale Netze", icon="🧠"
+        "views/ml/neuronale_netze.py", label="Oder: Neural Networks", icon="🧠"
     )

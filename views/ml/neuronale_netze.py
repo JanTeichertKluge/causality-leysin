@@ -1,4 +1,4 @@
-"""Kapitel ML: Neuronale Netze.
+"""Kapitel ML: Neural Networks.
 
 Vom Neuron zum Netz, interaktives MLP-Training auf 2D-Daten, Brücke zu
 Deep Learning und LLMs.
@@ -15,49 +15,51 @@ from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
 
 kapitel_kopf(
     "🧠",
-    "Neuronale Netze",
-    "Vom einzelnen Neuron zur flexibelsten Modellfamilie der Welt",
+    "Neural Networks",
+    "Vom einzelnen Neuron zur flexibelsten Modellfamilie des Machine Learning",
 )
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
     r"""
-Ein künstliches **Neuron** ist unspektakulär: Es bildet eine gewichtete Summe
-seiner Eingaben und jagt sie durch eine **Aktivierungsfunktion** $\sigma$:
+Ein künstliches **Neuron** ist mathematisch unspektakulär. Es bildet eine
+gewichtete Summe seiner Eingaben und wendet darauf eine
+**Activation Function** $\sigma$ an:
 
 $$
-\text{Ausgabe} = \sigma(w_1 x_1 + w_2 x_2 + \dots + w_k x_k + b)
+\text{Ausgabe} = \sigma(w_1 x_1 + w_2 x_2 + \dots + w_k x_k + b).
 $$
 
-Ohne $\sigma$ wäre das nur eine lineare Funktion — die Aktivierung (z. B.
-ReLU: „negative Werte auf null kappen“) bringt den **Knick**, aus dem alles
-Weitere folgt. Denn: Schaltet man viele Neuronen in **Schichten**
-hintereinander, kann das Netz beliebig komplizierte Funktionen zusammensetzen
-(*Universalapproximation*). Beim **Training** stellt Backpropagation die
-Gewichte $w$ so ein, dass der Vorhersagefehler sinkt — dasselbe Prinzip
-„Fehler minimieren“ wie in Kapitel 1, nur mit Millionen (bei LLMs:
-Milliarden) Stellschrauben gleichzeitig.
+Ohne $\sigma$ bliebe dies eine lineare Funktion. Erst die Aktivierung, etwa
+die **ReLU**, die negative Werte auf null setzt, führt die entscheidende
+Nichtlinearität ein. Schaltet man viele Neuronen in **Layern**
+hintereinander, kann das Netz nahezu beliebig komplexe Funktionen
+zusammensetzen; dieses Resultat ist als *Universal Approximation Theorem*
+bekannt. Beim Training stellt die **Backpropagation** die Gewichte $w$ so
+ein, dass der Vorhersagefehler sinkt. Es ist dasselbe Prinzip der
+Fehlerminimierung wie in Kapitel 1, nur mit Millionen, bei großen
+Sprachmodellen sogar Milliarden von Parametern gleichzeitig.
 """
 )
 
 # ------------------------------------------------ Demo: MLP interaktiv
-st.markdown("## 🎛️ Demo: Bau dir ein Netz")
+st.markdown("## Demo: Architektur und Decision Boundary")
 st.markdown(
     """
-Unten trainiert live ein kleines Netz (Multi-Layer Perceptron) auf den
-Mond-Daten aus dem Bäume-Kapitel. Stell **Architektur** und **Aktivierung**
-ein und sieh, welche Formen die Entscheidungsgrenze annehmen kann — und wie
-die **Lernkurve** (Fehler pro Trainingsrunde) aussieht.
+In dieser Demo trainiert ein kleines **Multi-Layer Perceptron (MLP)** live
+auf den Mond-Daten aus dem Trees-Kapitel. Wähle Architektur und Activation
+Function und beobachte, welche Formen die Decision Boundary annehmen kann
+und wie die **Loss Curve**, also der Fehler pro Trainingsepoche, verläuft.
 """
 )
 
 regler_schichten, regler_neuronen, regler_aktivierung = st.columns(3)
-schichten = regler_schichten.slider("Verborgene Schichten", 1, 3, 1)
+schichten = regler_schichten.slider("Hidden Layers", 1, 3, 1)
 neuronen = regler_neuronen.select_slider(
-    "Neuronen pro Schicht", options=[2, 4, 8, 16, 32, 64], value=4
+    "Neuronen pro Layer", options=[2, 4, 8, 16, 32, 64], value=4
 )
 aktivierung = regler_aktivierung.selectbox(
-    "Aktivierungsfunktion", ["relu", "tanh", "logistic"], index=0
+    "Activation Function", ["relu", "tanh", "logistic"], index=0
 )
 
 X, y = monde_daten(n=400, rauschen=0.3)
@@ -92,8 +94,8 @@ with spalte_verlust:
         line=dict(color=FARBEN["beere"], width=3),
     )
     fig_verlust.update_layout(
-        title="Lernkurve: Verlust pro Trainingsrunde",
-        xaxis_title="Trainingsrunde (Epoche)", yaxis_title="Verlust", height=420,
+        title="Loss Curve: Verlust pro Trainingsepoche",
+        xaxis_title="Epoche", yaxis_title="Verlust", height=420,
     )
     st.plotly_chart(fig_verlust, use_container_width=True)
 
@@ -103,57 +105,70 @@ metrik_test.metric("Genauigkeit Test", f"{netz.score(X_test, y_test):.1%}")
 
 if schichten == 1 and neuronen <= 4:
     st.info(
-        "**Klein und ehrlich:** Wenige Neuronen können nur wenige „Knicke“ "
-        "bauen — die Grenze bleibt grob. Gib dem Netz mehr Kapazität."
+        "**Geringe Kapazität:** Wenige Neuronen erzeugen nur wenige Knicke in "
+        "der Decision Boundary, sie bleibt entsprechend grob (Underfitting). "
+        "Erhöhe die Kapazität des Netzes."
     )
 elif schichten >= 2 and neuronen >= 32:
     st.warning(
-        "**Viel Kapazität:** Das Netz kann die Monde perfekt umschlingen — "
-        "und hat genug Spielraum, auch Rauschen mitzulernen. Vergleiche "
-        "Trainings- und Testgenauigkeit: Bekannte Melodie?"
+        "**Hohe Kapazität:** Das Netz kann die Monde vollständig umschließen "
+        "und hat zugleich genug Spielraum, das Rauschen mitzulernen. Der "
+        "Vergleich von Trainings- und Testgenauigkeit zeigt die aus Kapitel 1 "
+        "bekannte Signatur des Overfittings."
     )
 
 st.markdown(
     """
-**Warum Tiefe?** Eine breite flache Schicht *kann* theoretisch alles — aber
-tiefe Netze bauen **Hierarchien**: frühe Schichten lernen einfache Muster
-(Kanten, Silben), spätere kombinieren sie zu abstrakten Konzepten (Gesichter,
-Grammatik). Genau diese Hierarchie plus riesige Datenmengen plus GPUs machte
-**Deep Learning** ab ca. 2012 zum Durchbruch — und ist die Grundlage der
-**Transformer**-Architektur, aus der LLMs wie GPT gebaut sind.
+**Warum Tiefe?** Eine einzelne breite Schicht kann theoretisch jede Funktion
+approximieren. Tiefe Netze bauen jedoch **Hierarchien** auf: Frühe Layer
+lernen einfache Muster wie Kanten oder Silben, spätere kombinieren sie zu
+abstrakten Konzepten wie Gesichtern oder Grammatik. Diese Hierarchiebildung,
+verbunden mit großen Datenmengen und leistungsfähigen GPUs, machte
+**Deep Learning** ab etwa 2012 zum Durchbruch. Sie ist auch die Grundlage
+der **Transformer**-Architektur, auf der moderne Large Language Models
+aufbauen.
 """
 )
 
 merkkasten(
     "Merke",
-    "Neuronale Netze sind extrem flexible Funktionsapproximatoren: Aktivierungs-"
-    "Knicke + Schichten = beliebige Formen. Der Preis: Sie brauchen viele Daten, "
-    "und niemand kann die Millionen Gewichte direkt <i>lesen</i> — sie sind die "
+    "Neural Networks sind außerordentlich flexible Funktionsapproximatoren: "
+    "Nichtlineare Aktivierungen und gestapelte Layer erzeugen nahezu "
+    "beliebige Formen. Der Preis dafür: Sie benötigen viele Daten, und "
+    "niemand kann die Millionen Gewichte direkt <i>lesen</i>. Sie sind die "
     "namensgebende <b>Black Box</b> des Explainable-ML-Themas.",
     typ="merke",
 )
 
 # ------------------------------------------------------------------ Quiz
 quiz(
-    "Was passiert, wenn man in einem tiefen Netz alle Aktivierungsfunktionen "
-    "durch die Identität (also „keine Aktivierung“) ersetzt?",
+    "Was passiert, wenn man in einem tiefen Netz alle Activation Functions "
+    "durch die Identität ersetzt, also auf Aktivierung verzichtet?",
     [
-        "Nichts — die Tiefe liefert trotzdem Flexibilität",
+        "Nichts, die Tiefe liefert weiterhin Flexibilität",
         "Das Netz kollabiert mathematisch zu einem einzigen linearen Modell",
         "Das Netz kann dann nur noch Klassifikation, keine Regression",
         "Das Training wird unmöglich",
     ],
     richtig=1,
     erklaerung=(
-        "Verkettete lineare Funktionen sind wieder linear — egal wie viele "
-        "Schichten. Erst die Nichtlinearität der Aktivierung macht aus Tiefe "
-        "echte Ausdruckskraft."
+        "Verkettete lineare Funktionen sind wieder linear, unabhängig von der "
+        "Anzahl der Layer. Erst die Nichtlinearität der Aktivierung verleiht "
+        "der Tiefe echte Ausdruckskraft."
     ),
     key="quiz_ml_netze",
 )
 
 # -------------------------------------------------------------- Ausblick
-st.markdown("## Wie geht's weiter?")
+st.markdown("## Weiterführende Literatur")
+st.markdown(
+    """
+- I. Goodfellow, Y. Bengio & A. Courville (2016), *Deep Learning*, MIT Press, Kap. 6 (frei online)
+- M. Nielsen (2015), *Neural Networks and Deep Learning*, Online-Buch (frei online)
+"""
+)
+
+st.markdown("## Wie geht es weiter?")
 weiter_llm, weiter_xai = st.columns(2)
 with weiter_llm:
     st.page_link(
@@ -164,6 +179,6 @@ with weiter_llm:
 with weiter_xai:
     st.page_link(
         "views/ml/explainable_ml.py",
-        label="Oder: Explainable ML — Black Boxes öffnen",
+        label="Oder: Explainable ML",
         icon="🔍",
     )

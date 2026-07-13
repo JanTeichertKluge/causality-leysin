@@ -18,47 +18,67 @@ from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
 kapitel_kopf(
     "🤖",
     "Was ist Maschinelles Lernen?",
-    "Lernen aus Beispielen — und warum auswendig lernen nicht reicht",
+    "Lernen aus Beispielen, und warum Auswendiglernen nicht genügt",
 )
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
-    """
-Klassische Programme folgen Regeln, die ein Mensch aufgeschrieben hat:
-*Wenn X, dann Y.* Beim **Maschinellen Lernen (ML)** drehen wir das um —
-wir geben dem Computer **Beispiele** und lassen ihn die Regeln selbst finden.
+    r"""
+Klassische Programme folgen Regeln, die ein Mensch explizit aufgeschrieben
+hat. **Machine Learning (ML)** kehrt dieses Prinzip um: Wir geben dem
+Computer **Beispiele** und lassen ihn die Regeln selbst finden.
 
-Beim **Supervised Learning** (überwachtes Lernen) besteht jedes Beispiel aus:
+Beim **Supervised Learning** besteht jedes Beispiel aus zwei Teilen:
 
-- **Features** $x$: das, was wir beobachten (z. B. Wohnfläche, Lage, Baujahr)
-- **Label** $y$: das, was wir vorhersagen wollen (z. B. die Miete)
+- **Features** $x$: das, was wir beobachten (etwa Wohnfläche, Lage und Baujahr einer Wohnung)
+- **Label** $y$: das, was wir vorhersagen wollen (etwa die Miete)
 
-Das Modell sucht eine Funktion $\\hat{f}$, sodass $\\hat{f}(x) \\approx y$ —
-auch für **neue** Wohnungen, die es beim Lernen nie gesehen hat. Genau dieser
-letzte Halbsatz ist der Kern von allem, was jetzt kommt.
+Gesucht ist eine Funktion $\hat{f}$ mit $\hat{f}(x) \approx y$, und zwar
+ausdrücklich auch für **neue** Beobachtungen, die das Modell beim Lernen nie
+gesehen hat. Dieser letzte Halbsatz ist der Kern des gesamten Kapitels.
 """
 )
 
 merkkasten(
     "Definition",
-    "<b>Maschinelles Lernen</b> heißt: aus Beispieldaten eine Funktion lernen, "
-    "die auch auf <b>ungesehenen</b> Daten gute Vorhersagen macht. "
-    "Das Ziel ist Verallgemeinerung — nicht Auswendiglernen.",
+    "<b>Machine Learning</b> bedeutet, aus Beispieldaten eine Funktion zu "
+    "lernen, die auch auf <b>ungesehenen</b> Daten gute Vorhersagen liefert. "
+    "Das Ziel ist Generalisierung, nicht Auswendiglernen.",
     typ="definition",
 )
 
+st.markdown(
+    r"""
+Formal wählt der Lernalgorithmus aus einer Modellklasse $\mathcal{F}$
+diejenige Funktion, die den mittleren Fehler auf den Trainingsdaten
+minimiert. Dieses Prinzip heißt **Empirical Risk Minimization**:
+
+$$
+\hat{f} = \arg\min_{f \in \mathcal{F}} \; \frac{1}{n} \sum_{i=1}^{n}
+L\big(y_i, f(x_i)\big).
+$$
+
+Bei Regressionsproblemen verwendet man typischerweise den quadratischen
+Verlust $L(y, \hat{y}) = (y - \hat{y})^2$, dessen Mittel der **Mean Squared
+Error** (MSE) ist. Entscheidend ist am Ende jedoch nicht das empirische
+Risiko auf den Trainingsdaten, sondern das erwartete Risiko auf **neuen**
+Daten. Die Lücke zwischen beiden Größen ist das zentrale Thema dieses
+Kapitels.
+"""
+)
+
 # ---------------------------------------------- Demo 1: Polynomregression
-st.markdown("## 🎛️ Demo: Lernen heißt Kurven anpassen")
+st.markdown("## Demo: Lernen heißt Kurven anpassen")
 st.markdown(
     """
-Unten siehst du Datenpunkte, die von einem **wahren Zusammenhang** (gestrichelte
-Linie) plus Zufallsrauschen erzeugt wurden — in echten Daten kennen wir diese
-Linie natürlich nie. Wir teilen die Punkte in **Trainingsdaten** (daran lernt
-das Modell) und **Testdaten** (die hält das Modell nie zu Gesicht — unser
-Ehrlichkeits-Check).
+Die Datenpunkte unten wurden von einem **wahren Zusammenhang** (gestrichelte
+Linie) plus Zufallsrauschen erzeugt. In realen Daten kennen wir diese Linie
+selbstverständlich nicht. Wir teilen die Punkte in **Trainingsdaten**, an
+denen das Modell lernt, und **Testdaten**, die das Modell nie zu sehen
+bekommt und die deshalb als ehrlicher Maßstab der Generalisierung dienen.
 
-Deine Aufgabe: Wähle den **Polynomgrad** — also wie „biegsam“ die gelernte
-Kurve sein darf — und beobachte, was mit Trainings- und Testfehler passiert.
+Wähle den **Polynomgrad**, also die Flexibilität der gelernten Kurve, und
+beobachte, wie sich Trainings- und Testfehler entwickeln.
 """
 )
 
@@ -79,12 +99,12 @@ if "ml_seed" not in st.session_state:
     st.session_state.ml_seed = 2026
 
 regler_grad, regler_n, regler_rauschen, knopf = st.columns([2, 2, 2, 1])
-grad = regler_grad.slider("Polynomgrad (Biegsamkeit)", 1, 15, 1)
+grad = regler_grad.slider("Polynomgrad (Flexibilität)", 1, 15, 1)
 n = regler_n.slider("Anzahl Datenpunkte", 20, 300, 60, step=20)
 rauschen = regler_rauschen.slider("Rauschen", 0.05, 1.0, 0.3, step=0.05)
 with knopf:
     st.markdown("&nbsp;")
-    if st.button("🎲 Neue Daten"):
+    if st.button("Neue Daten"):
         st.session_state.ml_seed += 1
 
 x, y = daten_erzeugen(n, rauschen, st.session_state.ml_seed)
@@ -130,24 +150,27 @@ metrik_test.metric("Fehler auf Testdaten (MSE)", f"{mse_test:.3f}")
 if grad <= 2:
     st.info(
         "**Underfitting:** Die Kurve ist zu starr, um den wahren Zusammenhang "
-        "zu treffen — beide Fehler bleiben hoch. Probier einen höheren Grad!"
+        "abzubilden; beide Fehler bleiben hoch. Versuche einen höheren Grad."
     )
 elif grad >= 9:
     st.warning(
-        "**Overfitting:** Die Kurve schlängelt sich durch jeden Trainingspunkt — "
-        "sie lernt das Rauschen auswendig. Trainingsfehler winzig, Testfehler "
-        "explodiert. Drück auch mal auf „🎲 Neue Daten“: die gelernte Kurve "
-        "ändert sich drastisch, obwohl der wahre Zusammenhang gleich bleibt."
+        "**Overfitting:** Die Kurve folgt jedem einzelnen Trainingspunkt und "
+        "lernt damit das Rauschen mit. Der Trainingsfehler wird minimal, "
+        "während der Testfehler deutlich steigt. Aufschlussreich ist auch die "
+        "Schaltfläche „Neue Daten“: Die gelernte Kurve ändert sich von "
+        "Stichprobe zu Stichprobe drastisch, obwohl der wahre Zusammenhang "
+        "identisch bleibt. Das ist die hohe Varianz des Schätzers."
     )
 
 # ------------------------------------- Demo 2: Fehler über alle Grade
-st.markdown("## 📉 Der ganze Verlauf: Trainings- vs. Testfehler")
+st.markdown("## Trainings- und Testfehler über die Modellkomplexität")
 st.markdown(
     """
-Statt einzelne Grade durchzuprobieren, zeichnen wir beide Fehler für **alle**
-Grade von 1 bis 15. Es entsteht das wohl wichtigste Bild des Maschinellen
-Lernens: Der Trainingsfehler sinkt immer weiter — der Testfehler bildet ein
-**U**. Links Underfitting, rechts Overfitting, dazwischen der Sweet Spot.
+Statt einzelne Grade durchzuprobieren, berechnen wir beide Fehler für alle
+Grade von 1 bis 15. Es entsteht eine der wichtigsten Abbildungen des
+Machine Learning: Der Trainingsfehler sinkt monoton, während der Testfehler
+einen U-förmigen Verlauf nimmt. Links liegt Underfitting, rechts
+Overfitting, und dazwischen der Bereich optimaler Komplexität.
 """
 )
 
@@ -190,47 +213,75 @@ fig_fehler.update_layout(
 )
 st.plotly_chart(fig_fehler, use_container_width=True)
 
+st.markdown(
+    r"""
+Hinter dem U-förmigen Verlauf steht die **Bias-Variance-Zerlegung** des
+erwarteten Testfehlers an einer Stelle $x$:
+
+$$
+E\Big[\big(Y - \hat{f}(x)\big)^2\Big]
+= \underbrace{\mathrm{Bias}\big[\hat{f}(x)\big]^2}_{\text{systematischer Fehler}}
++ \underbrace{\mathrm{Var}\big[\hat{f}(x)\big]}_{\text{Streuung über Stichproben}}
++ \underbrace{\sigma^2}_{\text{irreduzibles Rauschen}} .
+$$
+
+Mehr Flexibilität senkt den Bias und erhöht zugleich die Varianz; das
+Minimum der Summe liegt bei mittlerer Komplexität. Der Rauschterm $\sigma^2$
+bildet die Untergrenze, die kein noch so gutes Modell unterschreiten kann.
+"""
+)
+
 merkkasten(
     "Merke",
     "Ein Modell ist so gut wie sein Fehler auf <b>ungesehenen</b> Daten. "
-    "Mehr Flexibilität senkt den Trainingsfehler immer — den Testfehler nur "
-    "bis zu einem Punkt. Danach lernt das Modell Rauschen statt Struktur "
-    "(<b>Bias-Variance-Tradeoff</b>).",
+    "Mehr Flexibilität senkt den Trainingsfehler immer, den Testfehler jedoch "
+    "nur bis zu einem Punkt. Danach lernt das Modell Rauschen statt Struktur. "
+    "Dieses Spannungsverhältnis heißt <b>Bias-Variance-Tradeoff</b>.",
     typ="merke",
 )
 
 # ------------------------------------------------------------------ Quiz
 quiz(
     "Ein Modell erreicht fast null Fehler auf den Trainingsdaten, aber einen "
-    "riesigen Fehler auf den Testdaten. Was liegt vor?",
+    "sehr hohen Fehler auf den Testdaten. Was liegt vor?",
     [
-        "Underfitting — das Modell ist zu simpel",
-        "Overfitting — das Modell hat das Rauschen auswendig gelernt",
-        "Perfektes Modell — Trainingsfehler null ist das Ziel",
-        "Datenfehler — so etwas kann bei sauberen Daten nicht passieren",
+        "Underfitting, denn das Modell ist zu simpel",
+        "Overfitting, denn das Modell hat das Rauschen auswendig gelernt",
+        "Ein perfektes Modell, denn Trainingsfehler null ist das Ziel",
+        "Ein Datenfehler, denn bei sauberen Daten kann das nicht passieren",
     ],
     richtig=1,
     erklaerung=(
-        "Null Trainingsfehler bei hohem Testfehler ist das Markenzeichen von "
-        "Overfitting: Das Modell verallgemeinert nicht, es erinnert sich nur."
+        "Ein Trainingsfehler nahe null bei gleichzeitig hohem Testfehler ist "
+        "das charakteristische Muster von Overfitting: Das Modell "
+        "generalisiert nicht, es erinnert sich lediglich."
     ),
     key="quiz_ml_grundlagen",
 )
 
 # -------------------------------------------------------------- Ausblick
-st.markdown("## Wie geht's weiter?")
+st.markdown("## Weiterführende Literatur")
 st.markdown(
     """
-Polynome von Hand wählen ist nur der Anfang. In den nächsten Kapiteln lernst
-du Modelle kennen, die ihre Flexibilität cleverer einsetzen — und am Ende die
-Frage, die dieses ganze Projekt antreibt: Ein Modell, das perfekt
-**vorhersagt**, weiß noch lange nicht, **warum** etwas passiert.
+- G. James, D. Witten, T. Hastie & R. Tibshirani (2021), *An Introduction to Statistical Learning*, 2. Aufl., Springer, Kap. 2 (frei online)
+- T. Hastie, R. Tibshirani & J. Friedman (2009), *The Elements of Statistical Learning*, 2. Aufl., Springer, Kap. 2 und 7 (frei online)
+"""
+)
+
+st.markdown("## Wie geht es weiter?")
+st.markdown(
+    """
+Polynome von Hand zu wählen ist erst der Anfang. In den nächsten Kapiteln
+lernst du Modellfamilien kennen, die ihre Flexibilität geschickter
+einsetzen. Und am Ende wartet die Frage, die dieses ganze Projekt antreibt:
+Ein Modell, das hervorragend **vorhersagt**, weiß deshalb noch lange nicht,
+**warum** etwas geschieht.
 """
 )
 weiter_ml, weiter_kausal = st.columns(2)
 with weiter_ml:
     st.page_link(
-        "views/ml/baeume_ensembles.py", label="Weiter: Bäume & Ensembles", icon="🌲"
+        "views/ml/baeume_ensembles.py", label="Weiter: Trees & Ensembles", icon="🌲"
     )
 with weiter_kausal:
     st.page_link(
