@@ -3,13 +3,13 @@
 Jede Gruppe bekommt einen Ordner unter content/projekte/<slug>/:
 
 - ``projekt.md`` mit YAML-Frontmatter (titel, emoji, mitglieder,
-  kurzbeschreibung); wird automatisch als Seite gerendert.
+  kurzbeschreibung), wird automatisch als Seite gerendert.
 - Liegt zusätzlich eine ``app.py`` im Ordner, wird stattdessen diese als
   vollwertige Streamlit-Seite registriert (die Metadaten für die Galerie
   kommen weiterhin aus projekt.md).
 
 Ordner mit führendem Unterstrich (z. B. ``_vorlage``) werden übersprungen.
-Fehler in einem Projekt dürfen nie die ganze App stoppen; kaputte Projekte
+Fehler in einem Projekt dürfen nie die ganze App stoppen, kaputte Projekte
 bekommen eine Fehlerseite statt eines Crashs.
 """
 
@@ -90,7 +90,7 @@ def lade_projekte() -> list[Projekt]:
 def _markdown_mit_bildern(inhalt: str, basis: Path) -> None:
     """Rendert Markdown und löst lokale Bildpfade über st.image auf.
 
-    st.markdown kann lokale Dateien nicht anzeigen; http(s)-URLs bleiben
+    st.markdown kann lokale Dateien nicht anzeigen, http(s)-URLs bleiben
     im Markdown und funktionieren dort direkt.
     """
     pos = 0
@@ -157,7 +157,7 @@ def _seiten_funktion(projekt: Projekt) -> Callable[[], None]:
 
 
 def projekt_seiten(projekte: list[Projekt]) -> dict[str, st.Page]:
-    """Baut pro Projekt eine st.Page; Rückgabe als {slug: Seite}.
+    """Baut pro Projekt eine st.Page, Rückgabe als {slug: Seite}.
 
     Das Emoji wandert in den Titel statt in `icon=`, weil ungültige
     icon-Werte aus Frontmatter sonst die ganze Navigation crashen würden.

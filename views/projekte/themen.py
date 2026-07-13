@@ -15,7 +15,7 @@ st.markdown(
 Während der Akademie bearbeitet ihr in Gruppen eines dieser Themen in Python.
 Zu jedem Thema findest du hier den Abstract und die Kapitel dieser Website,
 die dich am besten darauf vorbereiten. Alle Wege führen über die beiden
-Grundlagenkapitel; danach kannst du gezielt vertiefen.
+Grundlagenkapitel, danach kannst du gezielt vertiefen.
 """
 )
 

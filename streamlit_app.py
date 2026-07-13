@@ -29,7 +29,8 @@ theming.register_plotly_template()
 theming.inject_css()
 
 start = st.Page("views/start.py", title="Start", icon="🏔️", default=True)
-ueber = st.Page("views/ueber.py", title="Über die Akademie", icon="ℹ️")
+ueber = st.Page("views/ueber.py", title="Über uns", icon="ℹ️")
+referenzen = st.Page("views/referenzen.py", title="Referenzen & Quellen", icon="📚")
 
 ml_seiten = [
     st.Page("views/ml/grundlagen.py", title="Was ist Maschinelles Lernen?", icon="🤖"),
@@ -65,6 +66,7 @@ navigation = st.navigation(
         "Maschinelles Lernen": ml_seiten,
         "Kausalität": kausal_seiten,
         "Gruppenprojekte": [themen, uebersicht, *seiten_map.values()],
+        "Material": [referenzen],
     }
 )
 

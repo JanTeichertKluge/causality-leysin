@@ -1,4 +1,4 @@
-"""Über die Akademie: Programm, Ort, Dozenten, Hintergrund."""
+"""Über uns: Arbeitsgruppe, Dozenten mit Profilen, Voraussetzungen."""
 
 import streamlit as st
 
@@ -6,14 +6,10 @@ from utils.theming import kapitel_kopf, merkkasten
 
 kapitel_kopf(
     "ℹ️",
-    "Über die Akademie",
+    "Über uns",
     "Künstliche Intelligenz und das „Warum“, Sommerakademie Leysin 2026",
 )
 
-spalte_wann, spalte_wo, spalte_wer = st.columns(3)
-spalte_wann.metric("Wann", "18.–27. Aug 2026")
-spalte_wo.metric("Wo", "Leysin, Schweiz")
-spalte_wer.metric("Träger", "Studienstiftung")
 
 st.markdown("## Die Arbeitsgruppe")
 st.markdown(
@@ -34,28 +30,53 @@ logisches Denken steht.
 )
 
 st.markdown("## Dozenten")
-spalte_os, spalte_jtk = st.columns(2)
 
-with spalte_os, st.container(border=True):
-    st.markdown("### Dr. Oliver Schacht")
-    st.markdown(
-        "Universität Hamburg, Lehrstuhl für Statistik."
-    )
-
-with spalte_jtk, st.container(border=True):
-    st.markdown("### Jan Teichert-Kluge")
-    st.markdown(
-        "Universität Hamburg, Lehrstuhl für Statistik."
-    )
-
-st.markdown("## Voraussetzungen")
-st.markdown(
-    """
-- Interesse an quantitativer Forschung und Datenanalyse
-- Grundkenntnisse in Statistik sind hilfreich
-- Python-Kenntnisse sind **keine** Voraussetzung; was wir brauchen, lernen wir gemeinsam
+with st.container(border=True):
+    spalte_foto_os, spalte_text_os = st.columns([1, 3])
+    with spalte_foto_os:
+        st.image(
+            "https://oliverschacht.github.io/assets/img/avatar.png",
+            use_container_width=True,
+        )
+    with spalte_text_os:
+        st.markdown("### Dr. Oliver Schacht")
+        st.markdown(
+            """
+Oliver hat am Lehrstuhl für Statistik der Universität Hamburg zu 
+**Causal Machine Learning** promoviert. Er ist beteiligt am Python-Paket
+**DoubleML**, hat zuvor als Data Scientist bei Economic AI gearbeitet und bringt 
+über fünf Jahre Lehrerfahrung in Mathematik, Statistik und Data Science mit.
 """
-)
+        )
+        st.markdown(
+            "[Website](https://oliverschacht.github.io/) · "
+            "[GitHub](https://github.com/OliverSchacht/) · "
+            "[LinkedIn](https://www.linkedin.com/in/oliver-schacht-b5b901200/)"
+        )
+
+with st.container(border=True):
+    spalte_foto_jtk, spalte_text_jtk = st.columns([1, 3])
+    with spalte_foto_jtk:
+        st.image(
+            "https://janteichertkluge.github.io/content/jan-teichert-kluge_sqr.jpg",
+            use_container_width=True,
+        )
+    with spalte_text_jtk:
+        st.markdown("### Jan Teichert-Kluge")
+        st.markdown(
+            """
+Jan promoviert am Lehrstuhl für Statistik der Universität Hamburg zu
+**Causal Machine Learning**. Er ist ebenfalls am **DoubleML** Paket beteiligt, 
+zuvor hat er Wirtschaftsingenieurwesen studiert und 
+mehr als fünf Jahre mit Daten in der Praxis gearbeitet.
+"""
+        )
+        st.markdown(
+            "[Website](https://janteichertkluge.github.io/) · "
+            "[GitHub](https://github.com/JanTeichertKluge) · "
+            "[LinkedIn](https://www.linkedin.com/in/jan-teichert-kluge/)"
+        )
+
 
 merkkasten(
     "Offizielle Programminfo",
@@ -64,3 +85,4 @@ merkkasten(
     'target="_blank">Studienstiftung des deutschen Volkes</a>.',
     typ="beispiel",
 )
+

@@ -69,7 +69,7 @@ merkkasten(
     "Gruppenmittelwerte). Das <b>Estimate</b> ist der konkrete Zahlenwert, "
     "den der Estimator in einer Stichprobe liefert. <b>Identification</b> "
     "bezeichnet den Schritt, den Estimand unter Annahmen durch beobachtbare "
-    "Größen auszudrücken; erst danach beginnt die <b>Estimation</b>. Ein "
+    "Größen auszudrücken, erst danach beginnt die <b>Estimation</b>. Ein "
     "präziser Estimator nützt nichts, wenn die Identification scheitert.",
     typ="definition",
 )
@@ -358,7 +358,7 @@ quiz(
     richtig=1,
     erklaerung=(
         "Mehr Daten verkleinern die zufällige Streuung, nicht die "
-        "systematische Verzerrung; man schätzt den falschen Wert nur immer "
+        "systematische Verzerrung, man schätzt den falschen Wert nur immer "
         "genauer. Allein das Design, also Randomisierung, Adjustierung oder "
         "ein Quasi-Experiment, beseitigt Bias."
     ),

@@ -78,7 +78,7 @@ $$
 wobei $n(w_t, w)$ die Häufigkeit des Wortpaars im Korpus bezeichnet. Für
 $T \to 0$ wird stets das häufigste Folgewort gewählt, während große $T$ die
 Wahrscheinlichkeit gleichmäßiger verteilen. Dasselbe Prinzip steuert den
-Sampling-Parameter Temperature realer LLMs; dort ersetzt ein tiefes
+Sampling-Parameter Temperature realer LLMs, dort ersetzt ein tiefes
 Transformer-Netz mit langem Kontext die Zähltabelle.
 """
 )
@@ -249,7 +249,7 @@ quiz(
     richtig=1,
     erklaerung=(
         "Wortfolge-Statistik ist Association. Für Interventionsfragen braucht "
-        "es ein Kausalmodell der Welt; mehr Textdaten derselben Art ändern die "
+        "es ein Kausalmodell der Welt, mehr Textdaten derselben Art ändern die "
         "Stufe nicht."
     ),
     key="quiz_ml_llm",

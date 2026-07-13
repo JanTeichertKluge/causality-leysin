@@ -34,7 +34,7 @@ Ohne $\sigma$ bliebe dies eine lineare Funktion. Erst die Aktivierung, etwa
 die **ReLU**, die negative Werte auf null setzt, führt die entscheidende
 Nichtlinearität ein. Schaltet man viele Neuronen in **Layern**
 hintereinander, kann das Netz nahezu beliebig komplexe Funktionen
-zusammensetzen; dieses Resultat ist als *Universal Approximation Theorem*
+zusammensetzen, dieses Resultat ist als *Universal Approximation Theorem*
 bekannt. Beim Training stellt die **Backpropagation** die Gewichte $w$ so
 ein, dass der Vorhersagefehler sinkt. Es ist dasselbe Prinzip der
 Fehlerminimierung wie in Kapitel 1, nur mit Millionen, bei großen

@@ -44,7 +44,7 @@ st.markdown("## Demo: Wie wirksam ist die Behandlung?")
 st.markdown(
     r"""
 Eine neue Therapie hat eine unbekannte Erfolgswahrscheinlichkeit $\theta$.
-Als **Prior** wählen wir eine Beta-Verteilung; die Studiendaten ($k$ Erfolge
+Als **Prior** wählen wir eine Beta-Verteilung, die Studiendaten ($k$ Erfolge
 bei $n$ Behandelten) folgen einer Binomialverteilung. Diese Kombination ist
 **konjugiert**: Der Posterior ist wieder eine Beta-Verteilung und lässt sich
 geschlossen angeben:

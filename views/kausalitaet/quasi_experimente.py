@@ -57,7 +57,7 @@ $$
 Damit ist die Identifikationsannahme sichtbar: **Parallel Trends**. Ohne
 Behandlung hätten sich beide Gruppen im Mittel gleich entwickelt, und der
 Bias-Term wäre null. Die Annahme betrifft ein Kontrafaktual und ist deshalb
-nicht testbar; üblich ist die Prüfung der *Pre-Trends* als
+nicht testbar, üblich ist die Prüfung der *Pre-Trends* als
 Plausibilitätsindiz. Untersuche in der Simulation, was bei einer Verletzung
 geschieht.
 """
@@ -264,7 +264,7 @@ Beobachtungen (hohe Varianz), eine große verletzt die lokale lineare
 Approximation des gekrümmten Hintergrundtrends (Bias). Dieser
 Bias-Variance-Tradeoff, strukturell derselbe wie bei der Wahl der
 Modellkomplexität im ML-Kapitel, ist die zentrale praktische Entscheidung
-jeder RDD-Analyse; moderne Verfahren wählen $h$ datengetrieben.
+jeder RDD-Analyse, moderne Verfahren wählen $h$ datengetrieben.
 
 Ergänzend zum *Sharp Design*: Springt am Cutoff lediglich die
 Treatment-**Wahrscheinlichkeit** (*Fuzzy Design*), wird der Sprung als
@@ -291,7 +291,7 @@ quiz(
     "RDD-Cutoff einen kausalen Effekt?",
     [
         "Weil der Cutoff von Expert:innen festgelegt wurde",
-        "Weil Personen direkt am Cutoff praktisch identisch sind; ob sie darüber oder darunter landen, ist nahezu Zufall",
+        "Weil Personen direkt am Cutoff praktisch identisch sind, ob sie darüber oder darunter landen, ist nahezu Zufall",
         "Weil die Stichprobe am Cutoff am größten ist",
         "Weil lineare Regression Verzerrungen automatisch entfernt",
     ],

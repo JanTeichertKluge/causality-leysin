@@ -59,7 +59,7 @@ st.markdown(
     r"""
 Wir simulieren die Eis-Sonnenbrand-Welt über ein kleines **Strukturmodell**:
 Die Sonnenstunden $Z$ beeinflussen den Eisverkauf $X$ und die Sonnenbrände
-$Y$; zusätzlich lässt das Modell einen direkten Effekt von $X$ auf $Y$ zu:
+$Y$, zusätzlich lässt das Modell einen direkten Effekt von $X$ auf $Y$ zu:
 
 $$
 X = a\,Z + \varepsilon_X, \qquad

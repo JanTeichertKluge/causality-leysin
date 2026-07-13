@@ -15,7 +15,7 @@ st.markdown(
     """
 Während der Akademie arbeitet ihr in Gruppen an eigenen Fragestellungen rund
 um Maschinelles Lernen und Kausalität. Jede Gruppe bekommt hier eine eigene
-Seite; die Galerie unten füllt sich im Lauf der Akademie.
+Seite, die Galerie unten füllt sich im Lauf der Akademie.
 """
 )
 
@@ -55,7 +55,7 @@ with st.expander("Weg 1 (Standard): Markdown-Datei, kein Streamlit-Wissen nötig
    Projekt, z. B. `content/projekte/gletscher-gang/` (Kleinbuchstaben,
    Bindestriche statt Leerzeichen).
 2. Füllt die `projekt.md` aus: oben im **Frontmatter** stehen Titel, Emoji,
-   Teammitglieder und eine Kurzbeschreibung; darunter schreibt ihr ganz
+   Teammitglieder und eine Kurzbeschreibung, darunter schreibt ihr ganz
    normales Markdown.
 3. Bilder (Plots, Screenshots) legt ihr einfach mit in euren Ordner und bindet
    sie mit `![Beschreibung](mein-plot.png)` ein.
@@ -68,7 +68,7 @@ with st.expander("Weg 2 (Kür): eigene interaktive Streamlit-Seite"):
     st.markdown(
         """
 Ihr wollt Slider, Live-Plots und eigene Widgets? Legt **zusätzlich** zur
-`projekt.md` eine `app.py` in euren Ordner; dann wird diese als Seite
+`projekt.md` eine `app.py` in euren Ordner, dann wird diese als Seite
 angezeigt (die `projekt.md` liefert weiterhin Titel & Infos für diese
 Galerie). Schaut euch das **Beispielprojekt** als Vorlage an.
 

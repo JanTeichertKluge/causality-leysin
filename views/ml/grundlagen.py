@@ -150,7 +150,7 @@ metrik_test.metric("Fehler auf Testdaten (MSE)", f"{mse_test:.3f}")
 if grad <= 2:
     st.info(
         "**Underfitting:** Die Kurve ist zu starr, um den wahren Zusammenhang "
-        "abzubilden; beide Fehler bleiben hoch. Versuche einen höheren Grad."
+        "abzubilden, beide Fehler bleiben hoch. Versuche einen höheren Grad."
     )
 elif grad >= 9:
     st.warning(
@@ -225,7 +225,7 @@ E\Big[\big(Y - \hat{f}(x)\big)^2\Big]
 + \underbrace{\sigma^2}_{\text{irreduzibles Rauschen}} .
 $$
 
-Mehr Flexibilität senkt den Bias und erhöht zugleich die Varianz; das
+Mehr Flexibilität senkt den Bias und erhöht zugleich die Varianz, das
 Minimum der Summe liegt bei mittlerer Komplexität. Der Rauschterm $\sigma^2$
 bildet die Untergrenze, die kein noch so gutes Modell unterschreiten kann.
 """

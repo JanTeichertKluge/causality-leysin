@@ -127,7 +127,7 @@ $$
 = \rho\,\sigma^2 + \frac{1-\rho}{B}\,\sigma^2 .
 $$
 
-Der zweite Term verschwindet mit wachsender Ensemblegröße $B$; übrig bleibt
+Der zweite Term verschwindet mit wachsender Ensemblegröße $B$, übrig bleibt
 allein der korrelierte Anteil $\rho\,\sigma^2$. Genau deshalb dekorreliert
 der Random Forest seine Trees durch doppelte Zufälligkeit in Daten *und*
 Features: Je kleiner $\rho$, desto stärker die Varianzreduktion, und das bei

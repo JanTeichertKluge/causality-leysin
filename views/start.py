@@ -29,12 +29,9 @@ Moderne KI-Systeme sind erstaunlich gut darin, **Muster zu erkennen und
 vorherzusagen**, aber Muster sind nicht dasselbe wie Ursachen. Wer aus Daten
 Entscheidungen ableiten will („Hilft dieses Medikament?“, „Bringt diese
 Werbekampagne etwas?“), braucht mehr als Korrelationen: eine Antwort auf die
-Frage nach dem **Warum**.
-
-Auf dieser Website lernst du beides: wie Machine Learning funktioniert und
-wie man mit Daten methodisch sauber über **Kausalität** nachdenkt. Alle
-Kapitel enthalten interaktive Simulationen: Parameter verändern, Stichproben
-neu ziehen und die Konsequenzen unmittelbar beobachten.
+Frage nach dem **Warum**. Alle Kapitel enthalten interaktive Simulationen:
+Parameter verändern, Stichproben neu ziehen und die Konsequenzen unmittelbar
+beobachten.
 """
 )
 
@@ -64,19 +61,6 @@ with spalte_projekte, st.container(border=True):
     )
     st.page_link("views/projekte/uebersicht.py", label="Zu den Projekten", icon="▶️")
 
-st.markdown("## Wie du diese Seite nutzt")
-st.markdown(
-    """
-1. **Vor der Akademie:** Verschaffe dir einen Überblick über die ersten
-   Kapitel. Vorwissen ist nicht erforderlich, Grundkenntnisse der Statistik
-   sind hilfreich.
-2. **Während der Akademie:** Die Kapitel begleiten die Sitzungen und bereiten
-   auf die Gruppenarbeiten vor; dein Gruppenprojekt erhält eine eigene Seite.
-3. **Danach:** Alle Materialien bleiben dauerhaft online, zum Nachschlagen,
-   Teilen und Weiterlernen.
-"""
-)
-
 merkkasten(
     "Gut zu wissen",
     "Diese Website bleibt nach der Akademie dauerhaft öffentlich. "
@@ -84,4 +68,4 @@ merkkasten(
     typ="definition",
 )
 
-st.page_link("views/ueber.py", label="Mehr über die Akademie", icon="ℹ️")
+st.page_link("views/ueber.py", label="Über uns", icon="ℹ️")

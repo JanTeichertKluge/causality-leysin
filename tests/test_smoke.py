@@ -28,6 +28,7 @@ STATISCHE_SEITEN = [
     "views/kausalitaet/sem_surveys.py",
     "views/projekte/themen.py",
     "views/projekte/uebersicht.py",
+    "views/referenzen.py",
 ]
 
 
