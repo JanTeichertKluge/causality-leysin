@@ -9,7 +9,7 @@ kurzbeschreibung: "Ein Satz, der euer Projekt zusammenfasst (erscheint in der Ga
 
 ## Worum geht es?
 
-Beschreibt hier eure Fragestellung: Was wolltet ihr herausfinden — und warum
+Beschreibt hier eure Fragestellung: Was wolltet ihr herausfinden, und warum
 ist das spannend?
 
 ## Daten & Methode
