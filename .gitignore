@@ -12,6 +12,7 @@ venv/
 # Claude Code local state
 .claude/state/
 .claude/settings.local.json
+quality_reports/
 
 # OS
 .DS_Store
