@@ -45,7 +45,7 @@ Zwei Wege, die beide mit einem eigenen Ordner unter `content/projekte/` beginnen
 legen und per `![Alt-Text](bild.png)` einbinden. Die Seite erscheint
 automatisch in der Navigation.
 
-**Weg 2: eigene Streamlit-Seite (Kür).**
+**Weg 2: eigene Streamlit-Seite.**
 Zusätzlich eine `app.py` in den Ordner legen; sie wird statt des Markdowns als
 Seite angezeigt. Regeln: kein `st.set_page_config()`, nur Pakete aus
 `requirements.txt`, Dateien relativ zum eigenen Ordner laden
@@ -65,15 +65,5 @@ zeigen eine Fehlermeldung.
 
 ```bash
 pip install -r requirements-dev.txt
-python -m pytest tests/ -q
+python -m pytest tests/
 ```
-
-## Deployment (Streamlit Community Cloud)
-
-1. Repo öffentlich auf GitHub pushen.
-2. Auf [share.streamlit.io](https://share.streamlit.io) mit GitHub anmelden →
-   **New app** → dieses Repo, Branch `main`, Hauptdatei `streamlit_app.py`.
-3. Deployen. Bei jedem Push aktualisiert sich die App automatisch.
-
-Hinweis: Kostenlose Apps schlafen nach Inaktivität ein; der erste Aufruf weckt
-sie (dauert ein paar Sekunden).
