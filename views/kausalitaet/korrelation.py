@@ -25,10 +25,22 @@ Ein paar Zusammenhänge, die sich in echten Daten finden lassen:
 - An Tagen mit hohem **Eisverkauf** gibt es mehr **Sonnenbrände**.
 - Menschen, die **Rotwein** trinken, sind im Schnitt gesünder.
 
-Kaufen wir also Eis, um Sonnenbrand zu verursachen? Natürlich nicht. Alle drei
-Korrelationen sind echt — aber keine davon ist ein kausaler Effekt. Hinter
-jeder steckt eine **dritte Variable**: Ländlichkeit, Sonnenstunden, Einkommen.
-Solche Variablen heißen **Confounder** (Störfaktoren).
+Alle drei Zusammenhänge sind statistisch real, und doch ist keiner von ihnen
+ein kausaler Effekt. Hinter jedem steht eine **dritte Variable**, die beide
+Größen gemeinsam beeinflusst: Ländlichkeit, Sonnenstunden, Einkommen. Solche
+Variablen heißen **Confounder**.
+"""
+)
+
+st.markdown(
+    r"""
+Der Unterschied lässt sich präzise fassen. Korrelation ist eine
+**symmetrische** Eigenschaft der gemeinsamen Verteilung zweier
+Zufallsvariablen. Ein kausaler Effekt ist dagegen eine Aussage über
+**Interventionen**: Wie ändert sich $Y$, wenn wir $X$ aktiv setzen? In der
+Notation von Pearl unterscheidet man entsprechend die *Beobachtung*
+$E[Y \mid X = x]$ von der *Intervention* $E[Y \mid \mathrm{do}(X = x)]$.
+Confounding ist genau die Situation, in der beide Größen auseinanderfallen.
 """
 )
 
@@ -42,14 +54,21 @@ merkkasten(
 )
 
 # ------------------------------------------ Demo 1: Confounder-Simulator
-st.markdown("## 🎛️ Demo: Der Confounder-Simulator")
+st.markdown("## Demo: Der Confounder-Simulator")
 st.markdown(
-    """
-Wir bauen uns die Eis-Sonnenbrand-Welt selbst: Die **Sonnenstunden** $Z$
-beeinflussen den **Eisverkauf** $X$ (Pfeil $a$) und die **Sonnenbrände** $Y$
-(Pfeil $b$). Ob Eis *wirklich* Sonnenbrand verursacht, steuerst du mit dem
-Pfeil $c$ — stell ihn auf 0 und schau, was eine naive Auswertung trotzdem
-behauptet.
+    r"""
+Wir simulieren die Eis-Sonnenbrand-Welt über ein kleines **Strukturmodell**:
+Die Sonnenstunden $Z$ beeinflussen den Eisverkauf $X$ und die Sonnenbrände
+$Y$; zusätzlich lässt das Modell einen direkten Effekt von $X$ auf $Y$ zu:
+
+$$
+X = a\,Z + \varepsilon_X, \qquad
+Y = c\,X + b\,Z + \varepsilon_Y, \qquad
+\varepsilon_X, \varepsilon_Y \sim \mathcal{N}(0, 1)
+$$
+
+Der Parameter $c$ ist der wahre kausale Effekt. Setze $c = 0$ und beobachte,
+welchen Zusammenhang eine naive Auswertung dennoch ausweist.
 """
 )
 
@@ -136,33 +155,45 @@ metrik_adj.metric(
 
 if abs(effekt_xy) < 0.05 and abs(naiv) > 0.3:
     merkkasten(
-        "Scheinkorrelation!",
-        f"Der wahre Effekt ist <b>{effekt_xy:.1f}</b> — Eis verursacht hier "
-        f"keinen Sonnenbrand. Trotzdem meldet die naive Auswertung eine "
-        f"Steigung von <b>{naiv:.2f}</b>. Der gemeinsame Treiber Z gaukelt "
-        "einen Zusammenhang vor. Die Regression, die Z berücksichtigt, "
-        "findet dagegen fast null.",
+        "Spurious Correlation",
+        f"Der wahre Effekt beträgt <b>{effekt_xy:.1f}</b>, Eis verursacht "
+        f"hier also keinen Sonnenbrand. Dennoch weist die naive Auswertung "
+        f"eine Steigung von <b>{naiv:.2f}</b> aus. Der gemeinsame Treiber Z "
+        "erzeugt den scheinbaren Zusammenhang. Die Regression, die Z "
+        "berücksichtigt, findet dagegen einen Wert nahe null.",
         typ="achtung",
     )
 
 st.markdown(
-    """
-Beachte die Färbung der Punkte: Sonnige Tage (dunkel) liegen rechts oben,
-trübe Tage (hell) links unten. Die naive Gerade verbindet in Wahrheit
-**Wettertypen**, nicht Wirkung von Eis. Sobald wir Z in die Regression
-aufnehmen („für Z adjustieren“), verschwindet der Spuk — der geschätzte
-Effekt landet nahe beim wahren $c$.
+    r"""
+Die Färbung der Punkte zeigt den Mechanismus: Sonnige Tage (dunkel) liegen
+rechts oben, trübe Tage (hell) links unten. Die naive Regressionsgerade
+vergleicht in Wahrheit Wettertypen. Die Verzerrung lässt sich exakt angeben
+und heißt **Omitted Variable Bias**: Die einfache Regression von $Y$ auf $X$
+schätzt nicht $c$, sondern
+
+$$
+\beta_{\text{naiv}}
+= c + b\,\frac{\mathrm{Cov}(X, Z)}{\mathrm{Var}(X)}
+= c + \underbrace{\frac{a\,b}{a^2 + 1}}_{\text{Bias-Term}} .
+$$
+
+Der Bias-Term verschwindet genau dann, wenn $a = 0$ oder $b = 0$ gilt, wenn
+also $Z$ nicht beide Variablen beeinflusst. Die multiple Regression von $Y$
+auf $X$ und $Z$, die Adjustierung für $Z$, blockiert diesen Pfad und trifft
+$c$ bis auf den Schätzfehler.
 """
 )
 
 # --------------------------------------------- Demo 2: Simpson-Paradox
-st.markdown("## 🙃 Demo: Das Simpson-Paradox")
+st.markdown("## Demo: Das Simpson-Paradox")
 st.markdown(
     """
-Confounder können mehr als Zusammenhänge vortäuschen — sie können sie sogar
-**umdrehen**. Ein Klassiker: In einer Studie scheint mehr **Sport** mit
-*höherem* **Cholesterin** einherzugehen. Skandal? Schalte die Aufschlüsselung
-nach **Altersgruppen** ein und sieh selbst.
+Confounder können Zusammenhänge nicht nur vortäuschen, sondern im Vorzeichen
+**umkehren**. Ein klassisches Beispiel: In den aggregierten Daten einer
+Beobachtungsstudie geht mehr **Sport** mit *höherem* **Cholesterin** einher.
+Schlüssle die Daten nach **Altersgruppen** auf und vergleiche die Steigungen
+innerhalb der Gruppen mit dem Gesamttrend.
 """
 )
 
@@ -190,7 +221,7 @@ alle_sport = np.concatenate([f[1] for f in frames])
 alle_chol = np.concatenate([f[2] for f in frames])
 gesamt_steigung = np.polyfit(alle_sport, alle_chol, 1)[0]
 
-aufschluesseln = st.toggle("🔍 Nach Altersgruppen aufschlüsseln")
+aufschluesseln = st.toggle("Nach Altersgruppen aufschlüsseln")
 
 fig_simpson = go.Figure()
 gruppen_farben = [FARBEN["gletscher"], FARBEN["sonne"], FARBEN["wiese"]]
@@ -232,21 +263,21 @@ if aufschluesseln:
         "**Auflösung:** Innerhalb *jeder* Altersgruppe senkt Sport das "
         "Cholesterin (negative Steigungen). Der positive Gesamttrend entsteht "
         "nur, weil Ältere sowohl mehr Sport treiben als auch höheres "
-        "Cholesterin haben — das **Alter** ist der Confounder."
+        "Cholesterin haben. Das **Alter** ist der Confounder."
     )
 else:
     st.info(
-        f"Der Gesamttrend hat Steigung **{gesamt_steigung:+.1f}**: mehr Sport, "
-        "mehr Cholesterin?! Schalte die Aufschlüsselung ein, bevor du dem "
-        "Ergebnis glaubst."
+        f"Der Gesamttrend hat die Steigung **{gesamt_steigung:+.1f}**, mehr "
+        "Sport geht also scheinbar mit höherem Cholesterin einher. Aktiviere "
+        "die Aufschlüsselung, bevor du dieses Ergebnis interpretierst."
     )
 
 merkkasten(
     "Merke",
     "Ob ein Zusammenhang erscheint, verschwindet oder sich umkehrt, kann "
-    "davon abhängen, welche Gruppen man betrachtet (<b>Simpson-Paradox</b>). "
-    "Welche Aufteilung die <i>richtige</i> ist, sagen dir die Daten allein "
-    "nicht — dafür brauchst du Annahmen über die Kausalstruktur.",
+    "davon abhängen, welche Gruppen man betrachtet (<b>Simpson's Paradox</b>). "
+    "Welche Aufteilung die richtige ist, verraten die Daten allein nicht. "
+    "Dafür braucht es Annahmen über die Kausalstruktur.",
     typ="merke",
 )
 
@@ -255,9 +286,9 @@ quiz(
     "Eine Studie findet: Wer viel Rotwein trinkt, ist gesünder. Was ist die "
     "vorsichtigste Interpretation?",
     [
-        "Rotwein macht gesund — der Zusammenhang ist ja statistisch signifikant",
+        "Rotwein macht gesund, der Zusammenhang ist schließlich statistisch signifikant",
         "Gesundheit führt zu Rotweinkonsum",
-        "Ein Confounder (z. B. Einkommen oder Lebensstil) könnte beide Größen treiben",
+        "Ein Confounder wie Einkommen oder Lebensstil könnte beide Größen treiben",
         "Der Zusammenhang muss ein Messfehler sein",
     ],
     richtig=2,
@@ -270,12 +301,22 @@ quiz(
 )
 
 # -------------------------------------------------------------- Ausblick
-st.markdown("## Wie geht's weiter?")
+st.markdown("## Weiterführende Literatur")
 st.markdown(
     """
-„Für Z adjustieren“ hat im Simulator funktioniert — aber woher weiß man,
-**welche** Variablen man adjustieren muss (und welche man besser in Ruhe
-lässt)? Dafür gibt es eine wunderbar klare Sprache: **kausale Graphen (DAGs)**.
+- S. Cunningham (2021), *Causal Inference: The Mixtape*, Yale University Press, Kap. 1 und 4 (frei online)
+- M. Facure, *Causal Inference for the Brave and True*, Kap. 1 und 2 (frei online)
+- J. Pearl & D. Mackenzie (2018), *The Book of Why*, Basic Books
+"""
+)
+
+st.markdown("## Wie geht es weiter?")
+st.markdown(
+    r"""
+Die Adjustierung für $Z$ hat im Simulator funktioniert. Offen bleibt die
+zentrale Frage, welche Variablen in die Adjustierung gehören und welche man
+bewusst weglassen muss. Die Antwort liefert die Sprache der
+**Directed Acyclic Graphs (DAGs)**.
 """
 )
 st.page_link(
