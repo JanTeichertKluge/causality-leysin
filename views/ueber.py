@@ -7,7 +7,7 @@ from utils.theming import kapitel_kopf, merkkasten
 kapitel_kopf(
     "ℹ️",
     "Über die Akademie",
-    "Künstliche Intelligenz und das „Warum“ — Sommerakademie Leysin 2026",
+    "Künstliche Intelligenz und das „Warum“, Sommerakademie Leysin 2026",
 )
 
 spalte_wann, spalte_wo, spalte_wer = st.columns(3)
@@ -25,7 +25,7 @@ datengetriebene Forschung überall beschäftigt: **Wann dürfen wir aus Daten au
 Ursache und Wirkung schließen?**
 
 KI-Systeme, die Korrelationen mit kausalen Zusammenhängen verwechseln, können
-zu schlechten — teils schädlichen — Entscheidungen führen. Wir schauen uns an,
+zu schlechten, teils schädlichen Entscheidungen führen. Wir untersuchen,
 wie solche Verzerrungen entstehen, wie man sie erkennt und mit welchen
 Strategien man kausale Parameter aus Daten schätzt. Dazu gehören auch aktuelle
 Themen wie die Frage, wie es bei **Large Language Models** um kausales und
@@ -37,17 +37,15 @@ st.markdown("## Dozenten")
 spalte_os, spalte_jtk = st.columns(2)
 
 with spalte_os, st.container(border=True):
-    st.markdown("### Oliver Schacht")
+    st.markdown("### Dr. Oliver Schacht")
     st.markdown(
-        "Universität Hamburg, Lehrstuhl für Statistik mit "
-        "wirtschaftswissenschaftlichen Anwendungen."
+        "Universität Hamburg, Lehrstuhl für Statistik."
     )
 
 with spalte_jtk, st.container(border=True):
     st.markdown("### Jan Teichert-Kluge")
     st.markdown(
-        "Universität Hamburg, Lehrstuhl für Statistik mit "
-        "wirtschaftswissenschaftlichen Anwendungen."
+        "Universität Hamburg, Lehrstuhl für Statistik."
     )
 
 st.markdown("## Voraussetzungen")
@@ -55,7 +53,7 @@ st.markdown(
     """
 - Interesse an quantitativer Forschung und Datenanalyse
 - Grundkenntnisse in Statistik sind hilfreich
-- Python-Kenntnisse sind **keine** Voraussetzung — was wir brauchen, lernen wir gemeinsam
+- Python-Kenntnisse sind **keine** Voraussetzung; was wir brauchen, lernen wir gemeinsam
 """
 )
 
