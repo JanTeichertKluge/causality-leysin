@@ -72,7 +72,7 @@ def merkkasten(titel: str, text: str, typ: str = "merke") -> None:
     """Farbiger Kasten für Kernaussagen.
 
     typ: "merke" (grün), "definition" (blau), "achtung" (orange),
-    "beispiel" (grau). `text` wird als HTML gerendert — kein Markdown,
+    "beispiel" (grau). `text` wird als HTML gerendert, kein Markdown;
     für Hervorhebungen <b>…</b> / <i>…</i> verwenden.
     """
     st.markdown(
@@ -83,7 +83,7 @@ def merkkasten(titel: str, text: str, typ: str = "merke") -> None:
 
 def quiz(frage: str, optionen: list[str], richtig: int, erklaerung: str, key: str) -> None:
     """Kleines Verständnis-Quiz: Radio-Auswahl mit sofortigem Feedback."""
-    st.markdown(f"#### 🧠 Kurz nachgedacht: {frage}")
+    st.markdown(f"#### Verständnisfrage: {frage}")
     antwort = st.radio(
         frage, optionen, index=None, key=key, label_visibility="collapsed"
     )
@@ -92,7 +92,7 @@ def quiz(frage: str, optionen: list[str], richtig: int, erklaerung: str, key: st
     if optionen.index(antwort) == richtig:
         st.success(f"**Richtig!** {erklaerung}")
     else:
-        st.error("Nicht ganz — überleg noch einmal und wähle neu.")
+        st.error("Nicht ganz. Überlege noch einmal und wähle neu.")
 
 
 def stub_seite(emoji: str, titel: str, punkte: list[str]) -> None:

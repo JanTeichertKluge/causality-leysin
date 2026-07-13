@@ -1,6 +1,6 @@
 """Smoke-Tests: jede Seite der App rendert ohne Exception.
 
-Nutzt streamlit.testing.v1.AppTest — kein Browser nötig.
+Nutzt streamlit.testing.v1.AppTest, kein Browser nötig.
 """
 
 from pathlib import Path
@@ -17,11 +17,16 @@ STATISCHE_SEITEN = [
     "views/ml/grundlagen.py",
     "views/ml/baeume_ensembles.py",
     "views/ml/neuronale_netze.py",
+    "views/ml/explainable_ml.py",
     "views/ml/llms_kausalitaet.py",
     "views/kausalitaet/korrelation.py",
     "views/kausalitaet/dags_confounding.py",
     "views/kausalitaet/potential_outcomes.py",
+    "views/kausalitaet/quasi_experimente.py",
     "views/kausalitaet/kausales_ml.py",
+    "views/kausalitaet/bayes.py",
+    "views/kausalitaet/sem_surveys.py",
+    "views/projekte/themen.py",
     "views/projekte/uebersicht.py",
 ]
 
@@ -53,7 +58,7 @@ def test_beispielprojekt_app_seite():
 
 def test_markdown_renderer_mit_vorlage():
     # AppTest.from_function kopiert nur den Funktions-Quelltext in ein
-    # Temp-Skript — die Funktion muss daher selbstständig importieren.
+    # Temp-Skript; die Funktion muss daher selbstständig importieren.
     def seite(wurzel: str) -> None:
         import sys
         from pathlib import Path

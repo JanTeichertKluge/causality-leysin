@@ -1,6 +1,6 @@
 """Gemeinsame Bausteine für die ML-Demos: Datensätze und Decision-Boundary-Plots.
 
-Wird von den Kapiteln Bäume & Ensembles, Neuronale Netze und Explainable ML
+Wird von den Kapiteln Trees & Ensembles, Neural Networks und Explainable ML
 geteilt, damit alle Klassifikations-Demos gleich aussehen.
 """
 
@@ -14,7 +14,7 @@ from utils.theming import FARBEN
 
 @st.cache_data
 def monde_daten(n: int = 300, rauschen: float = 0.25, seed: int = 2026):
-    """Zwei ineinander verschränkte Halbmonde — der Klassiker für nichtlineare
+    """Zwei ineinander verschränkte Halbmonde, der Klassiker für nichtlineare
     Klassifikation."""
     X, y = make_moons(n_samples=n, noise=rauschen, random_state=seed)
     return X, y

@@ -3,13 +3,13 @@
 Jede Gruppe bekommt einen Ordner unter content/projekte/<slug>/:
 
 - ``projekt.md`` mit YAML-Frontmatter (titel, emoji, mitglieder,
-  kurzbeschreibung) — wird automatisch als Seite gerendert.
+  kurzbeschreibung); wird automatisch als Seite gerendert.
 - Liegt zusätzlich eine ``app.py`` im Ordner, wird stattdessen diese als
   vollwertige Streamlit-Seite registriert (die Metadaten für die Galerie
   kommen weiterhin aus projekt.md).
 
 Ordner mit führendem Unterstrich (z. B. ``_vorlage``) werden übersprungen.
-Fehler in einem Projekt dürfen nie die ganze App reißen — kaputte Projekte
+Fehler in einem Projekt dürfen nie die ganze App stoppen; kaputte Projekte
 bekommen eine Fehlerseite statt eines Crashs.
 """
 
@@ -119,7 +119,7 @@ def render_markdown_projekt(projekt: Projekt) -> None:
     try:
         text = projekt.md_datei.read_text(encoding="utf-8")
         _, inhalt = _frontmatter(text)
-    except Exception as exc:  # noqa: BLE001 — Projektfehler nie eskalieren
+    except Exception as exc:  # noqa: BLE001 (Projektfehler nie eskalieren)
         st.error(f"Projekt „{projekt.titel}“ konnte nicht geladen werden: {exc}")
         return
     st.markdown(f"# {projekt.emoji} {projekt.titel}")
@@ -137,7 +137,7 @@ def _fehlerseite(projekt: Projekt) -> None:
     st.markdown(f"# ⚠️ {projekt.titel}")
     st.error(projekt.fehler or "Unbekannter Fehler im Projektordner.")
     st.info(
-        "Prüft euren Ordner unter `content/projekte/` — er braucht mindestens "
+        "Prüft euren Ordner unter `content/projekte/`. Er braucht mindestens "
         "eine `projekt.md` (siehe `_vorlage/`) oder eine `app.py`."
     )
 
