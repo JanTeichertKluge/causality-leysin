@@ -17,3 +17,5 @@ quality_reports/
 # OS
 .DS_Store
 Thumbs.db
+
+references/
