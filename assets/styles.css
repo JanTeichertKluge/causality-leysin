@@ -1,0 +1,141 @@
+/* ============================================================
+   KI und das Warum — Sommerakademie Leysin
+   Zentrales Stylesheet (wird via utils.theming.inject_css geladen)
+   Palette: Nacht #1E3A5F · Gletscher #3E6DB5 · Himmel #7FA8D9
+            Sonne #E8804C · Wiese #4C956C · Nebel #F2F5FA
+   ============================================================ */
+
+/* --- Überschriften ------------------------------------------------ */
+h1, h2 {
+    color: #1E3A5F;
+}
+
+h3 {
+    color: #2C4A73;
+}
+
+/* --- Hero-Banner (Startseite) ------------------------------------- */
+.hero {
+    background: linear-gradient(135deg, #16304F 0%, #1E3A5F 35%, #3E6DB5 80%, #7FA8D9 100%);
+    border-radius: 1rem;
+    padding: 3rem 2.5rem 2.5rem 2.5rem;
+    margin-bottom: 1.75rem;
+    color: #FFFFFF;
+}
+
+.hero h1 {
+    color: #FFFFFF;
+    font-size: 2.6rem;
+    line-height: 1.15;
+    margin: 0 0 0.75rem 0;
+    padding: 0;
+}
+
+.hero .untertitel {
+    color: #D9E4F2;
+    font-size: 1.2rem;
+    max-width: 46rem;
+    margin-bottom: 1.25rem;
+}
+
+.hero-badges span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    margin: 0 0.5rem 0.5rem 0;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+}
+
+/* --- Kapitel-Kopf -------------------------------------------------- */
+.kapitel-kopf {
+    border-bottom: 3px solid #E3E8F0;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.kapitel-kopf h1 {
+    margin-bottom: 0.25rem;
+    padding-bottom: 0;
+}
+
+.kapitel-kopf p {
+    color: #5C6470;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* --- Merkkästen ----------------------------------------------------
+   Typen: merke (grün) · definition (blau) · achtung (orange) ·
+          beispiel (grau)                                             */
+.merkkasten {
+    border-radius: 0.6rem;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    border-left: 5px solid;
+    line-height: 1.55;
+}
+
+.merkkasten .mk-titel {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.82rem;
+    margin-bottom: 0.35rem;
+}
+
+.merkkasten.merke {
+    background: #EDF6F0;
+    border-color: #4C956C;
+}
+.merkkasten.merke .mk-titel { color: #35714F; }
+
+.merkkasten.definition {
+    background: #EEF3FA;
+    border-color: #3E6DB5;
+}
+.merkkasten.definition .mk-titel { color: #2C4A73; }
+
+.merkkasten.achtung {
+    background: #FCF1E9;
+    border-color: #E8804C;
+}
+.merkkasten.achtung .mk-titel { color: #B05A2B; }
+
+.merkkasten.beispiel {
+    background: #F2F5FA;
+    border-color: #5C6470;
+}
+.merkkasten.beispiel .mk-titel { color: #454B54; }
+
+/* --- Badges --------------------------------------------------------- */
+.badge-wip {
+    display: inline-block;
+    background: #FCF1E9;
+    color: #B05A2B;
+    border: 1px solid #E8804C;
+    border-radius: 999px;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* --- Karten (bordered container) polieren -------------------------- */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 0.75rem;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    box-shadow: 0 4px 14px rgba(30, 58, 95, 0.10);
+}
+
+/* --- Fußzeile Sidebar ---------------------------------------------- */
+.sidebar-fuss {
+    color: #8A93A3;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
