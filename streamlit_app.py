@@ -6,14 +6,18 @@ Gruppenprojekte) und lädt Theme/CSS. Gestartet wird mit:
     streamlit run streamlit_app.py
 """
 
+from pathlib import Path
+
 import streamlit as st
 
 from utils import theming
 from utils.projects import lade_projekte, projekt_seiten
 
+APP_ICON = Path(__file__).parent / "assets" / "icon.png"
+
 st.set_page_config(
     page_title="KI und das Warum | Sommerakademie Leysin",
-    page_icon="🏔️",
+    page_icon=str(APP_ICON),
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
