@@ -28,6 +28,9 @@ st.markdown(
 - T. Hastie, R. Tibshirani & J. Friedman (2009), *The Elements of Statistical
   Learning*, 2. Aufl., Springer.
   [Frei online](https://hastie.su.domains/ElemStatLearn/)
+- V. Chernozhukov, C. Hansen, N. Kallus, M. Spindler & V. Syrgkanis (2024),
+  *Applied Causal Inference Powered by ML and AI*.
+  [Frei online](https://causalml-book.org/)
 - I. Goodfellow, Y. Bengio & A. Courville (2016), *Deep Learning*, MIT Press.
   [Frei online](https://www.deeplearningbook.org/)
 - M. Nielsen (2015), *Neural Networks and Deep Learning*, Online-Buch.
