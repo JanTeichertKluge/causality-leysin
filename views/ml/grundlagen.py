@@ -36,6 +36,17 @@ Beim **Supervised Learning** besteht jedes Beispiel aus zwei Teilen:
 Gesucht ist eine Funktion $\hat{f}$ mit $\hat{f}(x) \approx y$, und zwar
 ausdrücklich auch für **neue** Beobachtungen, die das Modell beim Lernen nie
 gesehen hat. Dieser letzte Halbsatz ist der Kern des gesamten Kapitels.
+
+Zwei Begriffspaare helfen, sich im ML-Dschungel zu orientieren. Erstens die
+Art des Labels: Ist $y$ **stetig** (Miete, Umsatz, Temperatur), spricht man
+von **Regression**; ist $y$ **kategorial** (Kredit ja/nein, Spam/kein
+Spam), von **Classification**. Zweitens die Frage, ob es überhaupt ein
+Label gibt: Unser Setting mit Label heißt **Supervised Learning**, das
+Label „beaufsichtigt“ den Lernprozess. Beim **Unsupervised Learning**
+beobachtet man nur Features und sucht Struktur in den Daten selbst, etwa
+Gruppen ähnlicher Kundinnen (Clustering) oder komprimierte Darstellungen
+(Dimensionsreduktion). Alle Kapitel dieser Sektion behandeln Supervised
+Learning, beide Aufgabentypen kommen darin vor.
 """
 )
 
@@ -67,15 +78,42 @@ Kapitels.
 """
 )
 
+# ------------------------------------------- Vorhersagen oder Verstehen?
+st.markdown("## Vorhersagen oder Verstehen? Die zwei Fragen an ein Modell")
+st.markdown(
+    r"""
+Bevor wir loslegen, lohnt eine Unterscheidung, die sich durch die gesamte
+Website zieht. Mit einem gelernten $\hat{f}$ kann man zwei sehr
+verschiedene Dinge wollen:
+
+- **Prediction:** Wir brauchen nur gute Vorhersagen $\hat{f}(x)$ für neue
+  Fälle. *Wie* das Modell rechnet, darf eine Black Box bleiben. Beispiel:
+  Welchen Stundenlohn erwarten wir für eine Bewerberin mit gegebener
+  Ausbildung und Erfahrung?
+- **Inference:** Wir wollen die Rolle **einzelner Features** verstehen.
+  Beispiel: Verdienen Frauen bei *gleicher* Ausbildung und Erfahrung
+  weniger als Männer? Hier interessiert nicht die Vorhersage, sondern ein
+  Parameter des Modells, und plötzlich zählt, was im Inneren von
+  $\hat{f}$ vorgeht.
+
+Machine Learning ist zunächst auf die erste Frage optimiert, und die
+Kapitel dieser Sektion zeigen, wie weit man damit kommt. Die zweite Frage
+erweist sich als heimtückischer: Sie führt über das Kapitel **Lineare
+Regression** (wo sie eine präzise Antwort mit Kleingedrucktem bekommt)
+geradewegs in die Kausalitäts-Sektion.
+"""
+)
+
 # ---------------------------------------------- Demo 1: Polynomregression
 st.markdown("## Demo: Lernen heißt Kurven anpassen")
 st.markdown(
     """
 Die Datenpunkte unten wurden von einem **wahren Zusammenhang** (gestrichelte
 Linie) plus Zufallsrauschen erzeugt. In realen Daten kennen wir diese Linie
-selbstverständlich nicht. Wir teilen die Punkte in **Trainingsdaten**, an
-denen das Modell lernt, und **Testdaten**, die das Modell nie zu sehen
-bekommt und die deshalb als ehrlicher Maßstab der Generalisierung dienen.
+selbstverständlich nicht. Wir teilen die Punkte auf (**Data Splitting**):
+in **Trainingsdaten**, an denen das Modell lernt, und **Testdaten**, die
+das Modell nie zu sehen bekommt und die deshalb als ehrlicher Maßstab der
+Generalisierung dienen.
 
 Wähle den **Polynomgrad**, also die Flexibilität der gelernten Kurve, und
 beobachte, wie sich Trainings- und Testfehler entwickeln.
@@ -228,6 +266,16 @@ $$
 Mehr Flexibilität senkt den Bias und erhöht zugleich die Varianz, das
 Minimum der Summe liegt bei mittlerer Komplexität. Der Rauschterm $\sigma^2$
 bildet die Untergrenze, die kein noch so gutes Modell unterschreiten kann.
+
+Die drei Terme kannst du in der Demo oben direkt beobachten: Der **Bias**
+ist die systematische Abweichung der gelernten Kurve vom wahren
+Zusammenhang (bei Grad 1 unübersehbar). Die **Varianz** zeigt die
+Schaltfläche „Neue Daten“: Bei hohem Grad springt die gelernte Kurve von
+Stichprobe zu Stichprobe wild umher, obwohl sich am wahren Zusammenhang
+nichts ändert. Und selbst das perfekte Modell, die gestrichelte Linie,
+trifft die einzelnen Punkte nicht, das ist $\sigma^2$. Derselbe Tradeoff
+kehrt in jedem folgenden Kapitel in neuem Gewand wieder: als Baumtiefe,
+als Strafhärte $\lambda$, als Netzwerkgröße.
 """
 )
 
@@ -271,17 +319,20 @@ st.markdown(
 st.markdown("## Wie geht es weiter?")
 st.markdown(
     """
-Polynome von Hand zu wählen ist erst der Anfang. In den nächsten Kapiteln
-lernst du Modellfamilien kennen, die ihre Flexibilität geschickter
-einsetzen. Und am Ende wartet die Frage, die dieses ganze Projekt antreibt:
-Ein Modell, das hervorragend **vorhersagt**, weiß deshalb noch lange nicht,
-**warum** etwas geschieht.
+Polynome von Hand zu wählen ist erst der Anfang. Als Nächstes schauen wir
+uns das Arbeitspferd des Feldes genauer an, die lineare Regression, und
+stellen ihr beide Fragen: die nach der Vorhersage und die nach dem
+Verstehen. Und am Ende der Sektion wartet die Einsicht, die dieses ganze
+Projekt antreibt: Ein Modell, das hervorragend **vorhersagt**, weiß deshalb
+noch lange nicht, **warum** etwas geschieht.
 """
 )
 weiter_ml, weiter_kausal = st.columns(2)
 with weiter_ml:
     st.page_link(
-        "views/ml/baeume_ensembles.py", label="Weiter: Trees & Ensembles", icon="🌲"
+        "views/ml/lineare_regression.py",
+        label="Weiter: Lineare Regression",
+        icon="📈",
     )
 with weiter_kausal:
     st.page_link(
