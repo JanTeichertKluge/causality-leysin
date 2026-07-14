@@ -32,13 +32,27 @@ $$
 
 Ohne $\sigma$ bliebe dies eine lineare Funktion. Erst die Aktivierung, etwa
 die **ReLU**, die negative Werte auf null setzt, führt die entscheidende
-Nichtlinearität ein. Schaltet man viele Neuronen in **Layern**
-hintereinander, kann das Netz nahezu beliebig komplexe Funktionen
+Nichtlinearität ein. Viele Neuronen nebeneinander bilden einen **Layer**,
+mehrere Layer hintereinander ein tiefes Netz. Schon ein einziger,
+ausreichend breiter Layer kann dabei nahezu beliebig komplexe Funktionen
 zusammensetzen, dieses Resultat ist als *Universal Approximation Theorem*
-bekannt. Beim Training stellt die **Backpropagation** die Gewichte $w$ so
-ein, dass der Vorhersagefehler sinkt. Es ist dasselbe Prinzip der
-Fehlerminimierung wie in Kapitel 1, nur mit Millionen, bei großen
-Sprachmodellen sogar Milliarden von Parametern gleichzeitig.
+bekannt.
+
+Falls du das Kapitel **Lasso & Ridge** gelesen hast, kommt dir die Struktur
+bekannt vor. Ein Netz mit einer verborgenen Schicht sagt vorher:
+
+$$
+\hat{g}(z) = \sum_{m=1}^{M} \beta_m \, \sigma(\alpha_m' z),
+$$
+
+das ist eine lineare Regression auf $M$ **konstruierten Regressoren**
+$\sigma(\alpha_m'z)$! Der entscheidende Unterschied zum Wörterbuch $P(Z)$
+von damals: Dort waren die Transformationen fest gewählt (Polynome,
+Interaktionen), hier **lernt das Netz die Transformationen selbst**, denn
+die inneren Gewichte $\alpha_m$ werden mitgeschätzt. Neural Networks sind
+in diesem Sinn Regressionen, die sich ihr eigenes Wörterbuch aus den Daten
+zusammenstellen, und bei mehreren Layern sogar Wörterbücher aus
+Wörterbüchern.
 """
 )
 
@@ -113,8 +127,130 @@ elif schichten >= 2 and neuronen >= 32:
     st.warning(
         "**Hohe Kapazität:** Das Netz kann die Monde vollständig umschließen "
         "und hat zugleich genug Spielraum, das Rauschen mitzulernen. Der "
-        "Vergleich von Trainings- und Testgenauigkeit zeigt die aus Kapitel 1 "
-        "bekannte Signatur des Overfittings."
+        "Vergleich von Trainings- und Testgenauigkeit zeigt die aus dem "
+        "ersten Kapitel bekannte Signatur des Overfittings."
+    )
+
+# ------------------------------------------ Wie lernt das Netz?
+st.markdown("## Wie lernt das Netz? Loss, Gradient Descent, Backpropagation")
+st.markdown(
+    r"""
+Woher kommen die Gewichte? Wie immer aus der Fehlerminimierung: Eine
+**Loss Function** $L$ misst, wie weit die Vorhersagen von den Labels
+entfernt sind (bei Regression der MSE, bei Klassifikation die
+Cross-Entropy), und gesucht sind die Gewichte, die den Gesamtverlust
+$\sum_i L\big(y_i, \hat{g}(z_i)\big)$ minimieren. Anders als bei der
+linearen Regression gibt es dafür keine Formel, das Problem ist
+**nichtkonvex**: Die Verlustlandschaft hat Täler, Sättel und lokale
+Minima. Also tastet man sich iterativ hinab, mit **Gradient Descent**:
+
+$$
+w_{\text{neu}} = w_{\text{alt}} - \eta \cdot \nabla L(w_{\text{alt}}).
+$$
+
+Der **Gradient** $\nabla L$ zeigt in die Richtung des steilsten Anstiegs,
+also geht man einen Schritt der Größe $\eta$ (**Lernrate**) in die
+Gegenrichtung. Drei Vokabeln gehören dazu:
+
+- **Backpropagation** ist der Algorithmus, der den Gradienten für alle
+  Millionen Gewichte gleichzeitig effizient berechnet, im Kern die
+  Kettenregel der Analysis, geschickt organisiert.
+- **Stochastic Gradient Descent (SGD)** berechnet den Gradienten nicht auf
+  allen Daten, sondern auf kleinen zufälligen **Mini-Batches**. Das ist
+  billiger, und das Rauschen hilft sogar, aus schlechten lokalen Minima
+  herauszuspringen. Moderne Optimizer wie **Adam** passen zusätzlich die
+  Lernrate pro Gewicht automatisch an.
+- Gegen Overfitting helfen dieselben Rezepte wie bisher: Strafterme auf
+  die Gewichte (wie bei Ridge/Lasso) und **Early Stopping**, also
+  aufhören, sobald der Fehler auf Validierungsdaten wieder steigt.
+"""
+)
+
+st.markdown("### Demo: Gradient Descent auf einer Verlustlandschaft")
+st.markdown(
+    """
+Die Kurve unten ist eine bewusst unbequeme Verlustlandschaft mit einem
+tiefen Tal links und einem flacheren rechts. Wähle Startpunkt und Lernrate
+und beobachte, wohin die Schritte führen.
+"""
+)
+
+regler_start, regler_eta = st.columns(2)
+startpunkt = regler_start.slider("Startpunkt w₀", -2.5, 2.5, 2.2, step=0.1)
+eta = regler_eta.select_slider(
+    "Lernrate η", options=[0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.4], value=0.01
+)
+
+
+def verlust(w):
+    return (w**2 - 1) ** 2 + 0.3 * w
+
+
+def gradient(w):
+    return 4 * w * (w**2 - 1) + 0.3
+
+
+@st.cache_data
+def gd_pfad(w0: float, eta: float, schritte: int = 40):
+    pfad = [w0]
+    w = w0
+    for _ in range(schritte):
+        w = w - eta * gradient(w)
+        if abs(w) > 4:  # divergiert
+            pfad.append(float(np.clip(w, -4, 4)))
+            break
+        pfad.append(w)
+    return np.array(pfad)
+
+
+pfad = gd_pfad(startpunkt, eta)
+w_raster = np.linspace(-2.6, 2.6, 400)
+
+fig_gd = go.Figure()
+fig_gd.add_scatter(
+    x=w_raster, y=verlust(w_raster), mode="lines", name="Verlustlandschaft L(w)",
+    line=dict(color=FARBEN["schiefer"], width=2),
+)
+fig_gd.add_scatter(
+    x=pfad, y=verlust(np.clip(pfad, -2.6, 2.6)), mode="lines+markers",
+    name="Gradient-Descent-Pfad",
+    line=dict(color=FARBEN["beere"], width=2),
+    marker=dict(size=7),
+)
+fig_gd.add_scatter(
+    x=[pfad[0]], y=[verlust(np.clip(pfad[0], -2.6, 2.6))], mode="markers",
+    name="Start", marker=dict(color=FARBEN["nacht"], size=13, symbol="diamond"),
+)
+fig_gd.update_layout(
+    xaxis_title="Gewicht w", yaxis_title="Verlust L(w)",
+    yaxis=dict(range=[-1, 6]), height=420,
+)
+st.plotly_chart(fig_gd, use_container_width=True)
+
+diverged = bool(np.abs(pfad[-1]) >= 4)
+if diverged:
+    st.warning(
+        "**Divergenz:** Die Lernrate ist zu groß, jeder Schritt schießt über "
+        "das Tal hinaus und der Verlust explodiert. Wähle ein kleineres η."
+    )
+elif eta <= 0.005:
+    st.info(
+        "**Zu vorsichtig:** Mit winziger Lernrate kriecht der Pfad und bleibt "
+        "nach 40 Schritten weit vom Talboden entfernt. In der Praxis kostet "
+        "das Rechenzeit und Geduld."
+    )
+elif pfad[-1] > 0:
+    st.info(
+        "**Lokales Minimum:** Der Pfad ist im rechten, flacheren Tal gelandet. "
+        "Das tiefere Tal links bleibt unerreicht, ein Start auf der anderen "
+        "Seite (oder das Rauschen von SGD) hätte es gefunden. Genau deshalb "
+        "ist nichtkonvexe Optimierung schwer."
+    )
+else:
+    st.success(
+        "**Globales Minimum gefunden:** Der Pfad ist ins tiefere linke Tal "
+        "gelaufen. Beachte, dass das vom Startpunkt abhing, nicht nur von der "
+        "Lernrate."
     )
 
 st.markdown(
@@ -122,11 +258,15 @@ st.markdown(
 **Warum Tiefe?** Eine einzelne breite Schicht kann theoretisch jede Funktion
 approximieren. Tiefe Netze bauen jedoch **Hierarchien** auf: Frühe Layer
 lernen einfache Muster wie Kanten oder Silben, spätere kombinieren sie zu
-abstrakten Konzepten wie Gesichtern oder Grammatik. Diese Hierarchiebildung,
-verbunden mit großen Datenmengen und leistungsfähigen GPUs, machte
-**Deep Learning** ab etwa 2012 zum Durchbruch. Sie ist auch die Grundlage
-der **Transformer**-Architektur, auf der moderne Large Language Models
-aufbauen.
+abstrakten Konzepten wie Gesichtern oder Grammatik. Dass Deep Learning ab
+etwa 2012 zum Durchbruch kam, verdankt es drei Zutaten, die gleichzeitig
+zusammentrafen: **Daten** in nie gekannter Menge, **Hardware** (GPUs, die
+tausende Gewichts-Updates parallel rechnen) und **Architekturen**, die
+Vorwissen über die Datenart einbauen. **Convolutional Neural Networks
+(CNNs)** etwa nutzen aus, dass in Bildern benachbarte Pixel
+zusammengehören; rekurrente Netze und heute vor allem die
+**Transformer**-Architektur verarbeiten Sequenzen wie Sprache. Auf
+Transformern bauen die Large Language Models des nächsten Kapitels auf.
 """
 )
 
@@ -163,6 +303,7 @@ quiz(
 st.markdown("## Weiterführende Literatur")
 st.markdown(
     """
+- G. James, D. Witten, T. Hastie & R. Tibshirani (2021), *An Introduction to Statistical Learning*, 2. Aufl., Springer, Kap. 10 (frei online)
 - I. Goodfellow, Y. Bengio & A. Courville (2016), *Deep Learning*, MIT Press, Kap. 6 (frei online)
 - M. Nielsen (2015), *Neural Networks and Deep Learning*, Online-Buch (frei online)
 """

@@ -166,9 +166,10 @@ st.markdown(
 Nach demselben Prinzip arbeiten auch moderne LLMs, nur dass sie statt auf
 das letzte Wort auf tausende Token Kontext zurückgreifen, statt zwanzig
 Sätzen einen erheblichen Teil des Internets gelesen haben und statt einer
-Zähltabelle ein tiefes **Transformer**-Netz verwenden. Der Qualitätssprung
-ist gewaltig, der Kern jedoch bleibt derselbe: Gelernt wird, was in Texten
-worauf folgt.
+Zähltabelle ein tiefes **Transformer**-Netz verwenden, ein Neural Network
+aus dem vorigen Kapitel, trainiert mit denselben Zutaten: Loss Function,
+Gradient Descent, Milliarden Parameter. Der Qualitätssprung ist gewaltig,
+der Kern jedoch bleibt derselbe: Gelernt wird, was in Texten worauf folgt.
 """
 )
 
