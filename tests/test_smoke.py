@@ -15,6 +15,8 @@ STATISCHE_SEITEN = [
     "views/start.py",
     "views/ueber.py",
     "views/ml/grundlagen.py",
+    "views/ml/lineare_regression.py",
+    "views/ml/regularisierung.py",
     "views/ml/baeume_ensembles.py",
     "views/ml/neuronale_netze.py",
     "views/ml/explainable_ml.py",

@@ -34,6 +34,8 @@ referenzen = st.Page("views/referenzen.py", title="Referenzen & Quellen", icon="
 
 ml_seiten = [
     st.Page("views/ml/grundlagen.py", title="Was ist Maschinelles Lernen?", icon="🤖"),
+    st.Page("views/ml/lineare_regression.py", title="Lineare Regression", icon="📈"),
+    st.Page("views/ml/regularisierung.py", title="Lasso & Ridge", icon="🎚️"),
     st.Page("views/ml/baeume_ensembles.py", title="Trees & Ensembles", icon="🌲"),
     st.Page("views/ml/neuronale_netze.py", title="Neural Networks", icon="🧠"),
     st.Page("views/ml/explainable_ml.py", title="Explainable ML", icon="🔍"),
