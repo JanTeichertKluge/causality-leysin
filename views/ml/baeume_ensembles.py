@@ -10,7 +10,7 @@ import streamlit as st
 from sklearn.datasets import make_classification
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 from utils.ml_demos import entscheidungsgrenze, monde_daten
 from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
@@ -58,13 +58,31 @@ digraph {
 )
 
 st.markdown(
-    """
-Der Lernalgorithmus wählt die Splits automatisch: In jedem Knoten sucht er
-die Frage, die die Klassen am besten trennt (gemessen etwa an der
-Gini-Impurity), und unterteilt rekursiv weiter. Das macht Decision Trees
-außerordentlich **interpretierbar**, denn jede Vorhersage lässt sich als
-Regelkette vorlesen. Zugleich haben sie eine Schwäche, die dir aus dem
-Kapitel „Was ist Maschinelles Lernen?“ vertraut vorkommen dürfte.
+    r"""
+Was tut ein Tree mathematisch? Er zerlegt den Feature-Raum in $M$
+rechteckige Regionen $R_1, \dots, R_M$ (die Blätter) und sagt in jeder
+Region einen konstanten Wert vorher:
+
+$$
+\hat{g}(x) = \sum_{m=1}^{M} \hat{\beta}_m \, \mathbf{1}(x \in R_m),
+$$
+
+wobei $\hat{\beta}_m$ schlicht der **Mittelwert der Labels** in Region
+$R_m$ ist (bei Klassifikation: die Mehrheitsklasse). Die Kunst liegt in der
+Wahl der Regionen. Alle Zerlegungen durchzuprobieren ist aussichtslos,
+deshalb arbeitet der Lernalgorithmus **rekursiv binär**: Er beginnt mit
+allen Daten, sucht das eine Feature und den einen Schwellenwert, deren
+Split das Fehlerkriterium am stärksten verbessert (bei Regression den MSE,
+bei Klassifikation etwa die Gini-Impurity), und wiederholt das in beiden
+Hälften, immer weiter, bis eine Stopp-Regel greift.
+
+In echten Lohndaten sieht das zum Beispiel so aus: Der erste Split trennt
+nach Hochschulabschluss, der zweite nach Berufserfahrung, und schon liest
+man Vorhersagen wie „Abschluss und mehr als 9,5 Jahre Erfahrung → 24 $
+Stundenlohn“ ab. Das macht Decision Trees außerordentlich
+**interpretierbar**, denn jede Vorhersage lässt sich als Regelkette
+vorlesen. Zugleich haben sie eine Schwäche, die dir aus dem Kapitel „Was
+ist Maschinelles Lernen?“ vertraut vorkommen dürfte.
 """
 )
 
@@ -111,14 +129,38 @@ elif tiefe >= 8:
         "der Polynomregression."
     )
 
+st.markdown(
+    """
+Wie tief soll der Tree also werden? Man kann die Tiefe vorab festlegen
+oder Stopp-Regeln setzen (etwa eine Mindestzahl von Beobachtungen pro
+Blatt). Eleganter ist **Pruning**: erst einen großen Tree wachsen lassen,
+dann die Äste zurückschneiden, deren Beitrag den Komplexitätszuwachs nicht
+rechtfertigt, wobei die Schnitttiefe per Cross-Validation gewählt wird
+(*Cost-Complexity Pruning*). In der Praxis bleibt aber auch ein sauber
+gestutzter Einzelbaum meist ein mittelmäßiger Prädiktor: Seine
+stückweise konstante Vorhersage ist eine grobe Näherung, und kleine
+Änderungen in den Daten können die Splitfolge und damit den gesamten Tree
+umwerfen. Genau diese Instabilität machen sich die Ensembles zunutze.
+"""
+)
+
 # ---------------------------------------------- Demo 2: Random Forest
 st.markdown("## Demo: Vom Tree zum Random Forest")
 st.markdown(
     r"""
-Die zentrale Idee der **Ensembles** besteht darin, viele *unterschiedliche*
-Trees zu trainieren, jeden auf einer Bootstrap-Stichprobe der Daten und mit
-zufälliger Feature-Auswahl je Split, und ihre Vorhersagen per
-Mehrheitsentscheid zu aggregieren. Das Ergebnis ist der **Random Forest**.
+Die zentrale Idee der **Ensembles**: viele *unterschiedliche* Trees
+trainieren und ihre Vorhersagen mitteln beziehungsweise per
+Mehrheitsentscheid aggregieren. Doch woher nimmt man viele
+unterschiedliche Trees, wenn es nur einen Datensatz gibt? Die Antwort ist
+der **Bootstrap**: Man zieht aus den $n$ Beobachtungen $n$-mal *mit
+Zurücklegen* und erhält so eine Quasi-Kopie des Datensatzes, in der manche
+Beobachtungen mehrfach vorkommen und andere fehlen. Auf jeder solchen
+Bootstrap-Stichprobe wächst ein eigener tiefer Tree; das Mitteln über
+alle nennt man **Bagging** (*Bootstrap Aggregation*). Der **Random
+Forest** fügt eine zweite Zufallsquelle hinzu: An jedem Split steht nur
+eine zufällige Teilmenge der Features zur Auswahl, damit sich die Trees
+auch strukturell unterscheiden.
+
 Warum die Aggregation hilft, zeigt eine kurze Rechnung. Für $B$ Schätzer mit
 Varianz $\sigma^2$ und paarweiser Korrelation $\rho$ gilt
 
@@ -187,15 +229,134 @@ st.markdown(
     """
 Mit einem einzelnen Tree ist die Decision Boundary zerklüftet und instabil.
 Mit vielen Trees wird sie glatt, und die Testgenauigkeit steigt, obwohl
-jeder einzelne Tree tief und damit anfällig für Overfitting ist. Eine
-verwandte Ensemble-Strategie ist das **Gradient Boosting**: Dort werden
-Trees sequenziell trainiert, wobei jeder die Residuen des bisherigen
-Ensembles korrigiert. Die bekanntesten Implementierungen, XGBoost und
-LightGBM, gelten auf tabellarischen Daten häufig als Stand der Technik.
+jeder einzelne Tree tief und damit anfällig für Overfitting ist. Beachte
+die Arbeitsteilung: Die *Tiefe* der Einzelbäume hält den Bias klein, das
+*Mitteln* drückt die Varianz. Der Random Forest kuriert also genau die
+Schwäche, an der der Einzelbaum krankt.
 """
 )
 
-# ------------------------------------------ Demo 3: Feature Importance
+# ------------------------------------------------ Demo 3: Boosting
+st.markdown("## Gradient Boosting: Fehler nacheinander korrigieren")
+st.markdown(
+    r"""
+Die zweite große Ensemble-Strategie geht den umgekehrten Weg. **Boosting**
+mittelt nicht viele tiefe Trees parallel, sondern baut **flache** Trees
+*nacheinander*, wobei jeder neue Tree die Fehler des bisherigen Ensembles
+korrigiert:
+
+1. Starte mit der Vorhersage null; die Residuen sind zunächst die Labels
+   selbst: $R_i = Y_i$.
+2. Für $j = 1, \dots, J$: Fitte einen flachen Tree $\hat{g}_j$ auf die
+   aktuellen Residuen und aktualisiere
+   $R_i \leftarrow R_i - \eta\, \hat{g}_j(x_i)$.
+3. Die Gesamtvorhersage ist die Summe aller Korrekturen:
+   $\hat{g}(x) = \sum_{j=1}^{J} \eta\, \hat{g}_j(x)$.
+
+Die **Lernrate** $\eta \in (0, 1]$ dosiert, wie viel jeder Tree
+beitragen darf; die Anzahl Schritte $J$ und $\eta$ wählt man per
+Cross-Validation. Flache Trees halten hier die Varianz klein, und jeder
+Schritt knabbert am verbleibenden Bias. Probiere es aus:
+"""
+)
+
+regler_schritte, regler_lernrate = st.columns(2)
+schritte = regler_schritte.select_slider(
+    "Anzahl Boosting-Schritte J", options=[1, 2, 3, 5, 10, 25, 50, 100, 200], value=2
+)
+lernrate = regler_lernrate.slider("Lernrate η", 0.1, 1.0, 0.3, step=0.1)
+
+
+@st.cache_data
+def boosting_sequenz(lernrate: float, max_schritte: int = 200, seed: int = 2026):
+    """Boosting mit flachen Regression Trees auf 1D-Sinusdaten.
+
+    Liefert die kumulierte Vorhersage auf einem Raster nach jedem Schritt
+    sowie Trainings- und Testfehler je Schritt.
+    """
+    rng = np.random.default_rng(seed)
+    x_tr = np.sort(rng.uniform(0, 1, 120))
+    y_tr = np.sin(2 * np.pi * x_tr) + rng.normal(0, 0.3, 120)
+    x_te = np.sort(rng.uniform(0, 1, 200))
+    y_te = np.sin(2 * np.pi * x_te) + rng.normal(0, 0.3, 200)
+    raster = np.linspace(0, 1, 300)
+
+    fit_tr = np.zeros_like(x_tr)
+    fit_te = np.zeros_like(x_te)
+    fit_raster = np.zeros_like(raster)
+    kurven, mse_tr, mse_te = [], [], []
+    for _ in range(max_schritte):
+        baum = DecisionTreeRegressor(max_depth=2, random_state=0)
+        baum.fit(x_tr.reshape(-1, 1), y_tr - fit_tr)
+        fit_tr += lernrate * baum.predict(x_tr.reshape(-1, 1))
+        fit_te += lernrate * baum.predict(x_te.reshape(-1, 1))
+        fit_raster += lernrate * baum.predict(raster.reshape(-1, 1))
+        kurven.append(fit_raster.copy())
+        mse_tr.append(float(np.mean((y_tr - fit_tr) ** 2)))
+        mse_te.append(float(np.mean((y_te - fit_te) ** 2)))
+    return x_tr, y_tr, raster, kurven, mse_tr, mse_te
+
+
+x_boost, y_boost, raster_boost, kurven, mse_tr, mse_te = boosting_sequenz(lernrate)
+
+spalte_fit, spalte_fehler = st.columns(2)
+with spalte_fit:
+    fig_boost = go.Figure()
+    fig_boost.add_scatter(
+        x=x_boost, y=y_boost, mode="markers", name="Trainingsdaten",
+        marker=dict(color=FARBEN["gletscher"], size=7, opacity=0.7),
+    )
+    fig_boost.add_scatter(
+        x=raster_boost, y=np.sin(2 * np.pi * raster_boost), mode="lines",
+        name="Wahrer Zusammenhang",
+        line=dict(color=FARBEN["schiefer"], dash="dash", width=2),
+    )
+    fig_boost.add_scatter(
+        x=raster_boost, y=kurven[schritte - 1], mode="lines",
+        name=f"Ensemble nach {schritte} Schritten",
+        line=dict(color=FARBEN["beere"], width=3),
+    )
+    fig_boost.update_layout(
+        title="Kumulierte Boosting-Vorhersage",
+        xaxis_title="Feature x", yaxis_title="Label y",
+        yaxis=dict(range=[-2.2, 2.2]), height=420,
+    )
+    st.plotly_chart(fig_boost, use_container_width=True)
+with spalte_fehler:
+    schritt_achse = list(range(1, len(mse_tr) + 1))
+    fig_boost_mse = go.Figure()
+    fig_boost_mse.add_scatter(
+        x=schritt_achse, y=mse_tr, mode="lines", name="Trainingsfehler",
+        line=dict(color=FARBEN["gletscher"], width=3),
+    )
+    fig_boost_mse.add_scatter(
+        x=schritt_achse, y=mse_te, mode="lines", name="Testfehler",
+        line=dict(color=FARBEN["sonne"], width=3),
+    )
+    fig_boost_mse.add_vline(
+        x=schritte, line_dash="dot", line_color=FARBEN["schiefer"]
+    )
+    fig_boost_mse.update_layout(
+        title="Fehler pro Boosting-Schritt",
+        xaxis_title="Schritte J (log)", xaxis_type="log",
+        yaxis_title="MSE", height=420,
+    )
+    st.plotly_chart(fig_boost_mse, use_container_width=True)
+
+st.markdown(
+    """
+Nach einem Schritt ist die Vorhersage eine grobe Treppe, nach wenigen
+Schritten schmiegt sie sich an die Sinuskurve, und bei sehr vielen
+Schritten mit hoher Lernrate beginnt das Ensemble, dem Rauschen
+hinterherzulaufen: Der Testfehler dreht wieder nach oben, während der
+Trainingsfehler weiter sinkt. Auch Boosting ist also nicht immun gegen
+Overfitting, es overfittet nur *langsam und kontrolliert*. Die bekanntesten
+Implementierungen dieser Idee, **XGBoost** und **LightGBM**, gelten auf
+tabellarischen Daten häufig als Stand der Technik.
+"""
+)
+
+# ------------------------------------------ Demo 4: Feature Importance
 st.markdown("## Demo: Feature Importance")
 st.markdown(
     """
