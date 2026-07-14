@@ -97,9 +97,13 @@ st.markdown(
     """
 Der Random Forest gewinnt hier gerade deshalb, weil der wahre Zusammenhang
 nichtlinear ist: Das u-förmige Altersrisiko kann die Logistic Regression
-nicht abbilden. Genau dieser Tradeoff motiviert das gesamte XAI-Feld.
-Lässt sich die Performanz der Black Box behalten und trotzdem verstehen,
-was sie tut?
+nicht abbilden. Am transparenten Ende des Spektrums stehen die linearen
+Modelle aus den Kapiteln **Lineare Regression** und **Lasso & Ridge**,
+deren Koeffizienten man direkt lesen kann (ein sparsames Lasso-Modell mit
+einer Handvoll Variablen ist oft die interpretierbarste Wahl überhaupt);
+am performanten Ende stehen Forests und Neural Networks. Genau dieser
+Tradeoff motiviert das gesamte XAI-Feld. Lässt sich die Performanz der
+Black Box behalten und trotzdem verstehen, was sie tut?
 """
 )
 
