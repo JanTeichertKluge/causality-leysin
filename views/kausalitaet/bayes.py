@@ -276,12 +276,12 @@ WAHRES_THETA = 0.7
 
 
 @st.cache_data
-def patienten_sequenz(n_max: int = 150, seed: int = 9):
+def patienten_sequenz(n_max: int = 500, seed: int = 9):
     rng = np.random.default_rng(seed)
     return rng.binomial(1, WAHRES_THETA, n_max)
 
 
-gesehen = st.slider("Bisher behandelte Patient:innen", 0, 150, 0, step=10)
+gesehen = st.slider("Bisher behandelte Patient:innen", 0, 500, 0, step=10)
 ausgaenge = patienten_sequenz()[:gesehen]
 erfolge_seq = int(ausgaenge.sum())
 
