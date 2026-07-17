@@ -103,6 +103,11 @@ st.markdown(
   [Frei online](http://www.stat.columbia.edu/~gelman/book/)
 - A. B. Downey (2021), *Think Bayes*, 2. Aufl., O'Reilly.
   [Frei online](https://allendowney.github.io/ThinkBayes2/)
+- C. M. Bishop (2006), *Pattern Recognition and Machine Learning*, Springer.
+  [Frei online](https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/)
+- Y. Gal (2016), *Uncertainty in Deep Learning*, Dissertation, University
+  of Cambridge.
+  [Frei online](https://www.cs.ox.ac.uk/people/yarin.gal/website/thesis/thesis.pdf)
 - R. B. Kline (2023), *Principles and Practice of Structural Equation
   Modeling*, 5. Aufl., Guilford Press.
   [Buchseite](https://www.guilford.com/books/Principles-and-Practice-of-Structural-Equation-Modeling/Rex-Kline/9781462551910)
