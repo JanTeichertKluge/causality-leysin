@@ -1,8 +1,8 @@
 """Kapitel Kausalität: Potential Outcomes & Randomized Controlled Trials.
 
 Gott-Tabelle, Selection Bias, Randomisierung und der Umgang mit
-Non-Compliance (ITT, Per-Protocol, IV) als Grundlage für das Gruppenthema
-RCTs in der Medizin.
+Randomisierung als grundlegende Identifikationsidee. Spezielle Probleme
+realer RCTs bleiben dem Gruppenprojekt vorbehalten.
 """
 
 import numpy as np
@@ -10,12 +10,23 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "⚖️",
     "Potential Outcomes & RCTs",
     "Was wäre gewesen? Das fundamentale Problem der Kausalinferenz und die Rolle der Randomisierung",
+)
+
+einfuehrung_hinweis("45–60 Minuten", [
+    "Potential Outcomes, ATE und Selection Bias formal einordnen",
+    "Randomisierung als Identifikationsidee erklären",
+])
+
+lehrpfad_kontext(
+    "Wie lässt sich ein kausaler Effekt definieren, obwohl pro Person nur ein Outcome beobachtbar ist?",
+    "Knüpfe an die Unterscheidung zwischen beobachtetem Zusammenhang und Intervention an.",
+    "Für den Einstieg reicht die Logik der Randomisierung. Dropout, Non-Compliance und alternative RCT-Auswertungen sind mögliche Vertiefungen für das Gruppenprojekt.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -262,108 +273,25 @@ else:
         "Intervall wird enger. Man schätzt präzise das Falsche."
     )
 
-# --------------------------------------- Demo 3: Non-Compliance
-st.markdown("## Demo: Non-Compliance mit ITT, Per-Protocol und IV")
+# --------------------------------------- Ausblick auf reale RCT-Probleme
+st.markdown("## Was Randomisierung allein noch nicht löst")
 st.markdown(
-    r"""
+    """
 In klinischen Studien lässt sich die *Zuweisung* $Z$ randomisieren, nicht
 aber die tatsächliche *Einnahme* $D$: Ein Teil der Zugewiesenen nimmt das
-Medikament nicht (**Non-Compliance**). Angenommen, vor allem die weniger
-schwer Erkrankten halten die Therapie durch. Für die Auswertung stehen drei
-Ansätze zur Wahl:
-
-- **Intention-to-Treat (ITT):** Vergleich nach *Zuweisung* $Z$. Die
-  Randomisierung bleibt intakt, geschätzt wird jedoch der Effekt des
-  Angebots, bei Non-Compliance eine verwässerte Größe.
-- **Per-Protocol:** Vergleich nach tatsächlicher *Einnahme* $D$. Da die
-  Einnahme selbstselektiert ist, kehrt der Selection Bias zurück.
-- **Instrumental Variables (IV):** Die randomisierte Zuweisung $Z$ dient als
-  **Instrument** für die Einnahme $D$. Der **Wald Estimator**
-
-$$
-\widehat{\mathrm{LATE}}
-= \frac{E[Y \mid Z{=}1] - E[Y \mid Z{=}0]}{E[D \mid Z{=}1] - E[D \mid Z{=}0]}
-= \frac{\mathrm{ITT}}{\text{Complier-Anteil}}
-$$
-
-identifiziert den **Local Average Treatment Effect (LATE)** für die
-**Complier**. Er ist gültig unter der *Exclusion Restriction*, nach der die
-Zuweisung ausschließlich über die Einnahme wirkt, und unter *Monotonicity*,
-nach der niemand systematisch das Gegenteil der Zuweisung tut.
+Medikament nicht (**Non-Compliance**). Außerdem können Dropout, fehlende
+Outcomes, kleine Stichproben oder Abweichungen vom Analyseplan die einfache
+Interpretation gefährden. Entscheidend ist dann, ob der Effekt der
+**Zuweisung**, der **tatsächlichen Einnahme** oder einer anderen Strategie
+das relevante Estimand ist.
 """
 )
-
-anteil_complier = st.slider("Anteil Complier (halten sich an die Zuweisung)", 0.2, 1.0, 0.6, step=0.05)
-
-
-@st.cache_data
-def compliance_studie(anteil: float, n: int = 20000, seed: int = 8):
-    rng = np.random.default_rng(seed)
-    schwere = rng.uniform(0, 1, n)
-    z = rng.integers(0, 2, n)
-    complier = schwere < anteil          # die weniger Kranken halten durch
-    d = z * complier.astype(int)         # einseitige Non-Compliance
-    y = 85 - 30 * schwere + WAHRER_EFFEKT * d + rng.normal(0, 5, n)
-    itt = y[z == 1].mean() - y[z == 0].mean()
-    per_protocol = y[d == 1].mean() - y[d == 0].mean()
-    iv = itt / complier.mean()
-    return itt, per_protocol, iv
-
-
-itt, per_protocol, iv = compliance_studie(anteil_complier)
-
-fig_nc = go.Figure()
-fig_nc.add_bar(
-    x=["ITT (nach Zuweisung)", "Per-Protocol (nach Einnahme)", "IV / LATE"],
-    y=[itt, per_protocol, iv],
-    marker_color=[FARBEN["gletscher"], FARBEN["beere"], FARBEN["wiese"]],
-)
-fig_nc.add_hline(
-    y=WAHRER_EFFEKT, line_dash="dash", line_color=FARBEN["schiefer"],
-    annotation_text="wahrer Effekt der Einnahme (+8)",
-)
-fig_nc.update_layout(yaxis_title="geschätzter Effekt (Punkte)", height=380)
-st.plotly_chart(fig_nc, use_container_width=True)
-
-st.markdown(
-    f"""
-Bei **{anteil_complier:.0%} Compliern** ergibt sich: ITT ≈ {itt:.1f}
-(verwässert, denn geschätzt wird der Effekt des Angebots, was allerdings
-häufig genau die politikrelevante Größe ist), Per-Protocol ≈
-{per_protocol:.1f} (verzerrt, weil die Einnehmenden systematisch gesünder
-sind) und IV ≈ {iv:.1f} (trifft den wahren Einnahme-Effekt, gültig für die
-Complier).
-"""
+st.info(
+    "Das RCT-Team entscheidet selbst, welches dieser Probleme es untersucht "
+    "und welche Annahmen eine passende Analyse tragen. ITT, Per-Protocol und "
+    "Instrumentvariablen werden hier deshalb nicht als fertige Lösung entwickelt."
 )
 
-merkkasten(
-    "Merke",
-    "Randomisierung macht Behandlungs- und Kontrollgruppe <b>in allem</b> "
-    "vergleichbar, auch im Unbeobachtbaren. Non-Compliance zerstört diese "
-    "Eigenschaft für die <i>Einnahme</i>, nicht für die <i>Zuweisung</i>. "
-    "Deshalb ist ITT der ehrliche Standard klinischer Studien, während "
-    "IV-Methoden den Einnahme-Effekt für die Complier zurückgewinnen.",
-    typ="merke",
-)
-
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Warum beseitigt eine größere Stichprobe den Selection Bias nicht?",
-    [
-        "Doch, ab n = 10 000 verschwindet jeder Bias",
-        "Weil der Bias systematisch ist: Die Gruppen unterscheiden sich strukturell, egal wie präzise man misst",
-        "Weil große Stichproben neue Confounder erzeugen",
-        "Weil der Standardfehler mit n wächst",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Mehr Daten verkleinern die zufällige Streuung, nicht die "
-        "systematische Verzerrung, man schätzt den falschen Wert nur immer "
-        "genauer. Allein das Design, also Randomisierung, Adjustierung oder "
-        "ein Quasi-Experiment, beseitigt Bias."
-    ),
-    key="quiz_kausal_po",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")
@@ -376,16 +304,16 @@ st.markdown(
 )
 
 st.markdown("## Wie geht es weiter?")
-weiter_quasi, weiter_bayes = st.columns(2)
+weiter_cml, weiter_quasi = st.columns(2)
+with weiter_cml:
+    st.page_link(
+        "views/kausalitaet/kausales_ml.py",
+        label="Weiter: Kausales Machine Learning",
+        icon="🎯",
+    )
 with weiter_quasi:
     st.page_link(
         "views/kausalitaet/quasi_experimente.py",
-        label="Kein Experiment möglich? Quasi-Experimente: DiD & RDD",
+        label="Appendix: Quasi-Experimente",
         icon="📐",
-    )
-with weiter_bayes:
-    st.page_link(
-        "views/kausalitaet/bayes.py",
-        label="Oder: Bayesian Methods",
-        icon="🎲",
     )

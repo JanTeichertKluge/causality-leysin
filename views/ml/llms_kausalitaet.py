@@ -10,12 +10,23 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "💬",
     "LLMs & kausales Denken",
     "Vom Autocomplete zur Weltbeschreibung, und wo die Grenze verläuft",
+)
+
+einfuehrung_hinweis("30–40 Minuten", [
+    "sprachliche Assoziation und kausales Reasoning unterscheiden",
+    "Einsatzgrenzen von LLMs in kausalen Workflows benennen",
+])
+
+lehrpfad_kontext(
+    "Warum kann ein Sprachmodell überzeugend über Ursachen sprechen, ohne ein identifiziertes Kausalmodell zu besitzen?",
+    "Nutze die bisherige Unterscheidung zwischen guter Vorhersage und einer Erklärung des zugrunde liegenden Mechanismus.",
+    "Behandle aktuelle LLM-Verfahren für Discovery und Confounder-Kontrolle hier als offene Forschungsfragen, nicht als fertige Lösungen.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -213,48 +224,22 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------- LLMs als Werkzeug der Kausalanalyse
-st.markdown("## LLMs als Werkzeug der Kausalanalyse")
+# ------------------------------------- Offene Projektfragen
+st.markdown("## Offene Fragen an der Schnittstelle von LLMs und Kausalität")
 st.markdown(
     """
-Die ergiebigere Frage ist oft nicht, ob das LLM kausal denken kann, sondern
-wofür es sich innerhalb einer Kausalanalyse einsetzen lässt. Drei
-Richtungen, die sich alle für Gruppenprojekte eignen:
-
-- **Causal Reasoning benchmarken:** Dem LLM systematisch Interventions- und
-  Counterfactual-Fragen stellen, auch mit erfundenen Variablen, damit es
-  nicht aus dem Gedächtnis antworten kann, und die Fehlerquote messen.
-- **Causal Discovery unterstützen:** Klassische Discovery-Algorithmen sehen
-  nur Zahlen. LLMs kennen die Bedeutung von Variablennamen wie „Rauchen“
-  oder „Lungenkrebs“ und können Kanten samt Richtung vorschlagen, die als
-  Vorwissen in DAGs einfließen.
-- **Confounder aus Text gewinnen:** In unstrukturierten Daten wie
-  Arztbriefen, Bewertungen oder Social-Media-Posts stecken Störfaktoren, die
-  in keiner Tabellenspalte stehen. LLMs können sie extrahieren und messbar
-  machen, sodass sich für sie adjustieren lässt.
+Die Demo trennt sprachliche Vorhersage von Interventionen, beantwortet aber
+noch nicht, ob und wann ein LLM in einem kausalen Workflow verlässlich ist.
+Mögliche Forschungsrichtungen sind Causal-Reasoning-Benchmarks, semantisches
+Vorwissen für Causal Discovery und die Messung von Confoundern in Texten.
+Jede Richtung benötigt eigene Erfolgskriterien, Vergleichsverfahren und eine
+Analyse typischer Fehler – genau diese Entscheidungen bleiben offen.
 """
 )
+team_page = st.session_state.get("themen_seiten", {}).get("causality-and-llms")
+if team_page is not None:
+    st.page_link(team_page, label="Zum Projekttrack Causality and LLMs", icon="💬")
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Unser Bigram-Modell vervollständigt „der hahn kräht und die sonne …“ "
-    "korrekt mit „geht auf“. Warum reicht das nicht, um die Frage „Was "
-    "passiert mit dem Sonnenaufgang, wenn wir den Hahn stumm schalten?“ zu "
-    "beantworten?",
-    [
-        "Das Modell hat zu wenige Sätze gesehen, mit mehr Daten ginge es",
-        "Die Frage ist eine Intervention (Stufe 2), das Modell kennt nur Wortfolge-Statistik (Stufe 1)",
-        "Das Modell kann keine Verneinungen verarbeiten",
-        "Die Temperature ist falsch eingestellt",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Wortfolge-Statistik ist Association. Für Interventionsfragen braucht "
-        "es ein Kausalmodell der Welt, mehr Textdaten derselben Art ändern die "
-        "Stufe nicht."
-    ),
-    key="quiz_ml_llm",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

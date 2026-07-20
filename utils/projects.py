@@ -16,6 +16,8 @@ bekommen eine Fehlerseite statt eines Crashs.
 from __future__ import annotations
 
 import re
+import runpy
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
@@ -114,7 +116,7 @@ def _markdown_mit_bildern(inhalt: str, basis: Path) -> None:
         st.markdown(rest)
 
 
-def render_markdown_projekt(projekt: Projekt) -> None:
+def render_markdown_projekt(projekt: Projekt, *, show_header: bool = True) -> None:
     """Seiteninhalt für ein Markdown-Projekt (Fehler bleiben lokal)."""
     try:
         text = projekt.md_datei.read_text(encoding="utf-8")
@@ -122,9 +124,10 @@ def render_markdown_projekt(projekt: Projekt) -> None:
     except Exception as exc:  # noqa: BLE001 (Projektfehler nie eskalieren)
         st.error(f"Projekt „{projekt.titel}“ konnte nicht geladen werden: {exc}")
         return
-    st.markdown(f"# {projekt.emoji} {projekt.titel}")
-    if projekt.mitglieder:
-        st.caption("Team: " + ", ".join(projekt.mitglieder))
+    if show_header:
+        st.markdown(f"# {projekt.emoji} {projekt.titel}")
+        if projekt.mitglieder:
+            st.caption("Team: " + ", ".join(projekt.mitglieder))
     if projekt.fehler:
         st.warning(projekt.fehler)
     try:
@@ -133,12 +136,36 @@ def render_markdown_projekt(projekt: Projekt) -> None:
         st.error(f"Fehler beim Rendern des Projektinhalts: {exc}")
 
 
+def render_streamlit_projekt(projekt: Projekt) -> None:
+    """Führt eine Team-App aus und hält jeden Fehler auf ihrer Seite lokal."""
+    project_directory = str(projekt.app_datei.parent)
+    path_added = project_directory not in sys.path
+    if path_added:
+        sys.path.insert(0, project_directory)
+    try:
+        runpy.run_path(
+            str(projekt.app_datei),
+            run_name=f"__projekt_{re.sub(r'\W', '_', projekt.slug)}__",
+        )
+    except Exception as exc:  # noqa: BLE001 (Teamfehler nie eskalieren)
+        st.error(f"Eure App „{projekt.titel}“ kann gerade nicht gestartet werden.")
+        st.error(f"{type(exc).__name__}: {exc}")
+        st.info(
+            "Die anderen Seiten funktionieren weiterhin. Prüft zuerst die "
+            "genannte Stelle in `app.py` und anschließend eure Dateipfade."
+        )
+    finally:
+        if path_added and project_directory in sys.path:
+            sys.path.remove(project_directory)
+
+
 def _fehlerseite(projekt: Projekt) -> None:
     st.markdown(f"# ⚠️ {projekt.titel}")
     st.error(projekt.fehler or "Unbekannter Fehler im Projektordner.")
     st.info(
-        "Prüft euren Ordner unter `content/projekte/`. Er braucht mindestens "
-        "eine `projekt.md` (siehe `_vorlage/`) oder eine `app.py`."
+        "Öffnet euren Arbeitsordner unter `content/projekte/` und vergleicht "
+        "ihn mit `_vorlage/`. Ihr braucht dort eine `app.py` oder mindestens "
+        "eine `projekt.md`."
     )
 
 
@@ -146,6 +173,8 @@ def _seiten_funktion(projekt: Projekt) -> Callable[[], None]:
     """Erzeugt eine benannte Render-Funktion (st.Page braucht __name__)."""
     if projekt.fehler and projekt.md_datei is None and projekt.app_datei is None:
         rumpf = _fehlerseite
+    elif projekt.app_datei is not None:
+        rumpf = render_streamlit_projekt
     else:
         rumpf = render_markdown_projekt
 
@@ -166,12 +195,7 @@ def projekt_seiten(projekte: list[Projekt]) -> dict[str, st.Page]:
     for projekt in projekte:
         url = f"projekt-{projekt.slug}"
         titel = f"{projekt.emoji} {projekt.titel}"
-        if projekt.app_datei is not None:
-            seiten[projekt.slug] = st.Page(
-                str(projekt.app_datei), title=titel, url_path=url
-            )
-        else:
-            seiten[projekt.slug] = st.Page(
-                _seiten_funktion(projekt), title=titel, url_path=url
-            )
+        seiten[projekt.slug] = st.Page(
+            _seiten_funktion(projekt), title=titel, url_path=url
+        )
     return seiten

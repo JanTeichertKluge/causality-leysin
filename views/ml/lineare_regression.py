@@ -10,12 +10,23 @@ import plotly.graph_objects as go
 import streamlit as st
 from sklearn.linear_model import LinearRegression
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "📈",
     "Lineare Regression",
     "Zwei Fragen an dieselben Daten: Wie gut können wir vorhersagen, und was bedeutet ein Koeffizient?",
+)
+
+einfuehrung_hinweis("40–50 Minuten", [
+    "lineare Vorhersage und Koeffizienteninterpretation trennen",
+    "Partialling-Out und seine kausalen Grenzen nachvollziehen",
+])
+
+lehrpfad_kontext(
+    "Was kann ein linearer Koeffizient über Vorhersage und Zusammenhang aussagen?",
+    "Nutze aus den ML-Grundlagen die Trennung zwischen Trainingsfehler und Generalisierung.",
+    "Lies einen Regressionskoeffizienten noch nicht automatisch kausal. Welche Annahmen dafür nötig sind, klärst du im Kausalitätsteil.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -366,25 +377,6 @@ st.page_link(
     icon="🎯",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Eine Regression von Stundenlohn auf einen Frau-Indikator und Kontrollen "
-    "liefert den Koeffizienten −2. Was bedeutet das?",
-    [
-        "Frauen verdienen insgesamt im Schnitt 2 € weniger pro Stunde",
-        "Bei gleichen erfassten Kontrollmerkmalen sagt das Modell für Frauen 2 € weniger vorher",
-        "Das Frausein verursacht kausal 2 € Lohnverlust",
-        "Der Koeffizient ist nicht interpretierbar, weil Löhne nicht linear sind",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Der Koeffizient vergleicht Vorhersagen bei festgehaltenen Kontrollen "
-        "(Partialling-Out). Der Gesamtunterschied (Option 1) ist der naive "
-        "Vergleich, und eine kausale Deutung (Option 3) braucht zusätzliche "
-        "Annahmen, etwa dass keine relevanten Störfaktoren fehlen."
-    ),
-    key="quiz_ml_linreg",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

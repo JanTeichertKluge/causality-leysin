@@ -1,129 +1,103 @@
-"""Referenzen & Quellen: alle in den Kapiteln zitierten Werke mit Links."""
+"""Zweistufige Referenzseite: Themenkatalog plus kanonische Vertiefung."""
 
 import streamlit as st
 
 from utils.theming import kapitel_kopf
+from utils.topics import load_topics
 
 kapitel_kopf(
     "📚",
     "Referenzen & Quellen",
-    "Alle in den Kapiteln zitierten Bücher und Paper, mit Links zu PDF oder Buchseite",
+    "Einstiegsliteratur für eure Projekte und Quellen zum Weiterdenken",
 )
 
+st.markdown("## Quellen für euren Projekteinstieg")
 st.markdown(
-    """
-Diese Seite sammelt sämtliche Quellen aus den Abschnitten „Weiterführende
-Literatur“ der Kapitel. Viele der Bücher sind von den Autoren kostenlos
-online bereitgestellt, die übrigen Links führen zur offiziellen Buch- oder
-Artikelseite.
-"""
+    "Öffnet euren Track, um die beiden empfohlenen Einstiegsquellen und eine "
+    "optionale Vertiefung zusammen zu sehen. Hier könnt ihr außerdem bequem "
+    "in den Quellen der anderen Gruppen stöbern."
 )
 
-st.markdown("## Machine Learning")
+for topic in load_topics():
+    with st.expander(f"{topic.emoji} {topic.title}"):
+        for label, source in [
+            ("Einstieg", topic.required_sources[0]),
+            ("Einstieg", topic.required_sources[1]),
+            ("Optional", topic.optional_source),
+        ]:
+            st.markdown(
+                f"**{label}: [{source.title}]({source.url})**  \n"
+                f"{source.authors} · {source.description}"
+            )
+
+st.markdown("## Weiterführende und kanonische Literatur")
 st.markdown(
     """
+Wenn ihr einen Begriff nachschlagen, eine Methode genauer verstehen oder eine
+Originalarbeit lesen möchtet, findet ihr hier weitere Standardwerke. Die
+Quellen aus den Projekt-Tracks werden nicht noch einmal aufgeführt.
+
+### Machine Learning und Explainable AI
+
 - G. James, D. Witten, T. Hastie & R. Tibshirani (2021), *An Introduction to
-  Statistical Learning*, 2. Aufl., Springer.
-  [Frei online](https://www.statlearning.com/)
+  Statistical Learning*, 2. Aufl., Springer. [Frei online](https://www.statlearning.com/)
 - T. Hastie, R. Tibshirani & J. Friedman (2009), *The Elements of Statistical
-  Learning*, 2. Aufl., Springer.
-  [Frei online](https://hastie.su.domains/ElemStatLearn/)
-- V. Chernozhukov, C. Hansen, N. Kallus, M. Spindler & V. Syrgkanis (2024),
-  *Applied Causal Inference Powered by ML and AI*.
-  [Frei online](https://causalml-book.org/)
+  Learning*, 2. Aufl., Springer. [Frei online](https://hastie.su.domains/ElemStatLearn/)
 - I. Goodfellow, Y. Bengio & A. Courville (2016), *Deep Learning*, MIT Press.
   [Frei online](https://www.deeplearningbook.org/)
-- M. Nielsen (2015), *Neural Networks and Deep Learning*, Online-Buch.
+- M. Nielsen (2015), *Neural Networks and Deep Learning*.
   [Frei online](http://neuralnetworksanddeeplearning.com/)
-- C. Molnar, *Interpretable Machine Learning*.
-  [Frei online](https://christophm.github.io/interpretable-ml-book/)
 - S. Lundberg & S.-I. Lee (2017), *A Unified Approach to Interpreting Model
-  Predictions*, NeurIPS. [arXiv](https://arxiv.org/abs/1705.07874)
-- M. T. Ribeiro, S. Singh & C. Guestrin (2016), *"Why Should I Trust You?":
-  Explaining the Predictions of Any Classifier*, KDD.
+  Predictions*. [arXiv](https://arxiv.org/abs/1705.07874)
+- M. T. Ribeiro, S. Singh & C. Guestrin (2016), *“Why Should I Trust You?”:
+  Explaining the Predictions of Any Classifier*.
   [arXiv](https://arxiv.org/abs/1602.04938)
 - E. Kıcıman, R. Ness, A. Sharma & C. Tan (2023), *Causal Reasoning and Large
-  Language Models: Opening a New Frontier for Causality*.
-  [arXiv](https://arxiv.org/abs/2305.00050)
-- M. Zečević, M. Willig, D. S. Dhami & K. Kersting (2023), *Causal Parrots:
-  Large Language Models May Talk Causality But Are Not Causal*, Transactions
-  on Machine Learning Research. [arXiv](https://arxiv.org/abs/2308.13067)
-"""
-)
+  Language Models*. [arXiv](https://arxiv.org/abs/2305.00050)
 
-st.markdown("## Kausalinferenz")
-st.markdown(
-    """
-- S. Cunningham (2021), *Causal Inference: The Mixtape*, Yale University
-  Press. [Frei online](https://mixtape.scunning.com/)
-- M. Facure, *Causal Inference for the Brave and True*.
-  [Frei online](https://matheusfacure.github.io/python-causality-handbook/landing-page.html)
-- J. Pearl & D. Mackenzie (2018), *The Book of Why*, Basic Books.
+### Kausalinferenz
+
+- J. Pearl & D. Mackenzie (2018), *The Book of Why*.
   [Buchseite](https://bayes.cs.ucla.edu/WHY/)
-- J. Pearl, M. Glymour & N. P. Jewell (2016), *Causal Inference in
-  Statistics: A Primer*, Wiley.
-  [Buchseite](https://bayes.cs.ucla.edu/PRIMER/)
-- J. Pearl (2009), *Causality: Models, Reasoning, and Inference*, 2. Aufl.,
-  Cambridge University Press.
+- J. Pearl, M. Glymour & N. P. Jewell (2016), *Causal Inference in Statistics:
+  A Primer*. [Buchseite](https://bayes.cs.ucla.edu/PRIMER/)
+- J. Pearl (2009), *Causality*, 2. Aufl.
   [Buchseite](https://bayes.cs.ucla.edu/BOOK-2K/)
-- J. Peters, D. Janzing & B. Schölkopf (2017), *Elements of Causal
-  Inference*, MIT Press.
-  [Buchseite mit Open-Access-PDF](https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/)
-- G. W. Imbens & D. B. Rubin (2015), *Causal Inference for Statistics,
-  Social, and Biomedical Sciences: An Introduction*, Cambridge University
-  Press. [Buchseite](https://doi.org/10.1017/CBO9781139025751)
-- J. D. Angrist & J.-S. Pischke (2009), *Mostly Harmless Econometrics*,
-  Princeton University Press.
+- J. Peters, D. Janzing & B. Schölkopf (2017), *Elements of Causal Inference*.
+  [Open Access](https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/)
+- G. W. Imbens & D. B. Rubin (2015), *Causal Inference for Statistics, Social,
+  and Biomedical Sciences*. [Buchseite](https://doi.org/10.1017/CBO9781139025751)
+- M. Huber (2023), *Causal Analysis*. [Buchseite](https://mitpress.mit.edu/9780262545914/causal-analysis/)
+- J. D. Angrist & J.-S. Pischke (2009), *Mostly Harmless Econometrics*.
   [Buchseite](https://www.mostlyharmlesseconometrics.com/)
-- M. Huber (2023), *Causal Analysis: Impact Evaluation and Causal Machine
-  Learning with Applications in R*, MIT Press.
-  [Buchseite](https://mitpress.mit.edu/9780262545914/causal-analysis/)
-- D. Card & A. B. Krueger (1994), *Minimum Wages and Employment: A Case
-  Study of the Fast-Food Industry in New Jersey and Pennsylvania*, American
-  Economic Review 84(4), 772–793.
+- D. Card & A. B. Krueger (1994), *Minimum Wages and Employment*.
   [NBER Working Paper](https://www.nber.org/papers/w4509)
-- V. Chernozhukov, D. Chetverikov, M. Demirer, E. Duflo, C. Hansen,
-  W. Newey & J. Robins (2018), *Double/Debiased Machine Learning for
-  Treatment and Structural Parameters*, The Econometrics Journal 21(1),
-  C1–C68. [DOI](https://doi.org/10.1111/ectj.12097)
-- P. Bach, V. Chernozhukov, M. S. Kurz & M. Spindler (2022), *DoubleML: An
-  Object-Oriented Implementation of Double Machine Learning in Python*,
-  Journal of Machine Learning Research 23(53), 1–6.
-  [JMLR](https://www.jmlr.org/papers/v23/21-0862.html)
-"""
-)
+- V. Chernozhukov et al. (2018), *Double/Debiased Machine Learning for
+  Treatment and Structural Parameters*. [DOI](https://doi.org/10.1111/ectj.12097)
+- P. Bach et al. (2022), *DoubleML: An Object-Oriented Implementation of Double
+  Machine Learning in Python*. [JMLR](https://www.jmlr.org/papers/v23/21-0862.html)
+- V. Chernozhukov et al. (2024), *Applied Causal Inference Powered by ML and AI*.
+  [Frei online](https://causalml-book.org/)
 
-st.markdown("## Bayesianische Statistik, SEM und Surveys")
-st.markdown(
-    """
-- R. McElreath (2020), *Statistical Rethinking*, 2. Aufl., CRC Press.
-  [Buchseite](https://xcelab.net/rm/)
-- A. Gelman, J. B. Carlin, H. S. Stern, D. B. Dunson, A. Vehtari &
-  D. B. Rubin (2013), *Bayesian Data Analysis*, 3. Aufl., CRC Press.
+### Bayesianische Statistik, SEM und Surveys
+
+- A. Gelman et al. (2013), *Bayesian Data Analysis*, 3. Aufl.
   [Frei online](http://www.stat.columbia.edu/~gelman/book/)
-- A. B. Downey (2021), *Think Bayes*, 2. Aufl., O'Reilly.
-  [Frei online](https://allendowney.github.io/ThinkBayes2/)
-- C. M. Bishop (2006), *Pattern Recognition and Machine Learning*, Springer.
-  [Frei online](https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/)
-- Y. Gal (2016), *Uncertainty in Deep Learning*, Dissertation, University
-  of Cambridge.
-  [Frei online](https://www.cs.ox.ac.uk/people/yarin.gal/website/thesis/thesis.pdf)
-- R. B. Kline (2023), *Principles and Practice of Structural Equation
-  Modeling*, 5. Aufl., Guilford Press.
-  [Buchseite](https://www.guilford.com/books/Principles-and-Practice-of-Structural-Equation-Modeling/Rex-Kline/9781462551910)
-- D. C. Mutz (2011), *Population-Based Survey Experiments*, Princeton
-  University Press.
+- C. M. Bishop (2006), *Pattern Recognition and Machine Learning*.
+  [Buchseite](https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/)
+- Y. Gal (2016), *Uncertainty in Deep Learning*.
+  [Dissertation](https://www.cs.ox.ac.uk/people/yarin.gal/website/thesis/thesis.pdf)
+- R. B. Kline (2023), *Principles and Practice of Structural Equation Modeling*,
+  5. Aufl. [Buchseite](https://www.guilford.com/books/Principles-and-Practice-of-Structural-Equation-Modeling/Rex-Kline/9781462551910)
+- D. C. Mutz (2011), *Population-Based Survey Experiments*.
   [Buchseite](https://press.princeton.edu/books/paperback/9780691144528/population-based-survey-experiments)
-"""
-)
 
-st.markdown("## Software")
-st.markdown(
-    """
-- [DoubleML](https://docs.doubleml.org/) (Python/R), Double Machine Learning
-- [scikit-learn](https://scikit-learn.org/), Machine Learning in Python
-- [PyMC](https://www.pymc.io/) und [Stan](https://mc-stan.org/), probabilistische Modellierung
-- [shap](https://shap.readthedocs.io/) und [lime](https://github.com/marcotcr/lime), Explainable ML
-- [semopy](https://semopy.com/) (Python) und [lavaan](https://lavaan.ugent.be/) (R), Strukturgleichungsmodelle
+### Software
+
+- [DoubleML](https://docs.doubleml.org/) – Double Machine Learning
+- [scikit-learn](https://scikit-learn.org/) – Machine Learning in Python
+- [PyMC](https://www.pymc.io/) und [Stan](https://mc-stan.org/) – probabilistische Modellierung
+- [shap](https://shap.readthedocs.io/) und [lime](https://github.com/marcotcr/lime) – Explainable ML
+- [semopy](https://semopy.com/) und [lavaan](https://lavaan.ugent.be/) – Strukturgleichungsmodelle
 """
 )

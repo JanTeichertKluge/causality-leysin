@@ -1,248 +1,169 @@
-"""Kapitel Kausalität: Kausales Machine Learning (DoubleML).
-
-Warum naive ML-Schätzung kausaler Effekte scheitert und wie
-Double/Debiased Machine Learning (Partialling-Out und Cross-Fitting) das
-Problem löst, mit Simulationsvergleich.
-"""
+"""Einführender Brückenschlag zwischen flexiblem ML und Kausalinferenz."""
 
 import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import (
+    FARBEN,
+    einfuehrung_hinweis,
+    kapitel_kopf,
+    lehrpfad_kontext,
+    merkkasten,
+)
 
 kapitel_kopf(
     "🎯",
     "Kausales Machine Learning",
-    "ML-Flexibilität + kausale Garantien: Double/Debiased Machine Learning",
+    "Was flexibles ML nach der Identifikation leisten kann – und was nicht",
 )
 
-# ---------------------------------------------------------------- Intro
+einfuehrung_hinweis("25–35 Minuten", [
+    "Prediction, Confounder-Adjustierung und Effektschätzung auseinanderhalten",
+    "flexible Residualisierung als Grundidee von Double Machine Learning einordnen",
+])
+
+lehrpfad_kontext(
+    "Welche Rolle kann flexibles ML spielen, nachdem der kausale Estimand identifiziert ist?",
+    "Verbinde das Partialling-Out aus der linearen Regression mit der Confounder-Adjustierung aus dem Kausalitätsteil.",
+    "Nimm die Residualisierung als Grundidee mit. DML-Theorie, Learner-Wahl, Inferenz und heterogene Effekte kannst du im Gruppenprojekt untersuchen.",
+)
+
 st.markdown(
     r"""
-Angenommen, du willst den Effekt eines Treatments $D$ auf ein Outcome $Y$
-schätzen und verfügst über viele Kontrollvariablen $X$, womöglich hunderte
-Spalten mit unbekannten Nichtlinearitäten. Die klassische lineare Regression
-zwingt dich, die funktionale Form der Zusammenhänge zu raten. ML-Modelle
-könnten diese Zusammenhänge flexibel lernen.
+In den bisherigen Kapiteln kamen zwei Aufgaben getrennt vor: Machine Learning
+lernt flexible Vorhersagefunktionen; Kausalinferenz definiert einen Estimand
+und begründet, unter welchen Annahmen er identifiziert ist. **Kausales Machine
+Learning** verbindet beide Aufgaben, ersetzt aber die Identifikationsannahmen
+nicht durch einen Algorithmus.
 
-Allerdings ist ML auf **Prediction** ausgelegt, nicht auf Effektschätzung.
-Ein Random Forest besitzt keinen Koeffizienten für $D$, und die
-Regularisierung, die Overfitting zähmt, verzerrt systematisch alles, was man
-an Effekten herauslesen möchte. Der Ausweg heißt **Double/Debiased Machine
-Learning (DML)**, und sein Kern ist eine bemerkenswert alte Idee.
+Angenommen, $D$ ist ein Treatment, $Y$ das Outcome und $X$ eine möglicherweise
+große Menge beobachteter Confounder. Ein partiell lineares Modell schreibt
+
+$$Y = \tau D + g(X) + \varepsilon.$$
+
+Der Zielparameter ist $\tau$; die unbekannte Funktion $g(X)$ ist nur eine
+Stör- oder **Nuisance-Funktion**. Flexible Modelle können diese Funktion
+lernen. Der kausale Gehalt kommt dagegen aus der Annahme, dass nach Kontrolle
+von $X$ kein relevantes Confounding verbleibt.
 """
 )
 
-st.markdown("## Das Modell: Partially Linear Regression")
-st.markdown(
-    r"""
-DML wird üblicherweise im **partiell linearen Modell** (Robinson 1988)
-formuliert:
-
-$$
-Y = \tau\, D + g(X) + \zeta, \qquad E[\zeta \mid D, X] = 0,
-$$
-
-$$
-D = m(X) + \nu, \qquad E[\nu \mid X] = 0.
-$$
-
-Der Zielparameter ist $\tau$. Die **Nuisance-Funktionen** $g(X)$ (Einfluss
-der Confounder auf das Outcome) und $m(X)$ (Treatment-Gleichung) sind
-unbekannt und dürfen beliebig nichtlinear sein. Genau hier kommt ML ins
-Spiel.
-
-Der Schlüssel ist eine klassische Einsicht (**Frisch–Waugh–Lovell**): Der
-Effekt von $D$ auf $Y$ unter Kontrolle von $X$ steckt vollständig in den
-**Residuen**:
-
-1. $\tilde{Y} = Y - \hat{E}[Y \mid X]$: das Outcome, um den $X$-Anteil bereinigt
-2. $\tilde{D} = D - \hat{E}[D \mid X]$: das Treatment, um den $X$-Anteil bereinigt
-3. Die Regression von $\tilde{Y}$ auf $\tilde{D}$ liefert $\hat{\tau}$.
-
-DML ersetzt die bedingten Erwartungswerte in Schritt 1–2 durch beliebige
-ML-Verfahren (Random Forest, Boosting, neuronale Netze) und sichert das
-Resultat mit zwei Bausteinen ab:
-
-- **Cross-Fitting:** Die Vorhersage für jede Beobachtung stammt von einem
-  Modell, das diese Beobachtung nie im Training gesehen hat. Andernfalls
-  überträgt sich Overfitting auf die Residuen.
-- **Neyman-Orthogonalität:** Die Momentenbedingung
-  $E\big[(\tilde{Y} - \tau\,\tilde{D})\,\tilde{D}\big] = 0$ ist so
-  konstruiert, dass sich Schätzfehler in $\hat{g}$ und $\hat{m}$ nur in
-  zweiter Ordnung auf $\hat{\tau}$ auswirken. ML darf also unpräzise sein,
-  solange beide Nuisance-Schätzungen hinreichend schnell konvergieren.
-"""
+merkkasten(
+    "Reihenfolge der Argumente",
+    "Zuerst kommen <b>Fragestellung, Estimand und Identifikation</b>. Erst "
+    "danach entscheidet man, ob ML bei der Schätzung unbekannter Funktionen "
+    "hilft. Gute Vorhersagegüte kann fehlende Confounder nicht reparieren.",
+    typ="achtung",
 )
 
-# ------------------------------------------------ Demo: DML vs. naiv
-st.markdown("## Demo: Drei Schätzer im Vergleich")
+st.markdown("## Simulation: lineare oder flexible Adjustierung?")
 st.markdown(
     """
-Simulation mit **nichtlinearem Confounding**: Fünf Kontrollvariablen
-beeinflussen (über Sinus- und Quadrat-Terme) sowohl die Behandlung $D$ als
-auch das Outcome $Y$. Der wahre Effekt $\\tau$ ist dir bekannt. Welcher
-Estimator findet ihn?
-
-1. **Naiv:** Regression $Y \\sim D$, die $X$ vollständig ignoriert
-2. **Linear:** Regression $Y \\sim D + X$, die kontrolliert, aber nur linear
-3. **DML:** Partialling-Out mit Random Forests und Cross-Fitting
+In den simulierten Daten beeinflussen fünf Variablen sowohl Treatment als
+auch Outcome – teilweise nichtlinear. Verglichen werden ein naiver
+Treatment-Vergleich, eine lineare Adjustierung und eine flexible
+Residualisierung. Letztere ist eine **Vorschau** auf Double Machine Learning,
+kein vollständiges Rezept.
 """
 )
 
-regler_tau, regler_gamma, knopf = st.columns([2, 2, 1])
-tau = regler_tau.slider("Wahrer Effekt τ", 0.0, 2.0, 1.0, step=0.1)
-gamma = regler_gamma.slider("Stärke des Confoundings γ", 0.0, 2.0, 1.0, step=0.1)
-with knopf:
+tau_column, confounding_column, sample_column = st.columns([2, 2, 1])
+tau = tau_column.slider("Wahrer Effekt τ", 0.0, 2.0, 1.0, step=0.1)
+gamma = confounding_column.slider("Stärke des Confoundings γ", 0.0, 2.0, 1.0, step=0.1)
+with sample_column:
     st.markdown("&nbsp;")
-    if st.button("🎲 Neue Stichprobe"):
-        st.session_state["dml_seed"] = st.session_state.get("dml_seed", 0) + 1
-seed = st.session_state.get("dml_seed", 0)
+    if st.button("Neue Stichprobe"):
+        st.session_state["causal_ml_seed"] = st.session_state.get("causal_ml_seed", 0) + 1
+seed = st.session_state.get("causal_ml_seed", 0)
 
 
 @st.cache_data
-def dml_vergleich(tau: float, gamma: float, seed: int, n: int = 1200):
+def estimator_comparison(tau: float, gamma: float, seed: int, n: int = 1200):
     rng = np.random.default_rng(seed)
-    X = rng.uniform(-2, 2, size=(n, 5))
-    stoerfunktion = 2 * np.sin(X[:, 0]) + 0.5 * X[:, 1] ** 2 + X[:, 2]
-    d = gamma * stoerfunktion + rng.normal(0, 1, n)
-    y = tau * d + gamma * stoerfunktion + rng.normal(0, 1, n)
+    features = rng.uniform(-2, 2, size=(n, 5))
+    confounding = (
+        2 * np.sin(features[:, 0]) + 0.5 * features[:, 1] ** 2 + features[:, 2]
+    )
+    treatment = gamma * confounding + rng.normal(0, 1, n)
+    outcome = tau * treatment + gamma * confounding + rng.normal(0, 1, n)
 
-    # 1) Naiv: y ~ d
-    naiv = np.polyfit(d, y, 1)[0]
+    naive = np.polyfit(treatment, outcome, 1)[0]
+    linear_design = np.column_stack([treatment, features, np.ones(n)])
+    linear = np.linalg.lstsq(linear_design, outcome, rcond=None)[0][0]
 
-    # 2) Linear: y ~ d + X
-    design = np.column_stack([d, X, np.ones(n)])
-    linear = np.linalg.lstsq(design, y, rcond=None)[0][0]
-
-    # 3) DML: Cross-Fitting mit 2 Folds, RF für beide Nuisance-Funktionen
-    haelfte = n // 2
-    folds = [(np.arange(haelfte), np.arange(haelfte, n)),
-             (np.arange(haelfte, n), np.arange(haelfte))]
-    rest_y, rest_d = np.zeros(n), np.zeros(n)
+    half = n // 2
+    folds = [
+        (np.arange(half), np.arange(half, n)),
+        (np.arange(half, n), np.arange(half)),
+    ]
+    residual_outcome = np.zeros(n)
+    residual_treatment = np.zeros(n)
     for train, test in folds:
-        rf_y = RandomForestRegressor(n_estimators=200, max_depth=8, random_state=0)
-        rf_d = RandomForestRegressor(n_estimators=200, max_depth=8, random_state=0)
-        rf_y.fit(X[train], y[train])
-        rf_d.fit(X[train], d[train])
-        rest_y[test] = y[test] - rf_y.predict(X[test])
-        rest_d[test] = d[test] - rf_d.predict(X[test])
-    dml = np.polyfit(rest_d, rest_y, 1)[0]
+        outcome_model = RandomForestRegressor(
+            n_estimators=160, max_depth=8, random_state=0
+        )
+        treatment_model = RandomForestRegressor(
+            n_estimators=160, max_depth=8, random_state=0
+        )
+        outcome_model.fit(features[train], outcome[train])
+        treatment_model.fit(features[train], treatment[train])
+        residual_outcome[test] = outcome[test] - outcome_model.predict(features[test])
+        residual_treatment[test] = treatment[test] - treatment_model.predict(features[test])
+    flexible = np.polyfit(residual_treatment, residual_outcome, 1)[0]
+    return naive, linear, flexible
 
-    return naiv, linear, dml
 
-
-naiv, linear, dml = dml_vergleich(tau, gamma, seed)
-
-fig = go.Figure()
-fig.add_bar(
-    x=["Naiv (Y ~ D)", "Linear (Y ~ D + X)", "DML (RF + Cross-Fitting)"],
-    y=[naiv, linear, dml],
+naive, linear, flexible = estimator_comparison(tau, gamma, seed)
+figure = go.Figure()
+figure.add_bar(
+    x=["Naiv", "Linear adjustiert", "Flexibel residualisiert"],
+    y=[naive, linear, flexible],
     marker_color=[FARBEN["beere"], FARBEN["sonne"], FARBEN["wiese"]],
-    text=[f"{naiv:.2f}", f"{linear:.2f}", f"{dml:.2f}"],
+    text=[f"{naive:.2f}", f"{linear:.2f}", f"{flexible:.2f}"],
     textposition="outside",
 )
-fig.add_hline(
-    y=tau, line_dash="dash", line_color=FARBEN["schiefer"],
+figure.add_hline(
+    y=tau,
+    line_dash="dash",
+    line_color=FARBEN["schiefer"],
     annotation_text=f"wahrer Effekt τ = {tau:.1f}",
 )
-fig.update_layout(yaxis_title="geschätzter Effekt", height=420)
-st.plotly_chart(fig, use_container_width=True)
-
-if gamma > 0.2:
-    st.markdown(
-        f"""
-Der **naive** Estimator ({naiv:.2f}) enthält das vollständige Confounding.
-Der **lineare** ({linear:.2f}) beseitigt nur dessen linearen Anteil, die
-Sinus- und Quadrat-Komponenten verbleiben als Restverzerrung. **DML**
-({dml:.2f}) approximiert die Nuisance-Funktionen flexibel und liegt nahe am
-wahren τ = {tau:.1f}. Wiederholte Ziehungen über „Neue Stichprobe“ zeigen
-zusätzlich die Stichprobenstreuung der drei Estimatoren.
-"""
-    )
-else:
-    st.info(
-        "Bei γ ≈ 0 gibt es kein Confounding, alle drei Estimatoren treffen. "
-        "Erhöhe γ, um die Unterschiede sichtbar zu machen."
-    )
-
-merkkasten(
-    "Warum Cross-Fitting?",
-    "Würde der Random Forest auf denselben Daten vorhersagen, auf denen er "
-    "trainiert wurde, wären die Residuen zu klein und systematisch verzerrt, "
-    "Overfitting sickert in die Effektschätzung. Cross-Fitting trennt "
-    "Trainieren und Vorhersagen strikt: Jede Beobachtung wird von einem "
-    "Modell bewertet, das sie nie gesehen hat.",
-    typ="definition",
-)
+figure.update_layout(yaxis_title="geschätzter Effekt", height=410)
+st.plotly_chart(figure, use_container_width=True)
 
 st.markdown(
     """
-**Und darüber hinaus:** DML schätzt nicht nur Durchschnittseffekte.
-Verwandte Verfahren wie **Causal Forests** und der **DR-Learner** schätzen
-**Heterogeneous Treatment Effects**: Für wen wirkt eine Maßnahme stark, für
-wen gar nicht? Das ist die methodische Grundlage personalisierter Medizin
-und zielgenauer Politikgestaltung.
-
-**Praxis-Hinweis:** Das Python- und R-Paket **`DoubleML`** implementiert das
-Framework inklusive gültiger Inferenz mit Standardfehlern und
-Konfidenzintervallen. Es wurde maßgeblich am Lehrstuhl für Statistik der
-**Universität Hamburg** mitentwickelt, von dem auch diese
-Akademie-Arbeitsgruppe kommt.
+Die Simulation illustriert eine begrenzte Aussage: Wenn Confounding
+nichtlinear von beobachteten Merkmalen abhängt, kann eine flexible
+Störfunktionsschätzung weniger Modellmissspezifikation aufweisen als eine rein
+lineare. Daraus folgt noch keine allgemeine Überlegenheit. Das Ergebnis hängt
+von Stichprobengröße, Overfitting, Learner-Wahl, Cross-Fitting und den
+Identifikationsannahmen ab.
 """
 )
 
-merkkasten(
-    "Merke",
-    "DML = Partialling-Out mit ML für die Störfunktionen + Cross-Fitting + "
-    "Orthogonalität. <b>ML macht die Vorhersage-Arbeit, die Ökonometrie "
-    "liefert die kausale Garantie.</b> Aber: DML adjustiert nur für "
-    "<i>beobachtete</i> Confounder. Welche das sein müssen, sagt dir weiterhin "
-    "der DAG, nicht der Algorithmus.",
-    typ="merke",
+st.markdown("## Was das Gruppenprojekt selbst entscheiden muss")
+st.markdown(
+    """
+- Welches DML- oder Meta-Learner-Framework passt zum Estimand?
+- Wie werden Learner und Hyperparameter gewählt, ohne die Effektschätzung zu verzerren?
+- Wie entstehen gültige Standardfehler und Konfidenzintervalle?
+- Soll ein Durchschnittseffekt oder Treatment-Effect-Heterogenität untersucht werden?
+- Welche Sensitivitätsanalyse adressiert verbleibendes unbeobachtetes Confounding?
+"""
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Warum kann man nicht einfach einen Random Forest auf (D, X) → Y "
-    "trainieren und daraus den kausalen Effekt von D ablesen?",
-    [
-        "Random Forests funktionieren nicht mit binären Variablen",
-        "Der Forest optimiert Prediction: Er hat keinen Koeffizienten für D, und Regularisierung darf D-Information durch korrelierte X ersetzen, was den Effekt verzerrt",
-        "Man kann, das ist genau DML",
-        "Weil Random Forests keine Wahrscheinlichkeiten ausgeben",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Für gute Vorhersagen ist es egal, ob Information aus D oder aus mit D "
-        "korrelierten X-Variablen kommt. Für Kausalschlüsse ist genau das "
-        "fatal. DML trennt deshalb sauber: erst X herausrechnen (aus D und Y), "
-        "dann den Effekt aus den Residuen holen."
-    ),
-    key="quiz_kausal_dml",
-)
+team_page = st.session_state.get("themen_seiten", {}).get("causal-inference-with-ml")
+if team_page is not None:
+    st.page_link(team_page, label="Zum Projekttrack Causal Inference with ML", icon="🎯")
 
-# -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")
 st.markdown(
     """
-- V. Chernozhukov, D. Chetverikov, M. Demirer, E. Duflo, C. Hansen, W. Newey & J. Robins (2018), *Double/Debiased Machine Learning for Treatment and Structural Parameters*, The Econometrics Journal 21(1), C1–C68
-- P. Bach, V. Chernozhukov, M. S. Kurz & M. Spindler (2022), *DoubleML: An Object-Oriented Implementation of Double Machine Learning in Python*, Journal of Machine Learning Research 23(53), 1–6
-- M. Huber (2023), *Causal Analysis: Impact Evaluation and Causal Machine Learning with Applications in R*, MIT Press
+- V. Chernozhukov et al. (2018), *Double/Debiased Machine Learning for Treatment and Structural Parameters*
+- P. Bach et al. (2022), *DoubleML: An Object-Oriented Implementation of Double Machine Learning in Python*
+- M. Huber (2023), *Causal Analysis*
 """
 )
-
-st.markdown("## Wie geht es weiter?")
-weiter_bayes, weiter_xai = st.columns(2)
-with weiter_bayes:
-    st.page_link(
-        "views/kausalitaet/bayes.py", label="Weiter: Bayesian Methods", icon="🎲"
-    )
-with weiter_xai:
-    st.page_link(
-        "views/ml/explainable_ml.py",
-        label="Passt dazu: Explainable ML",
-        icon="🔍",
-    )

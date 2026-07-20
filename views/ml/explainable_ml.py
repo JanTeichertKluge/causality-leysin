@@ -16,13 +16,18 @@ from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, kapitel_kopf, merkkasten, vertiefung_hinweis
 
 kapitel_kopf(
     "🔍",
     "Explainable ML",
     "Warum sagt das Modell das voraus? Black Boxes öffnen mit Importance, PDP und SHAP",
 )
+
+vertiefung_hinweis("40–50 Minuten", [
+    "globale und lokale Modellinterpretation unterscheiden",
+    "prädiktive Wichtigkeit von kausaler Wirkung trennen",
+])
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
@@ -338,24 +343,6 @@ wisst ihr, was sie unter der Haube tun.
 """
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Ein Feature hat für eine Person einen Shapley Value von +0,15. Was "
-    "bedeutet das?",
-    [
-        "Das Feature erhöht das wahre Risiko dieser Person um 15 Prozentpunkte",
-        "Das Feature hebt die Modellvorhersage dieser Person um 0,15 über den Durchschnitt, als fair aufgeteilter Beitrag",
-        "Das Modell ist bei diesem Feature zu 15 % unsicher",
-        "Das Feature ist das wichtigste im gesamten Datensatz",
-    ],
-    richtig=1,
-    erklaerung=(
-        "SHAP verteilt die Differenz zwischen persönlicher Vorhersage und "
-        "Durchschnittsvorhersage fair auf die Features. Es ist eine Aussage "
-        "über das Modell, nicht über den wahren kausalen Effekt."
-    ),
-    key="quiz_ml_xai",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

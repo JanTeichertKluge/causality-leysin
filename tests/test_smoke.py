@@ -30,6 +30,7 @@ STATISCHE_SEITEN = [
     "views/kausalitaet/sem_surveys.py",
     "views/projekte/themen.py",
     "views/projekte/uebersicht.py",
+    "views/projekte/template.py",
     "views/referenzen.py",
 ]
 
@@ -53,8 +54,7 @@ def test_seite_rendert_ohne_fehler(seite):
 
 
 def test_beispielprojekt_app_seite():
-    at = _app()
-    at.switch_page("content/projekte/beispielprojekt/app.py")
+    at = AppTest.from_file(str(ROOT / "content" / "projekte" / "beispielprojekt" / "app.py"))
     at.run()
     assert not at.exception
 

@@ -9,13 +9,18 @@ import plotly.graph_objects as go
 import streamlit as st
 from scipy import stats
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, kapitel_kopf, merkkasten, vertiefung_hinweis
 
 kapitel_kopf(
     "📋",
     "SEMs & Survey Experiments",
     "Wirkmechanismen zerlegen und eigene Daten erheben, die Antworten erlauben",
 )
+
+vertiefung_hinweis("35–45 Minuten", [
+    "direkte und indirekte Pfade in SEMs unterscheiden",
+    "Survey-Experimente mit expliziten Designannahmen planen",
+])
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
@@ -235,24 +240,6 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Im Mediationsmodell ist a = −0,5 (X → M) und b = 0,6 (M → Y), der "
-    "direkte Pfad c′ = 0,1. Wie groß ist der indirekte Effekt über M?",
-    [
-        "0,1",
-        "−0,3 (nämlich a · b)",
-        "0,2 (nämlich a + b − c′)",
-        "Kann man aus a und b nicht berechnen",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Der indirekte Effekt ist das Produkt der Pfade entlang des Weges: "
-        "a · b = −0,5 · 0,6 = −0,3. Zusammen mit c′ = 0,1 ergibt das einen "
-        "totalen Effekt von −0,2."
-    ),
-    key="quiz_kausal_sem",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

@@ -11,12 +11,23 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 
 from utils.ml_demos import entscheidungsgrenze, monde_daten
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🧠",
     "Neural Networks",
     "Vom einzelnen Neuron zur flexibelsten Modellfamilie des Machine Learning",
+)
+
+einfuehrung_hinweis("40–50 Minuten", [
+    "nichtlineare Repräsentationen in Netzen verstehen",
+    "Gradient Descent und Modellkomplexität einordnen",
+])
+
+lehrpfad_kontext(
+    "Wie entstehen aus einfachen Rechenschritten flexible nichtlineare Funktionen?",
+    "Knüpfe an Loss, Modellkomplexität und nichtlineare Entscheidungsgrenzen aus den vorherigen Kapiteln an.",
+    "Hier brauchst du keine modernen Großarchitekturen im Detail. Konzentriere dich auf Neuronen, Aktivierungen und das Lernen per Gradient Descent.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -280,24 +291,6 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Was passiert, wenn man in einem tiefen Netz alle Activation Functions "
-    "durch die Identität ersetzt, also auf Aktivierung verzichtet?",
-    [
-        "Nichts, die Tiefe liefert weiterhin Flexibilität",
-        "Das Netz kollabiert mathematisch zu einem einzigen linearen Modell",
-        "Das Netz kann dann nur noch Klassifikation, keine Regression",
-        "Das Training wird unmöglich",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Verkettete lineare Funktionen sind wieder linear, unabhängig von der "
-        "Anzahl der Layer. Erst die Nichtlinearität der Aktivierung verleiht "
-        "der Tiefe echte Ausdruckskraft."
-    ),
-    key="quiz_ml_netze",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")
@@ -320,6 +313,6 @@ with weiter_llm:
 with weiter_xai:
     st.page_link(
         "views/ml/explainable_ml.py",
-        label="Oder: Explainable ML",
+        label="Appendix: Explainable AI",
         icon="🔍",
     )

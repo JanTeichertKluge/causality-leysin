@@ -8,13 +8,18 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, kapitel_kopf, merkkasten, vertiefung_hinweis
 
 kapitel_kopf(
     "📐",
     "Quasi-Experimente: DiD & RDD",
     "Wenn niemand würfeln darf: kausale Effekte aus natürlichen Experimenten",
 )
+
+vertiefung_hinweis("40–50 Minuten", [
+    "Identifikationsideen von DiD und RDD vergleichen",
+    "Parallel-Trends- und Kontinuitätsannahmen kritisch prüfen",
+])
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
@@ -285,24 +290,6 @@ merkkasten(
     typ="definition",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Warum liefert der Vergleich von Personen knapp über und knapp unter dem "
-    "RDD-Cutoff einen kausalen Effekt?",
-    [
-        "Weil der Cutoff von Expert:innen festgelegt wurde",
-        "Weil Personen direkt am Cutoff praktisch identisch sind, ob sie darüber oder darunter landen, ist nahezu Zufall",
-        "Weil die Stichprobe am Cutoff am größten ist",
-        "Weil lineare Regression Verzerrungen automatisch entfernt",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Direkt am Schwellenwert wirkt die Zuteilung wie ein lokales "
-        "Zufallsexperiment. Der Preis dafür: Der Effekt gilt zunächst nur "
-        "lokal, also für Personen in der Nähe des Cutoffs."
-    ),
-    key="quiz_kausal_quasi",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

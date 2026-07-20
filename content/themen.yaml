@@ -1,0 +1,260 @@
+- slug: randomisierte-experimente
+  title: Kausale Effekte in randomisierten Experimenten
+  emoji: "🏥"
+  abstract: >-
+    Design und Analyse randomisierter kontrollierter Studien (RCTs), beispielsweise
+    mit Fokus auf den klinischen Kontext, sowie der methodische Umgang mit
+    Störfaktoren, welche die kausale Interpretation des gefundenen Effekts gefährden
+    können, etwa Dropout, Non-Compliance und kleine Stichproben.
+  sources:
+    required:
+      - title: Causal Inference – What If, Kapitel 2 „Randomized Experiments“
+        authors: Miguel Hernán und James Robins
+        description: Wissenschaftlich präzise Einführung in die Logik randomisierter Experimente und ihre Verbindung zum Potential-Outcomes-Framework.
+        url: https://miguelhernan.org/whatifbook
+      - title: The Theory and Practice of Field Experiments
+        authors: EGAP
+        description: Modularer und anwendungsorientierter Einstieg in Forschungsdesign, Randomisierung, Estimands, Power, Non-Compliance und Gefährdungen der internen Validität.
+        url: https://egap.org/learning-days-book/
+    optional:
+      title: CONSORT 2025 Statement
+      authors: "[Platzhalter: Autor:innen in der Redesign-Vorlage nicht angegeben]"
+      description: Aktuelle Leitlinie zur Planung, Analyse und transparenten Berichterstattung randomisierter klinischer Studien.
+      url: https://www.bmj.com/content/389/bmj-2024-081123
+  group_members: []
+  project_path: content/projekte/randomisierte-experimente
+  deepening:
+    - path: views/kausalitaet/potential_outcomes.py
+      label: Potential Outcomes & RCTs
+
+- slug: explainable-ml
+  title: Explainable ML / AI
+  emoji: "🔍"
+  abstract: >-
+    Methoden zur Interpretation komplexer „Black-Box“-Modelle, beispielsweise SHAP
+    und LIME, und die Analyse des grundlegenden Trade-offs zwischen prädiktiver
+    Performanz und algorithmischer Transparenz. Zudem wird der Frage nachgegangen,
+    weshalb eine für die Vorhersage wichtige Variable nicht notwendigerweise einen
+    geeigneten Ansatzpunkt für eine Intervention darstellt.
+  sources:
+    required:
+      - title: Interpretable Machine Learning
+        authors: Christoph Molnar
+        description: Gut zugängliches Onlinebuch zu Feature Importance, Partial Dependence, LIME, SHAP sowie den Grenzen verschiedener Interpretationsverfahren.
+        url: https://christophm.github.io/interpretable-ml-book/
+      - title: Be careful when interpreting predictive models in search of causal insights
+        authors: SHAP-Dokumentation
+        description: Praktisches Notebook dazu, weshalb die Erklärung eines Vorhersagemodells nicht mit der Identifikation eines Interventionsziels gleichgesetzt werden darf.
+        url: https://shap.readthedocs.io/en/latest/example_notebooks/overviews/Be%20careful%20when%20interpreting%20predictive%20models%20in%20search%20of%20causal%20insights.html
+    optional:
+      title: Explainable AI Methods – A Brief Overview
+      authors: Holzinger et al.
+      description: Kompakter wissenschaftlicher Überblick über zentrale Ansätze und Begriffe der erklärbaren KI.
+      url: https://link.springer.com/chapter/10.1007/978-3-031-04083-2_2
+  group_members: []
+  project_path: content/projekte/explainable-ml
+  deepening:
+    - path: views/ml/explainable_ml.py
+      label: Explainable ML
+
+- slug: causality-and-llms
+  title: Causality and LLMs
+  emoji: "💬"
+  abstract: >-
+    Die Schnittstelle von generativer KI und Kausalität. Untersucht werden die
+    Einsatzmöglichkeiten und Grenzen von LLMs für Causal Reasoning, Causal Discovery
+    oder die Kontrolle von Confounding in unstrukturierten Textdaten.
+  sources:
+    required:
+      - title: Causal Inference with Large Language Model – A Survey
+        authors: Ma et al.
+        description: Aktueller, relativ kompakter Überblick über LLMs für kausales Reasoning, Causal Discovery und Causal Effect Estimation.
+        url: https://aclanthology.org/2025.findings-naacl.327/
+      - title: Causal Parrots – Large Language Models May Talk Causality But Are Not Causal
+        authors: Zečević et al.
+        description: Kritische Perspektive darauf, ob Sprachmodelle kausal schließen oder vor allem sprachlich gespeichertes kausales Wissen reproduzieren.
+        url: https://arxiv.org/abs/2308.13067
+    optional:
+      title: PyWhy-LLM
+      authors: PyWhy
+      description: Experimentelles Open-Source-Projekt mit Code und Beispielen zur Integration von Sprachmodellen in kausale Workflows.
+      url: https://github.com/py-why/pywhyllm
+  group_members: []
+  project_path: content/projekte/causality-and-llms
+  deepening:
+    - path: views/ml/llms_kausalitaet.py
+      label: LLMs & kausales Denken
+
+- slug: dags-sems-causal-discovery
+  title: DAGs / SEMs / Causal Discovery
+  emoji: "🕸️"
+  abstract: >-
+    Directed Acyclic Graphs (DAGs) und Strukturgleichungsmodelle (SEMs) dienen dazu,
+    kausale Annahmen explizit darzustellen und die Identifizierbarkeit kausaler
+    Effekte zu untersuchen. Algorithmische Verfahren der Causal Discovery versuchen,
+    kausale Strukturen unter bestimmten Annahmen aus Beobachtungsdaten zu lernen.
+  sources:
+    required:
+      - title: Introduction to Causal Inference from a Machine Learning Perspective
+        authors: Brady Neal
+        description: Zugänglicher Kurs zu Structural Causal Models, DAGs, Interventionen, Identifikation und der Rolle kausaler Annahmen.
+        url: https://www.bradyneal.com/causal-inference-course
+      - title: DAGitty – Learn
+        authors: DAGitty
+        description: Kurze Tutorials und ein browserbasiertes Werkzeug zum Zeichnen und Analysieren kausaler Graphen und zur Bestimmung geeigneter Adjustment Sets.
+        url: https://dagitty.net/learn/index.html
+    optional:
+      title: Causal Discovery Example
+      authors: DoWhy
+      description: Ausführbares Beispiel zu Discovery-Verfahren und zu den Annahmen, unter denen Ergebnisse aus Beobachtungsdaten gewonnen werden können.
+      url: https://www.pywhy.org/dowhy/v0.11/example_notebooks/dowhy_causal_discovery_example.html
+  group_members: []
+  project_path: content/projekte/dags-sems-causal-discovery
+  deepening:
+    - path: views/kausalitaet/dags_confounding.py
+      label: DAGs & Confounding
+    - path: views/kausalitaet/sem_surveys.py
+      label: SEMs & Survey Experiments
+
+- slug: causal-inference-with-ml
+  title: Causal Inference with ML
+  emoji: "🎯"
+  abstract: >-
+    Nutzung flexibler Machine-Learning-Algorithmen zur Schätzung kausaler Effekte in
+    hochdimensionalen Settings, einschließlich Frameworks wie Double beziehungsweise
+    Debiased Machine Learning. Ein weiterer Schwerpunkt kann auf der Schätzung
+    heterogener Behandlungseffekte liegen.
+  sources:
+    required:
+      - title: Causal Inference for the Brave and True – Meta-Learners und Debiased ML
+        authors: Matheus Facure
+        description: Anschauliche, Python-basierte Kapitel zu Meta-Learners und [Debiased beziehungsweise Orthogonal Machine Learning](https://matheusfacure.github.io/python-causality-handbook/22-Debiased-Orthogonal-Machine-Learning.html).
+        url: https://matheusfacure.github.io/python-causality-handbook/21-Meta-Learners.html
+      - title: Machine Learning Based Estimation of Heterogeneous Treatment Effects
+        authors: EconML
+        description: Anwendungsorientierte Motivation für den Einsatz von Machine Learning zur Schätzung heterogener Treatment Effects.
+        url: https://econml.azurewebsites.net/spec/motivation.html
+    optional:
+      title: DoubleML Example Gallery
+      authors: DoubleML
+      description: Ausführbare Python-Notebooks zu Double Machine Learning, heterogenen Effekten, realen Anwendungen, Learner-Auswahl und Sensitivitätsanalysen.
+      url: https://docs.doubleml.org/stable/examples/index.html
+  group_members: []
+  project_path: content/projekte/causal-inference-with-ml
+  deepening:
+    - path: views/kausalitaet/kausales_ml.py
+      label: Kausales Machine Learning
+
+- slug: natuerliche-experimente
+  title: "Natürliche Experimente: RDD / DiD"
+  emoji: "📐"
+  abstract: >-
+    Quasi-experimentelle ökonometrische Designs wie Difference-in-Differences und
+    Regression Discontinuity Designs dienen zur Schätzung kausaler Effekte aus
+    Paneldaten oder bei exogenen Schwellenwerten („Policy Cutoffs“), wie sie häufig
+    in den Wirtschaftswissenschaften und in der Politikevaluation anzutreffen sind.
+  sources:
+    required:
+      - title: Causal Inference – The Mixtape, Difference-in-Differences
+        authors: Scott Cunningham
+        description: Verständliche Einführung mit realen wirtschafts- und sozialwissenschaftlichen Anwendungen und ausführlichem Code.
+        url: https://mixtape.scunning.com/09-difference_in_differences
+      - title: Regression Discontinuity Design
+        authors: Matheus Facure
+        description: Python-basiertes Kapitel mit anschaulichen Visualisierungen und unmittelbar verwendbarem Beispielcode.
+        url: https://matheusfacure.github.io/python-causality-handbook/16-Regression-Discontinuity-Design.html
+    optional:
+      title: Impact Evaluation in Practice
+      authors: World Bank
+      description: Praxisorientierte Einführung in Policy-Evaluation und die Identifikationsannahmen von RDD und DiD.
+      url: https://www.worldbank.org/en/programs/sief-trust-fund/publication/impact-evaluation-in-practice
+  group_members: []
+  project_path: content/projekte/natuerliche-experimente
+  deepening:
+    - path: views/kausalitaet/quasi_experimente.py
+      label: Quasi-Experimente – DiD & RDD
+
+- slug: bayesian-methods
+  title: Bayesian Methods
+  emoji: "🎲"
+  abstract: >-
+    Probabilistische Inferenzansätze zur Integration von Vorwissen in Form von Priors,
+    zur Aktualisierung von Wahrscheinlichkeiten über Posterior-Verteilungen und zur
+    Anwendung bayesianischer Konzepte auf kausale Modellierungen.
+  sources:
+    required:
+      - title: Statistical Rethinking
+        authors: Richard McElreath
+        description: Lebendiger und wissenschaftlich anspruchsvoller Zugang zu bayesianischer Modellierung, generativen Modellen und kausalem Denken.
+        url: https://github.com/rmcelreath/stat_rethinking_2024
+      - title: Think Bayes, 2. Auflage
+        authors: Allen Downey
+        description: Gut zugängliche, codebasierte Einführung in bayesianische Inferenz und die Aktualisierung von Wahrscheinlichkeiten.
+        url: https://allendowney.github.io/ThinkBayes2/
+    optional:
+      title: Bayesian Structural Causal Inference
+      authors: CausalPy
+      description: Python-Tutorial von der Datensimulation über ein strukturelles Modell bis zu posterioren Counterfactuals.
+      url: https://causalpy.readthedocs.io/en/latest/knowledgebase/structural_causal_models.html
+  group_members: []
+  project_path: content/projekte/bayesian-methods
+  deepening:
+    - path: views/kausalitaet/bayes.py
+      label: Bayesian Methods
+
+- slug: sensitivitaetsanalysen
+  title: Sensitivitätsanalysen / Robustheitsprüfungen
+  emoji: "🧪"
+  abstract: >-
+    Untersuchung von Sensitivitätsanalysen, Robustheitsprüfungen, Placebo-Tests und
+    alternativen Modellspezifikationen zur Beurteilung der Belastbarkeit geschätzter
+    kausaler Effekte gegenüber unbeobachtetem Confounding und methodischen
+    Entscheidungen. Im Mittelpunkt steht dabei auch die grundsätzliche
+    Nichtüberprüfbarkeit zentraler kausaler Annahmen.
+  sources:
+    required:
+      - title: An Introduction to Sensitivity Analysis Using sensemakr
+        authors: Cinelli, Ferwerda und Hazlett
+        description: Einführung in die Frage, wie stark unbeobachtetes Confounding sein müsste, um ein geschätztes Ergebnis zu erklären oder wesentlich abzuschwächen.
+        url: https://stat.ethz.ch/CRAN/web/packages/sensemakr/vignettes/sensemakr.html
+      - title: Sensitivity Analysis for Non-parametric Causal Estimators
+        authors: DoWhy
+        description: Praktisches Python-Notebook zur Simulation unbeobachteter Confounder und zur Beurteilung der Fragilität kausaler Effektschätzungen.
+        url: https://www.pywhy.org/dowhy/v0.14/example_notebooks/sensitivity_analysis_nonparametric_estimators.html
+    optional:
+      title: E-Value
+      authors: VanderWeele und Ding
+      description: Kennzahl dafür, wie stark ein unbeobachteter Confounder mit Treatment und Outcome verbunden sein müsste, um einen Effekt zu erklären; ergänzend steht ein [interaktiver Rechner](https://www.evalue-calculator.com/) bereit.
+      url: https://pubmed.ncbi.nlm.nih.gov/28693043/
+  group_members: []
+  project_path: content/projekte/sensitivitaetsanalysen
+  deepening: []
+
+- slug: case-study
+  title: Case Study / Eigenes Forschungsprojekt
+  emoji: "🔬"
+  abstract: >-
+    Praxisnahe Bearbeitung einer selbst gewählten kausalen Fragestellung. Das Projekt
+    kann auf der Replikation und kritischen Analyse einer veröffentlichten Studie,
+    der Untersuchung eines realen Datensatzes oder einer von den Teilnehmenden
+    eingebrachten Forschungsfrage beruhen, etwa aus einer universitären Arbeit oder
+    einem eigenen Experiment. Im Mittelpunkt stehen die Identifikationsstrategie,
+    die zugrunde liegenden Annahmen und eine nachvollziehbare empirische Umsetzung.
+  sources:
+    required:
+      - title: The Effect – An Introduction to Research Design and Causality
+        authors: Nick Huntington-Klein
+        description: Zugängliches Onlinebuch zur Entwicklung einer kausalen Forschungsfrage, zur Wahl des Designs und zur empirischen Umsetzung.
+        url: https://theeffectbook.net/
+      - title: The Research Design Process
+        authors: EGAP
+        description: Strukturierte Anleitung von der Forschungsfrage über Treatment, Outcome und Estimand bis zur Datenerhebung und zum Analyseplan.
+        url: https://egap.github.io/theory_and_practice_of_field_experiments/the-research-design-process.html
+    optional:
+      title: Registrations and Preregistrations
+      authors: Open Science Framework
+      description: Orientierung zur Vorabfestlegung von Hypothesen, Design und Analyseplan; eine formale Präregistrierung ist nicht verpflichtend.
+      url: https://help.osf.io/article/330-welcome-to-registrations
+  group_members: []
+  project_path: content/projekte/case-study
+  deepening: []

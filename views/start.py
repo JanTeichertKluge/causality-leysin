@@ -29,9 +29,9 @@ Moderne KI-Systeme sind erstaunlich gut darin, **Muster zu erkennen und
 vorherzusagen**, aber Muster sind nicht dasselbe wie Ursachen. Wer aus Daten
 Entscheidungen ableiten will („Hilft dieses Medikament?“, „Bringt diese
 Werbekampagne etwas?“), braucht mehr als Korrelationen: eine Antwort auf die
-Frage nach dem **Warum**. Alle Kapitel enthalten interaktive Simulationen:
-Parameter verändern, Stichproben neu ziehen und die Konsequenzen unmittelbar
-beobachten.
+Frage nach dem **Warum**. Auf dieser Website kannst du Modelle und kausale
+Annahmen selbst ausprobieren: Verändere Parameter, ziehe neue Stichproben und
+beobachte, wie sich Schlussfolgerungen verändern.
 """
 )
 
@@ -40,31 +40,32 @@ spalte_ml, spalte_kausal, spalte_projekte = st.columns(3)
 with spalte_ml, st.container(border=True):
     st.markdown("### 🤖 Maschinelles Lernen")
     st.markdown(
-        "Wie lernen Maschinen aus Beispielen? Von linearer Regression über "
-        "Decision Trees bis zu Neural Networks und LLMs."
+        "Starte bei Trainings- und Testdaten und arbeite dich von linearer "
+        "Regression bis zu Trees, neuronalen Netzen und LLMs vor."
     )
-    st.page_link("views/ml/grundlagen.py", label="Kapitel 1 starten", icon="▶️")
+    st.page_link("views/ml/grundlagen.py", label="Mit ML starten", icon="▶️")
 
 with spalte_kausal, st.container(border=True):
     st.markdown("### 🔀 Kausalität")
     st.markdown(
-        "Warum Korrelation nicht Kausalität ist und wie man mit DAGs, "
-        "Potential Outcomes und kausalem ML echte Effekte aus Daten holt."
+        "Untersuche, wann ein Zusammenhang kausal gedeutet werden darf und "
+        "welche Annahmen hinter DAGs, Potential Outcomes und kausalem ML stehen."
     )
-    st.page_link("views/kausalitaet/korrelation.py", label="Kapitel 1 starten", icon="▶️")
+    st.page_link("views/kausalitaet/korrelation.py", label="Mit Kausalität starten", icon="▶️")
 
 with spalte_projekte, st.container(border=True):
     st.markdown("### 🚀 Gruppenprojekte")
     st.markdown(
-        "Während der Akademie erkunden Gruppen eigene Themen in Python; "
-        "ihre Ergebnisse erscheinen hier auf der Website."
+        "Wählt euren Track, steigt mit den empfohlenen Quellen ein und entwickelt "
+        "vor Ort eine interaktive Analyse zu eurer eigenen Fragestellung."
     )
-    st.page_link("views/projekte/uebersicht.py", label="Zu den Projekten", icon="▶️")
+    st.page_link("views/projekte/themen.py", label="Tracks ansehen", icon="▶️")
 
 merkkasten(
     "Gut zu wissen",
-    "Diese Website bleibt nach der Akademie dauerhaft öffentlich. "
-    "Alle Materialien und Gruppenprojekte sind frei zugänglich.",
+    "Du kannst alle Materialien während und nach der Akademie frei nutzen. "
+    "Die ausführlichen Kapitel im Appendix sind optional: Für den gemeinsamen "
+    "Einstieg brauchst du sie nicht vollständig durchzuarbeiten.",
     typ="definition",
 )
 

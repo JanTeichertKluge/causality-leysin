@@ -8,12 +8,23 @@ Vorgeschmack auf Causal Discovery.
 import numpy as np
 import streamlit as st
 
-from utils.theming import kapitel_kopf, merkkasten, quiz
+from utils.theming import einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🕸️",
     "DAGs & Confounding",
     "Eine Sprache für Ursachen und die Frage, wofür man adjustieren darf",
+)
+
+einfuehrung_hinweis("40–50 Minuten", [
+    "DAG-Grundstrukturen und Adjustment-Entscheidungen erklären",
+    "Grenzen datengetriebener Causal Discovery benennen",
+])
+
+lehrpfad_kontext(
+    "Wie werden kausale Annahmen sichtbar, bevor ein Effekt geschätzt wird?",
+    "Nutze aus dem vorherigen Kapitel die Idee des Confounders und frage nun, welche Rolle jede Variable im Kausalmodell spielt.",
+    "Konzentriere dich auf Confounder, Mediator und Collider. Komplexe Identifikation, SEMs und Causal Discovery kannst du später vertiefen.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -192,67 +203,23 @@ Gesamtbevölkerung nicht existiert (*Collider Bias*, *Sample Selection Bias*).
 """
 )
 
-# ------------------------------------- Demo 2: Causal Discovery Teaser
+# ----------------------------------------------- Causal Discovery Teaser
 st.markdown("## Ausblick: Causal Discovery")
 st.markdown(
-    r"""
+    """
 Bisher haben wir den DAG als gegeben **angenommen**. **Causal Discovery**
-kehrt die Blickrichtung um: Algorithmen wie der **PC-Algorithmus** testen
-systematisch bedingte Unabhängigkeiten, also Aussagen der Form
-$X \perp Y \mid Z$, und schließen daraus, welche Graphstrukturen mit den
-Daten vereinbar sind. Die folgenden Kennzahlen stammen aus einer Simulation
-mit verborgener Struktur. Versuche, sie zu rekonstruieren:
+kehrt die Blickrichtung um und fragt, welche Graphstrukturen mit beobachteten
+Unabhängigkeiten vereinbar sind. Schon drei Variablen können mehrere
+**Markov-äquivalente** Graphen erzeugen: Sie implizieren dieselben
+Unabhängigkeiten, erzählen aber verschiedene kausale Geschichten.
 """
 )
-
-
-@st.cache_data
-def discovery_daten(n: int = 4000, seed: int = 21):
-    rng = np.random.default_rng(seed)
-    x = rng.normal(0, 1, n)          # verborgene Wahrheit: Kette X → Z → Y
-    z = x + rng.normal(0, 1, n)
-    y = z + rng.normal(0, 1, n)
-    return x, z, y
-
-
-def partielle_korrelation(a, b, kontrolle):
-    rest_a = a - np.polyval(np.polyfit(kontrolle, a, 1), kontrolle)
-    rest_b = b - np.polyval(np.polyfit(kontrolle, b, 1), kontrolle)
-    return np.corrcoef(rest_a, rest_b)[0, 1]
-
-
-dx, dz, dy = discovery_daten()
-korr_xy = np.corrcoef(dx, dy)[0, 1]
-korr_xz = np.corrcoef(dx, dz)[0, 1]
-korr_zy = np.corrcoef(dz, dy)[0, 1]
-partiell_xy = partielle_korrelation(dx, dy, dz)
-
-k1, k2, k3, k4 = st.columns(4)
-k1.metric("Korr(X, Y)", f"{korr_xy:.2f}")
-k2.metric("Korr(X, Z)", f"{korr_xz:.2f}")
-k3.metric("Korr(Z, Y)", f"{korr_zy:.2f}")
-k4.metric("Korr(X, Y | Z)", f"{partiell_xy:.2f}", help="Korrelation von X und Y, nachdem Z herausgerechnet wurde")
-
-quiz(
-    "X und Y sind korreliert, aber gegeben Z verschwindet die Korrelation "
-    "fast vollständig. Welche Strukturen sind mit diesem Muster vereinbar?",
-    [
-        "Nur die Chain X → Z → Y",
-        "Nur die Fork X ← Z → Y",
-        "Chain und Fork, die Daten können sie nicht unterscheiden",
-        "Der Collider X → Z ← Y",
-    ],
-    richtig=2,
-    erklaerung=(
-        "Chain und Fork erzeugen exakt dasselbe Unabhängigkeitsmuster, sie "
-        "sind Markov-äquivalent. Der Collider fiele dagegen auf: Bei ihm "
-        "wären X und Y unabhängig, würden aber gegeben Z korreliert. "
-        "Discovery-Algorithmen identifizieren daher oft nur eine "
-        "Äquivalenzklasse. Für mehr braucht es Zusatzannahmen, Experimente "
-        "oder Vorwissen, etwa aus LLMs (siehe ML-Sektion)."
-    ),
-    key="quiz_kausal_dags",
+st.info(
+    "Welche Zusatzannahmen Orientierungen erlauben, wie Discovery-Algorithmen "
+    "mit endlichen Stichproben umgehen und wo SEMs ins Spiel kommen, bleibt "
+    "bewusst Gegenstand des DAG-/SEM-/Causal-Discovery-Projekts."
 )
+
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")
@@ -275,6 +242,6 @@ with weiter_po:
 with weiter_sem:
     st.page_link(
         "views/kausalitaet/sem_surveys.py",
-        label="Verwandt: SEMs & Survey Experiments",
+        label="Appendix: SEMs & Survey Experiments",
         icon="📋",
     )

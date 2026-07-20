@@ -10,12 +10,23 @@ import plotly.graph_objects as go
 import streamlit as st
 from sklearn.linear_model import LassoCV, LinearRegression, Ridge, RidgeCV, lasso_path
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🎚️",
     "Lasso & Ridge",
     "Viele Regressoren, wenige Beobachtungen: Regularisierung als eingebaute Selbstdisziplin",
+)
+
+einfuehrung_hinweis("35–45 Minuten", [
+    "Ridge- und Lasso-Strafen vergleichen",
+    "Regularisierung als Bias-Variance-Entscheidung interpretieren",
+])
+
+lehrpfad_kontext(
+    "Wann verbessert absichtlicher Bias die Vorhersage auf neuen Daten?",
+    "Erinnere dich an den Bias-Variance-Trade-off: Ein kleiner Trainingsfehler allein genügt nicht.",
+    "Verwechsle die Variablenauswahl des Lasso nicht mit der Auswahl von Ursachen oder Confoundern.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -286,24 +297,6 @@ merkkasten(
     typ="achtung",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Warum setzt das Lasso Koeffizienten exakt auf null, Ridge aber nicht?",
-    [
-        "Weil das Lasso die Variablen vor dem Fitten nach Wichtigkeit sortiert",
-        "Weil die Betragsstrafe bei null einen Knick hat: kleine Beiträge lohnen den Sprung über den Knick nicht, beim glatten Quadrat bringt die letzte Annäherung an null dagegen fast keine Strafersparnis",
-        "Weil Ridge nur bei Klassifikationsproblemen funktioniert",
-        "Weil das Lasso einen größeren λ-Wert benutzt als Ridge",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Die ℓ₁-Strafe ist bei null nicht differenzierbar. Ein Regressor "
-        "muss einen spürbaren Beitrag zur Fehlerreduktion leisten, sonst "
-        "bleibt sein Koeffizient exakt bei null. Die glatte ℓ₂-Strafe von "
-        "Ridge schrumpft dagegen nur, ohne je ganz auf null zu setzen."
-    ),
-    key="quiz_ml_regularisierung",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

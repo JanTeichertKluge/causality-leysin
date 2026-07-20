@@ -13,12 +13,23 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 from utils.ml_demos import entscheidungsgrenze, monde_daten
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🌲",
     "Trees & Ensembles",
     "Vorhersagen als Wenn-dann-Regeln und die Stärke der Aggregation",
+)
+
+einfuehrung_hinweis("45–55 Minuten", [
+    "Baumtiefe und Overfitting verbinden",
+    "Bagging, Random Forests und Boosting unterscheiden",
+])
+
+lehrpfad_kontext(
+    "Wie lernen Modelle nichtlineare Regeln und Interaktionen direkt aus Daten?",
+    "Vergleiche die Wenn-dann-Struktur der Trees mit den bisher linearen Modellen.",
+    "Feature Importance zeigt dir, wie ein Modell ein Merkmal nutzt – nicht, welche kausale Wirkung das Merkmal hat. Mehr dazu findest du optional bei Explainable AI.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -406,24 +417,6 @@ merkkasten(
     typ="achtung",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Warum overfittet ein Random Forest weniger als ein einzelner tiefer "
-    "Decision Tree?",
-    [
-        "Weil jeder Tree im Forest flacher ist als ein Einzelbaum",
-        "Weil die Mittelung vieler unterschiedlich irrender Trees die Varianz senkt",
-        "Weil der Forest weniger Features benutzt",
-        "Er overfittet nicht weniger, er ist nur schneller",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Die Trees sind einzeln tief und instabil, haben also hohe Varianz. "
-        "Ihre Fehler sind jedoch teilweise unkorreliert und mitteln sich bei "
-        "der Aggregation heraus."
-    ),
-    key="quiz_ml_baeume",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")
@@ -435,14 +428,14 @@ st.markdown(
 )
 
 st.markdown("## Wie geht es weiter?")
-weiter_xai, weiter_nn = st.columns(2)
+weiter_nn, weiter_xai = st.columns(2)
+with weiter_nn:
+    st.page_link(
+        "views/ml/neuronale_netze.py", label="Weiter: Neural Networks", icon="🧠"
+    )
 with weiter_xai:
     st.page_link(
         "views/ml/explainable_ml.py",
-        label="Weiter: Explainable ML",
+        label="Appendix: Explainable AI",
         icon="🔍",
-    )
-with weiter_nn:
-    st.page_link(
-        "views/ml/neuronale_netze.py", label="Oder: Neural Networks", icon="🧠"
     )

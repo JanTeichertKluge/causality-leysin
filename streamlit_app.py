@@ -12,6 +12,8 @@ import streamlit as st
 
 from utils import theming
 from utils.projects import lade_projekte, projekt_seiten
+from utils.topic_pages import topic_page
+from utils.topics import load_topics
 
 APP_ICON = Path(__file__).parent / "assets" / "icon.png"
 
@@ -42,7 +44,6 @@ ml_seiten = [
     st.Page("views/ml/regularisierung.py", title="Lasso & Ridge", icon="🎚️"),
     st.Page("views/ml/baeume_ensembles.py", title="Trees & Ensembles", icon="🌲"),
     st.Page("views/ml/neuronale_netze.py", title="Neural Networks", icon="🧠"),
-    st.Page("views/ml/explainable_ml.py", title="Explainable ML", icon="🔍"),
     st.Page("views/ml/llms_kausalitaet.py", title="LLMs & kausales Denken", icon="💬"),
 ]
 
@@ -50,29 +51,78 @@ kausal_seiten = [
     st.Page("views/kausalitaet/korrelation.py", title="Korrelation ≠ Kausalität", icon="🔀"),
     st.Page("views/kausalitaet/dags_confounding.py", title="DAGs & Confounding", icon="🕸️"),
     st.Page("views/kausalitaet/potential_outcomes.py", title="Potential Outcomes & RCTs", icon="⚖️"),
-    st.Page("views/kausalitaet/quasi_experimente.py", title="Quasi-Experimente: DiD & RDD", icon="📐"),
     st.Page("views/kausalitaet/kausales_ml.py", title="Kausales Machine Learning", icon="🎯"),
+]
+
+appendix_seiten = [
+    st.Page("views/ml/explainable_ml.py", title="Explainable AI", icon="🔍"),
+    st.Page("views/kausalitaet/quasi_experimente.py", title="Quasi-Experimente: DiD & RDD", icon="📐"),
     st.Page("views/kausalitaet/bayes.py", title="Bayesian Methods", icon="🎲"),
     st.Page("views/kausalitaet/sem_surveys.py", title="SEMs & Survey Experiments", icon="📋"),
 ]
 
-themen = st.Page("views/projekte/themen.py", title="Themen der Gruppenarbeiten", icon="🧭")
-uebersicht = st.Page("views/projekte/uebersicht.py", title="Alle Projekte", icon="🗂️")
+vertiefung_seiten = dict(
+    zip(
+        [
+            "views/ml/grundlagen.py",
+            "views/ml/lineare_regression.py",
+            "views/ml/regularisierung.py",
+            "views/ml/baeume_ensembles.py",
+            "views/ml/neuronale_netze.py",
+            "views/ml/explainable_ml.py",
+            "views/ml/llms_kausalitaet.py",
+            "views/kausalitaet/korrelation.py",
+            "views/kausalitaet/dags_confounding.py",
+            "views/kausalitaet/potential_outcomes.py",
+            "views/kausalitaet/quasi_experimente.py",
+            "views/kausalitaet/kausales_ml.py",
+            "views/kausalitaet/bayes.py",
+            "views/kausalitaet/sem_surveys.py",
+        ],
+        [
+            *ml_seiten[:5],
+            appendix_seiten[0],
+            ml_seiten[5],
+            *kausal_seiten[:3],
+            appendix_seiten[1],
+            kausal_seiten[3],
+            *appendix_seiten[2:],
+        ],
+        strict=True,
+    )
+)
+st.session_state["vertiefung_seiten"] = vertiefung_seiten
+
+themen = st.Page("views/projekte/themen.py", title="Eure Projekt-Tracks", icon="🧭")
+uebersicht = st.Page("views/projekte/uebersicht.py", title="So arbeitet ihr", icon="🗂️")
+template = st.Page("views/projekte/template.py", title="Vorlage für eure App", icon="🛠️")
+
+topics = load_topics()
+themen_seiten = {
+    topic.slug: st.Page(
+        topic_page(topic),
+        title=f"{topic.emoji} {topic.title}",
+        url_path=f"thema-{topic.slug}",
+    )
+    for topic in topics
+}
+st.session_state["themen_seiten"] = themen_seiten
 
 # Gruppenprojekte dynamisch aus content/projekte/ einsammeln. Die Map wird
 # in den Session State gelegt, damit die Projektübersicht per st.page_link
 # auf die registrierten Seiten verlinken kann.
-projekte = lade_projekte()
+projekte = [projekt for projekt in lade_projekte() if projekt.slug == "beispielprojekt"]
 seiten_map = projekt_seiten(projekte)
 st.session_state["projekt_seiten"] = seiten_map
 
 navigation = st.navigation(
     {
         "": [start, ueber],
-        "Maschinelles Lernen": ml_seiten,
-        "Kausalität": kausal_seiten,
-        "Gruppenprojekte": [themen, uebersicht, *seiten_map.values()],
-        "Material": [referenzen],
+        "Einführung · Maschinelles Lernen": ml_seiten,
+        "Einführung · Kausalität": kausal_seiten,
+        "Gruppenprojekte": [themen, *themen_seiten.values(), uebersicht, template],
+        "Appendix": appendix_seiten,
+        "Material & Quellen": [referenzen, *seiten_map.values()],
     }
 )
 

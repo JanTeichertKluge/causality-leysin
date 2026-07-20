@@ -13,12 +13,23 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🤖",
     "Was ist Maschinelles Lernen?",
     "Lernen aus Beispielen, und warum Auswendiglernen nicht genügt",
+)
+
+einfuehrung_hinweis("35–45 Minuten", [
+    "Generalisierung und Overfitting anhand von Trainings- und Testfehlern erklären",
+    "Bias und Varianz in einer Simulation unterscheiden",
+])
+
+lehrpfad_kontext(
+    "Wie lernt ein Modell aus Beispielen, ohne die Trainingsdaten nur auswendig zu lernen?",
+    "Du brauchst noch kein ML-Vorwissen; Features, Target, Training und Test werden hier eingeführt.",
+    "Konzentriere dich zunächst auf Generalisierung. Die einzelnen Modellklassen vergleichst du in den nächsten Kapiteln.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -45,8 +56,8 @@ Label gibt: Unser Setting mit Label heißt **Supervised Learning**, das
 Label „beaufsichtigt“ den Lernprozess. Beim **Unsupervised Learning**
 beobachtet man nur Features und sucht Struktur in den Daten selbst, etwa
 Gruppen ähnlicher Kundinnen (Clustering) oder komprimierte Darstellungen
-(Dimensionsreduktion). Alle Kapitel dieser Sektion behandeln Supervised
-Learning, beide Aufgabentypen kommen darin vor.
+(Dimensionsreduktion). Im gemeinsamen ML-Teil konzentrierst du dich auf
+Supervised Learning und lernst dabei Regression und Klassifikation kennen.
 """
 )
 
@@ -82,8 +93,8 @@ Kapitels.
 st.markdown("## Vorhersagen oder Verstehen? Die zwei Fragen an ein Modell")
 st.markdown(
     r"""
-Bevor wir loslegen, lohnt eine Unterscheidung, die sich durch die gesamte
-Website zieht. Mit einem gelernten $\hat{f}$ kann man zwei sehr
+Bevor wir loslegen, lohnt eine Unterscheidung, die dich durch den gesamten
+ML- und Kausalitätsteil begleitet. Mit einem gelernten $\hat{f}$ kann man zwei sehr
 verschiedene Dinge wollen:
 
 - **Prediction:** Wir brauchen nur gute Vorhersagen $\hat{f}(x)$ für neue
@@ -96,11 +107,10 @@ verschiedene Dinge wollen:
   Parameter des Modells, und plötzlich zählt, was im Inneren von
   $\hat{f}$ vorgeht.
 
-Machine Learning ist zunächst auf die erste Frage optimiert, und die
-Kapitel dieser Sektion zeigen, wie weit man damit kommt. Die zweite Frage
-erweist sich als heimtückischer: Sie führt über das Kapitel **Lineare
-Regression** (wo sie eine präzise Antwort mit Kleingedrucktem bekommt)
-geradewegs in die Kausalitäts-Sektion.
+Machine Learning ist zunächst auf die erste Frage optimiert. In den nächsten
+Kapiteln siehst du, wie weit du damit kommst. Die zweite Frage erweist sich als
+heimtückischer: Über die **lineare Regression** führt sie dich geradewegs zur
+Kausalität und zu den Annahmen hinter einer belastbaren Interpretation.
 """
 )
 
@@ -288,24 +298,6 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Ein Modell erreicht fast null Fehler auf den Trainingsdaten, aber einen "
-    "sehr hohen Fehler auf den Testdaten. Was liegt vor?",
-    [
-        "Underfitting, denn das Modell ist zu simpel",
-        "Overfitting, denn das Modell hat das Rauschen auswendig gelernt",
-        "Ein perfektes Modell, denn Trainingsfehler null ist das Ziel",
-        "Ein Datenfehler, denn bei sauberen Daten kann das nicht passieren",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Ein Trainingsfehler nahe null bei gleichzeitig hohem Testfehler ist "
-        "das charakteristische Muster von Overfitting: Das Modell "
-        "generalisiert nicht, es erinnert sich lediglich."
-    ),
-    key="quiz_ml_grundlagen",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

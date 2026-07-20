@@ -8,12 +8,23 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, einfuehrung_hinweis, kapitel_kopf, lehrpfad_kontext, merkkasten
 
 kapitel_kopf(
     "🔀",
     "Korrelation ≠ Kausalität",
     "Warum Muster in Daten noch keine Ursachen sind",
+)
+
+einfuehrung_hinweis("35–45 Minuten", [
+    "Confounding und Simpson-Paradox simulativ erkennen",
+    "Beobachtung und Intervention sauber trennen",
+])
+
+lehrpfad_kontext(
+    "Wann unterscheidet sich ein beobachteter Zusammenhang von der Wirkung einer Intervention?",
+    "Bring aus dem ML-Teil die Einsicht mit, dass ein Modell zunächst statistische Zusammenhänge lernt.",
+    "Die adjustierte Regression dient hier als Illustration. Ob eine Adjustierung einen Effekt identifiziert, hängt von kausalen Annahmen ab.",
 )
 
 # ---------------------------------------------------------------- Intro
@@ -281,24 +292,6 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Eine Studie findet: Wer viel Rotwein trinkt, ist gesünder. Was ist die "
-    "vorsichtigste Interpretation?",
-    [
-        "Rotwein macht gesund, der Zusammenhang ist schließlich statistisch signifikant",
-        "Gesundheit führt zu Rotweinkonsum",
-        "Ein Confounder wie Einkommen oder Lebensstil könnte beide Größen treiben",
-        "Der Zusammenhang muss ein Messfehler sein",
-    ],
-    richtig=2,
-    erklaerung=(
-        "Signifikanz schützt nicht vor Confounding. Ohne Experiment oder "
-        "Adjustierung bleibt offen, ob Rotwein, umgekehrte Kausalität oder "
-        "eine dritte Variable den Zusammenhang erzeugt."
-    ),
-    key="quiz_kausal_korrelation",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

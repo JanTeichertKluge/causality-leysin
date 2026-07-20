@@ -22,44 +22,42 @@ streamlit run streamlit_app.py
 
 ## Struktur
 
+```text
+streamlit_app.py       Einstieg und Navigation
+views/ml/              Gemeinsamer ML-Lehrpfad; Explainable AI im Appendix
+views/kausalitaet/     Gemeinsamer Kausalitätspfad; drei Kapitel im Appendix
+views/projekte/        Themenkatalog, Arbeitsweise und Team-Template
+content/themen.yaml    Zentrale Quelle für neun Tracks, Abstracts und Literatur
+content/projekte/      Team-Apps und gemeinsames Streamlit-Template
+utils/                 Theming, Simulationen, Katalog- und Projekt-Rendering
+tests/                 Smoke- und Strukturtests
 ```
-streamlit_app.py       Einstieg: Navigation, Theme, Projekt-Discovery
-views/                 Alle Seiten (Start, Über, Kapitel, Projektübersicht)
-  ml/                  Kapitel Maschinelles Lernen
-  kausalitaet/         Kapitel Kausalität
-content/projekte/      Gruppenprojekte (ein Ordner pro Gruppe)
-utils/                 Theming (Farben, Plotly-Template, UI-Bausteine)
-                       und Projekt-Discovery
-assets/styles.css      Zentrales Stylesheet
-tests/                 Smoke-Tests (streamlit.testing AppTest)
-```
 
-## Ein Gruppenprojekt hinzufügen
+Der Appendix enthält ausschließlich:
 
-Zwei Wege, die beide mit einem eigenen Ordner unter `content/projekte/` beginnen
-(Kleinbuchstaben, Bindestriche, z. B. `gletscher-gang/`):
+- Explainable AI
+- Quasi-Experimente: DiD/RDD
+- Bayesian Methods
+- SEMs & Survey Experiments
 
-**Weg 1: Markdown (Standard, kein Streamlit-Wissen nötig).**
-`content/projekte/_vorlage/` kopieren, `projekt.md` ausfüllen (Frontmatter:
-`titel`, `emoji`, `mitglieder`, `kurzbeschreibung`), Bilder mit in den Ordner
-legen und per `![Alt-Text](bild.png)` einbinden. Die Seite erscheint
-automatisch in der Navigation.
+Die übrigen Kapitel sind Teil der Einführung. Teamnahe Spezialthemen werden
+dort nur so weit behandelt, wie es für die gemeinsame begriffliche Grundlage
+nötig ist. Fertige Projektlösungen, Quizze und prüfungsartige Kontrollen sind
+nicht Bestandteil der Plattform.
 
-**Weg 2: eigene Streamlit-Seite.**
-Zusätzlich eine `app.py` in den Ordner legen; sie wird statt des Markdowns als
-Seite angezeigt. Regeln: kein `st.set_page_config()`, nur Pakete aus
-`requirements.txt`, Dateien relativ zum eigenen Ordner laden
-(`Path(__file__).parent / "daten.csv"`). Vorlage: `content/projekte/beispielprojekt/`.
+## Eine Team-App hinzufügen
 
-Fehler in einem Projektordner stoppen nie die ganze App; betroffene Seiten
-zeigen eine Fehlermeldung.
+**Streamlit ist der Standardmodus.** Der zu einem Track gehörige Ordner steht
+in dessen `project_path` in `content/themen.yaml`.
 
-## Neues Kapitel hinzufügen
+1. `content/projekte/_vorlage/` an diesen Pfad kopieren.
+2. `app.py` entlang der Abschnitte Fragestellung, Hintergrund, Annahmen,
+   interaktive Analyse, Ergebnisse, Grenzen und Literatur bearbeiten.
+3. Kein `st.set_page_config()` aufrufen und lokale Dateien relativ zu
+   `Path(__file__).parent` laden.
 
-1. Datei unter `views/ml/` bzw. `views/kausalitaet/` anlegen (Stubs zeigen das
-   Grundgerüst; `utils.theming` liefert `kapitel_kopf`, `merkkasten`, `quiz`).
-2. In `streamlit_app.py` als `st.Page` in der passenden Sektion registrieren.
-3. Seite in `tests/test_smoke.py` zur Liste `STATISCHE_SEITEN` hinzufügen.
+`projekt.md` bleibt als technischer Fallback möglich. Fehler in einer Team-App
+werden auf der betroffenen Track-Seite isoliert.
 
 ## Tests
 

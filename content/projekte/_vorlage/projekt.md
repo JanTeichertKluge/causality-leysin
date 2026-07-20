@@ -4,31 +4,24 @@ emoji: "🚀"
 mitglieder:
   - "Vorname N."
   - "Vorname N."
-kurzbeschreibung: "Ein Satz, der euer Projekt zusammenfasst (erscheint in der Galerie)."
+kurzbeschreibung: "Ein Satz, der Fragestellung und wissenschaftlichen Beitrag zusammenfasst."
 ---
 
-## Worum geht es?
+> Nutzt diese Datei für eure ersten Notizen oder als einfache Projektseite.
+> Sobald ihr eine `app.py` anlegt, erscheint stattdessen eure interaktive App.
 
-Beschreibt hier eure Fragestellung: Was wolltet ihr herausfinden, und warum
-ist das spannend?
+## 1. Fragestellung
 
-## Daten & Methode
+## 2. Wissenschaftlicher Hintergrund
 
-Welche Daten habt ihr benutzt? Welche Methoden (Regression, DAGs, DoubleML,
-…)? Codeblöcke gehen so:
+## 3. Kausale Annahmen oder Identifikationsproblem
 
-```python
-import pandas as pd
+## 4. Interaktive Analyse
 
-daten = pd.read_csv("beispiel.csv")
-```
+Hier könnt ihr zunächst statische Tabellen und Abbildungen dokumentieren.
 
-## Ergebnisse
+## 5. Ergebnisse
 
-Bilder legt ihr einfach mit in euren Projektordner:
+## 6. Grenzen
 
-<!-- ![Unser wichtigster Plot](ergebnis.png) -->
-
-## Fazit
-
-Was habt ihr gelernt? Was wäre der nächste Schritt?
+## 7. Literatur

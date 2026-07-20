@@ -3,14 +3,13 @@ titel: "Beispielprojekt: Würfeln mit dem Zufall"
 emoji: "🎲"
 mitglieder:
   - "Das Dozenten-Team"
-kurzbeschreibung: "Ein Mini-Beispiel, wie eine interaktive Projektseite (Weg 2, app.py) aussehen kann."
+kurzbeschreibung: "Ein kleines Beispiel dafür, wie ihr ein wissenschaftliches Prinzip mit wenigen Streamlit-Widgets sichtbar machen könnt."
 ---
 
-## Hinweis
+## So ist das Beispiel aufgebaut
 
-Dieses Projekt nutzt den **Python-Weg**: Im Ordner liegt eine `app.py`, die als
-Seite angezeigt wird. Dieses Markdown liefert nur die Metadaten für die
-Galerie (Titel, Emoji, Team, Kurzbeschreibung).
+Die interaktive Version findet ihr in `app.py`. Dieses Markdown hält Titel,
+Team und Kurzbeschreibung fest und kann zusätzlich für erste Notizen dienen.
 
-Löscht man die `app.py`, würde stattdessen dieser Markdown-Text als Seite
-gerendert; das ist der **Standard-Weg** für Gruppen ohne Streamlit-Ambitionen.
+Probiert in der App aus, wie sich die Verteilung der Mittelwerte verändert,
+wenn ihr mehr Würfel pro Wurf verwendet.

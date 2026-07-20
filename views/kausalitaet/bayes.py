@@ -11,13 +11,18 @@ import plotly.graph_objects as go
 import streamlit as st
 from scipy import stats
 
-from utils.theming import FARBEN, kapitel_kopf, merkkasten, quiz
+from utils.theming import FARBEN, kapitel_kopf, merkkasten, vertiefung_hinweis
 
 kapitel_kopf(
     "🎲",
     "Bayesian Methods",
     "Wissen als Wahrscheinlichkeit: Vorwissen einbauen, mit Daten aktualisieren",
 )
+
+vertiefung_hinweis("55–70 Minuten", [
+    "Prior, Likelihood und Posterior verbinden",
+    "bayesianische Unsicherheit und kausale Modellannahmen einordnen",
+])
 
 # ---------------------------------------------------------------- Intro
 st.markdown(
@@ -518,26 +523,6 @@ dem es etwas gelernt hat.
 """
 )
 
-quiz(
-    "Eine Vorhersage hat an zwei Stellen dieselbe Varianz. Bei x₁ stammt "
-    "sie fast ganz aus σ² (Rauschen), bei x₂ fast ganz aus dem "
-    "epistemischen Term. Wo verbessern zusätzliche Trainingsdaten die "
-    "Vorhersage?",
-    [
-        "Nur bei x₁",
-        "Nur bei x₂",
-        "Bei beiden gleichermaßen",
-        "Bei keiner von beiden",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Epistemische Unsicherheit ist Unwissen über das Modell und "
-        "schrumpft mit neuen Beobachtungen in der Nähe von x₂. "
-        "Aleatorische Unsicherheit ist echtes Rauschen im Prozess und "
-        "bleibt auch mit beliebig vielen Daten bestehen."
-    ),
-    key="quiz_kausal_bayes_unsicherheit",
-)
 
 # ---------------------------------------------------- Bezug zur Kausalität
 st.markdown("## Bezug zur Kausalinferenz")
@@ -578,25 +563,6 @@ merkkasten(
     typ="merke",
 )
 
-# ------------------------------------------------------------------ Quiz
-quiz(
-    "Ein 95 %-Credible-Interval für θ ist [0,55; 0,80]. Welche Aussage ist "
-    "korrekt?",
-    [
-        "In 95 % aller Wiederholungen der Studie läge das Intervall um das wahre θ",
-        "Gegeben Daten und Prior liegt θ mit 95 % Wahrscheinlichkeit zwischen 0,55 und 0,80",
-        "95 % der Patient:innen sprechen auf die Therapie an",
-        "Das wahre θ ist sicher größer als 0,5",
-    ],
-    richtig=1,
-    erklaerung=(
-        "Genau das ist der Charme des bayesianischen Intervalls: eine direkte "
-        "Wahrscheinlichkeitsaussage über den Parameter. Das frequentistische "
-        "Konfidenzintervall macht dagegen die Aussage aus Option A, also über das "
-        "Verfahren, nicht über θ."
-    ),
-    key="quiz_kausal_bayes",
-)
 
 # -------------------------------------------------------------- Ausblick
 st.markdown("## Weiterführende Literatur")

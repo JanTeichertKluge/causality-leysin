@@ -1,90 +1,71 @@
-"""Projektgalerie: alle Gruppenprojekte + Anleitung zum Mitmachen."""
+"""Organisatorische Übersicht für die Arbeit an den Team-Apps."""
 
 import streamlit as st
 
-from utils.projects import lade_projekte
 from utils.theming import kapitel_kopf, merkkasten
 
 kapitel_kopf(
     "🗂️",
-    "Gruppenprojekte",
-    "Eigene Themen, erkundet in Python, von den Gruppen der Akademie",
+    "Euer Gruppenprojekt",
+    "Von einer klaren Frage zu einer interaktiven wissenschaftlichen Analyse",
 )
 
 st.markdown(
     """
-Während der Akademie arbeitet ihr in Gruppen an eigenen Fragestellungen rund
-um Maschinelles Lernen und Kausalität. Jede Gruppe bekommt hier eine eigene
-Seite, die Galerie unten füllt sich im Lauf der Akademie.
+Auf eurer Track-Seite findet ihr die Quellen für den ersten Einstieg. Nutzt
+sie, um zentrale Begriffe, Methoden und offene Fragen zu sammeln. Vor Ort
+grenzt ihr daraus eine eigene Fragestellung ab und setzt sie als interaktive
+**Streamlit-App** um. Eure App soll nicht das gesamte Themenfeld erklären,
+sondern eine wissenschaftliche Aussage anhand von Daten, einer Simulation
+oder einer Fallstudie nachvollziehbar machen.
 """
 )
 
-st.page_link(
-    "views/projekte/themen.py",
-    label="Welche Themen stehen zur Wahl? Zu den Themen der Gruppenarbeiten",
-    icon="🧭",
+st.markdown("## Daran könnt ihr euch orientieren")
+st.markdown(
+    """
+1. Fragestellung
+2. wissenschaftlicher Hintergrund
+3. kausale Annahmen oder Identifikationsproblem
+4. interaktive Analyse
+5. Ergebnisse
+6. Grenzen
+7. Literatur
+"""
 )
 
-projekte = lade_projekte()
-seiten_map = st.session_state.get("projekt_seiten", {})
-
-if not projekte:
-    st.info("Noch keine Projekte eingereicht. Die Galerie füllt sich während der Akademie.")
-else:
-    for zeile_start in range(0, len(projekte), 3):
-        spalten = st.columns(3)
-        for spalte, projekt in zip(spalten, projekte[zeile_start : zeile_start + 3]):
-            with spalte, st.container(border=True):
-                st.markdown(f"### {projekt.emoji} {projekt.titel}")
-                if projekt.kurzbeschreibung:
-                    st.markdown(projekt.kurzbeschreibung)
-                if projekt.mitglieder:
-                    st.caption("Team: " + ", ".join(projekt.mitglieder))
-                if projekt.fehler:
-                    st.warning(projekt.fehler)
-                seite = seiten_map.get(projekt.slug)
-                if seite is not None:
-                    st.page_link(seite, label="Zur Projektseite", icon="▶️")
-
-st.markdown("## So kommt euer Projekt auf die Website")
-
-with st.expander("Weg 1 (Standard): Markdown-Datei, kein Streamlit-Wissen nötig"):
+with st.expander("So startet ihr eure Streamlit-App", expanded=True):
     st.markdown(
         """
-1. Kopiert den Ordner `content/projekte/_vorlage/` und benennt ihn nach eurem
-   Projekt, z. B. `content/projekte/gletscher-gang/` (Kleinbuchstaben,
-   Bindestriche statt Leerzeichen).
-2. Füllt die `projekt.md` aus: oben im **Frontmatter** stehen Titel, Emoji,
-   Teammitglieder und eine Kurzbeschreibung, darunter schreibt ihr ganz
-   normales Markdown.
-3. Bilder (Plots, Screenshots) legt ihr einfach mit in euren Ordner und bindet
-   sie mit `![Beschreibung](mein-plot.png)` ein.
-4. Änderungen als Pull Request einreichen. Nach dem Merge erscheint eure
-   Seite automatisch in der Navigation.
+1. Sucht auf eurer Track-Seite den angegebenen Arbeitsordner und kopiert
+   `content/projekte/_vorlage/` dorthin.
+2. Öffnet `app.py` und ersetzt die Beispieltexte und -grafik schrittweise
+   durch eure Analyse.
+3. Ruft in eurer Datei kein `st.set_page_config()` auf. Verwendet nur Pakete aus
+   `requirements.txt` und ladet Dateien über `Path(__file__).parent`.
+4. Startet die Website lokal mit `streamlit run streamlit_app.py` und prüft
+   eure Änderungen direkt auf der Track-Seite.
 """
     )
 
-with st.expander("Weg 2 (Kür): eigene interaktive Streamlit-Seite"):
+with st.expander("Falls ihr zunächst nur mit Markdown arbeiten möchtet"):
     st.markdown(
         """
-Ihr wollt Slider, Live-Plots und eigene Widgets? Legt **zusätzlich** zur
-`projekt.md` eine `app.py` in euren Ordner, dann wird diese als Seite
-angezeigt (die `projekt.md` liefert weiterhin Titel & Infos für diese
-Galerie). Schaut euch das **Beispielprojekt** als Vorlage an.
-
-**Spielregeln für `app.py`:**
-
-- Kein `st.set_page_config()` aufrufen, das erledigt die Haupt-App bereits.
-- Nur Pakete aus `requirements.txt` verwenden (numpy, pandas, plotly,
-  scikit-learn). Braucht ihr mehr, sprecht uns an.
-- Dateien (Daten, Bilder) relativ zu eurem Ordner laden, z. B. mit
-  `Path(__file__).parent / "daten.csv"`.
+Ihr könnt eure Inhalte vorübergehend in `projekt.md` festhalten. Sobald eine
+`app.py` in eurem Arbeitsordner liegt, wird die interaktive Version angezeigt.
+Am Ende präsentiert ihr eure Ergebnisse gemeinsam als Streamlit-App.
 """
     )
 
 merkkasten(
     "Keine Sorge vor Fehlern",
-    "Ein Fehler in eurem Projekt legt nie die ganze Website lahm. Schlimmstenfalls "
-    "zeigt eure Seite eine Fehlermeldung, und wir beheben das gemeinsam.",
+    "Wenn eure App einmal nicht läuft, bleiben alle anderen Seiten erreichbar. "
+    "Auf eurer Track-Seite seht ihr die Fehlermeldung und könnt sie gemeinsam "
+    "mit uns Schritt für Schritt beheben.",
     typ="merke",
 )
+
+st.page_link("views/projekte/themen.py", label="Track auswählen", icon="🧭")
+example_page = st.session_state.get("projekt_seiten", {}).get("beispielprojekt")
+if example_page is not None:
+    st.page_link(example_page, label="So kann eine kleine Streamlit-App aussehen", icon="🎲")

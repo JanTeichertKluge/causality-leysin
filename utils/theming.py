@@ -81,18 +81,28 @@ def merkkasten(titel: str, text: str, typ: str = "merke") -> None:
     )
 
 
-def quiz(frage: str, optionen: list[str], richtig: int, erklaerung: str, key: str) -> None:
-    """Kleines Verständnis-Quiz: Radio-Auswahl mit sofortigem Feedback."""
-    st.markdown(f"#### Verständnisfrage: {frage}")
-    antwort = st.radio(
-        frage, optionen, index=None, key=key, label_visibility="collapsed"
-    )
-    if antwort is None:
-        return
-    if optionen.index(antwort) == richtig:
-        st.success(f"**Richtig!** {erklaerung}")
-    else:
-        st.error("Nicht ganz. Überlege noch einmal und wähle neu.")
+def vertiefung_hinweis(zeit: str, lernziele: list[str]) -> None:
+    """Orientiert Teilnehmende in einem freiwilligen Kapitel."""
+    st.caption(f"📎 Optional zum Vertiefen · ungefähr {zeit}")
+    with st.expander("Das kannst du hier mitnehmen"):
+        for lernziel in lernziele:
+            st.markdown(f"- {lernziel}")
+
+
+def einfuehrung_hinweis(zeit: str, lernziele: list[str]) -> None:
+    """Gibt Teilnehmenden Zeitrahmen und Orientierung für ein Einführungskapitel."""
+    st.caption(f"🧭 Gemeinsamer Einstieg · ungefähr {zeit}")
+    with st.expander("Darauf achtest du in diesem Kapitel"):
+        for lernziel in lernziele:
+            st.markdown(f"- {lernziel}")
+
+
+def lehrpfad_kontext(leitfrage: str, anschluss: str, abgrenzung: str) -> None:
+    """Spricht Teilnehmende vor einem Einführungskapitel direkt an."""
+    st.markdown("#### Dein Fokus")
+    st.markdown(f"**Leitfrage:** {leitfrage}")
+    st.markdown(f"**Daran knüpfst du an:** {anschluss}")
+    st.info(f"**Behalte im Blick:** {abgrenzung}")
 
 
 def stub_seite(emoji: str, titel: str, punkte: list[str]) -> None:
