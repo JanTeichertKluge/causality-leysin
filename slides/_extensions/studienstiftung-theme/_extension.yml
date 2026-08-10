@@ -1,0 +1,50 @@
+title: studienstiftung-theme
+author: Oliver Schacht und Jan Teichert-Kluge
+version: 1.0.0
+quarto-required: ">=1.1.0"
+contributes:
+  formats:
+    html:
+      toc: true
+      theme: [default, theme_html.scss]
+      css: [theme_html.scss]
+      resources: 
+        - ./assets/fonts/Regular.ttf
+        - ./assets/fonts/Bold.ttf
+        - ./assets/fonts/RegularItalic.ttf
+        - ./assets/fonts/BoldItalic.ttf
+        - ./assets/fonts/BoldCaps.ttf
+        - ./assets/fonts/SemiLightCaps.ttf
+      
+    revealjs:
+      toc: true
+      theme: [default, theme_revealjs.scss]
+      controls: true
+      transition: slide
+      background-transition: fade
+      highlight-style: github
+      css: [theme_revealjs.scss]
+      footer: "Studienstiftung des deutschen Volkes, Sommerakademie Leysin"
+      title-slide-attributes: 
+        data-background-image: ./assets/logo.svg
+        data-background-size: 30%
+        data-background-position: 98% 2%
+      date-format: "D MMM YYYY"
+      chalkboard: # enables chalkboard see https://rajgoel.github.io/reveal.js-demos/chalkboard-demo.html#/
+        boardmarker-width: 5
+        theme: "chalkboard"
+      menu: true
+      slide-number: c
+      preview-links: true
+      scrollable: true
+      code-fold: true
+      resources: 
+        - ./assets/fonts/Regular.ttf
+        - ./assets/fonts/Bold.ttf
+        - ./assets/fonts/RegularItalic.ttf
+        - ./assets/fonts/BoldItalic.ttf
+        - ./assets/fonts/BoldCaps.ttf
+        - ./assets/fonts/SemiLightCaps.ttf
+
+
+

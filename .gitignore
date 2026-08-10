@@ -20,3 +20,6 @@ Thumbs.db
 
 references/
 Lecture/
+
+/.quarto/
+**/*.quarto_ipynb

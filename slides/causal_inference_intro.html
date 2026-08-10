@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<script src="causal_inference_intro_files/libs/clipboard/clipboard.min.js"></script>
+<script src="causal_inference_intro_files/libs/quarto-html/tabby.min.js"></script>
+<script src="causal_inference_intro_files/libs/quarto-html/popper.min.js"></script>
+<script src="causal_inference_intro_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="causal_inference_intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="causal_inference_intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="causal_inference_intro_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge">
+  <title>Kausale Inferenz</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="causal_inference_intro_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="causal_inference_intro_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="causal_inference_intro_files/libs/revealjs/dist/theme/quarto-331051d76a89ac140b3aa95b2c0a6cec.css">
+  <link rel="stylesheet" href="_extensions/studienstiftung-theme/theme_revealjs.scss">
+  <link href="causal_inference_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="causal_inference_intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="causal_inference_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="causal_inference_intro_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="causal_inference_intro_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="causal_inference_intro_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="causal_inference_intro_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="_extensions/studienstiftung-theme/assets/logo.svg" data-background-position="98% 2%" data-background-size="30%" class="quarto-title-block center">
+  <h1 class="title">Kausale Inferenz</h1>
+  <p class="subtitle">Von beobachteten Mustern zu begründeten Interventionen</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
+</div>
+        <p class="quarto-title-affiliation">
+            Sommerakademie der Studienstiftung des deutschen Volkes
+          </p>
+    </div>
+</div>
+
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Inhaltsverzeichnis</h2>
+<ul>
+<li><a href="#/einstieg" id="/toc-einstieg">Einstieg</a>
+<ul>
+<li><a href="#/eine-frage-zwei-mögliche-antworten" id="/toc-eine-frage-zwei-mögliche-antworten">Eine Frage, zwei mögliche Antworten</a></li>
+<li><a href="#/ziel-der-sitzung" id="/toc-ziel-der-sitzung">Ziel der Sitzung</a></li>
+<li><a href="#/fahrplan-für-90-minuten" id="/toc-fahrplan-für-90-minuten">Fahrplan für 90 Minuten</a></li>
+<li><a href="#/notation" id="/toc-notation">Notation</a></li>
+</ul></li>
+<li><a href="#/i.-von-mustern-zu-interventionen" id="/toc-i.-von-mustern-zu-interventionen">I. Von Mustern zu Interventionen</a>
+<ul>
+<li><a href="#/drei-fragen-drei-verschiedene-aufgaben" id="/toc-drei-fragen-drei-verschiedene-aufgaben">Drei Fragen — drei verschiedene Aufgaben</a></li>
+<li><a href="#/beobachten-ist-nicht-eingreifen" id="/toc-beobachten-ist-nicht-eingreifen">Beobachten ist nicht Eingreifen</a></li>
+<li><a href="#/ein-gemeinsamer-treiber-erzeugt-einen-scheinbaren-effekt" id="/toc-ein-gemeinsamer-treiber-erzeugt-einen-scheinbaren-effekt">Ein gemeinsamer Treiber erzeugt einen scheinbaren Effekt</a></li>
+<li><a href="#/live-demo-1-confounder-simulator" id="/toc-live-demo-1-confounder-simulator">Live-Demo 1: Confounder-Simulator</a></li>
+<li><a href="#/omitted-variable-bias-was-die-naive-regression-lernt" id="/toc-omitted-variable-bias-was-die-naive-regression-lernt">Omitted Variable Bias: Was die naive Regression lernt</a></li>
+<li><a href="#/simpson-paradox-der-aggregattrend-kann-täuschen" id="/toc-simpson-paradox-der-aggregattrend-kann-täuschen">Simpson-Paradox: Der Aggregattrend kann täuschen</a></li>
+<li><a href="#/erste-zwischenbilanz" id="/toc-erste-zwischenbilanz">Erste Zwischenbilanz</a></li>
+</ul></li>
+<li><a href="#/ii.-was-ist-ein-kausaler-effekt" id="/toc-ii.-was-ist-ein-kausaler-effekt">II. Was ist ein kausaler Effekt?</a>
+<ul>
+<li><a href="#/zwei-mögliche-welten-derselben-einheit" id="/toc-zwei-mögliche-welten-derselben-einheit">Zwei mögliche Welten derselben Einheit</a></li>
+<li><a href="#/die-orakeltabelle-wenn-beide-welten-sichtbar-wären" id="/toc-die-orakeltabelle-wenn-beide-welten-sichtbar-wären">Die Orakeltabelle: Wenn beide Welten sichtbar wären</a></li>
+<li><a href="#/das-beobachtete-outcome-und-das-fundamentale-problem" id="/toc-das-beobachtete-outcome-und-das-fundamentale-problem">Das beobachtete Outcome und das fundamentale Problem</a></li>
+<li><a href="#/von-individuellen-zu-durchschnittlichen-effekten" id="/toc-von-individuellen-zu-durchschnittlichen-effekten">Von individuellen zu durchschnittlichen Effekten</a></li>
+<li><a href="#/warum-die-beobachtete-gruppendifferenz-nicht-genügt" id="/toc-warum-die-beobachtete-gruppendifferenz-nicht-genügt">Warum die beobachtete Gruppendifferenz nicht genügt</a></li>
+<li><a href="#/denkpause-welcher-vergleich-fehlt" id="/toc-denkpause-welcher-vergleich-fehlt">Denkpause: Welcher Vergleich fehlt?</a></li>
+<li><a href="#/fünf-begriffe-eine-logische-reihenfolge" id="/toc-fünf-begriffe-eine-logische-reihenfolge">Fünf Begriffe, eine logische Reihenfolge</a></li>
+</ul></li>
+<li><a href="#/iii.-der-zuteilungsmechanismus-entscheidet" id="/toc-iii.-der-zuteilungsmechanismus-entscheidet">III. Der Zuteilungsmechanismus entscheidet</a>
+<ul>
+<li><a href="#/zwei-studien-dieselbe-medizin-andere-schlussfolgerung" id="/toc-zwei-studien-dieselbe-medizin-andere-schlussfolgerung">Zwei Studien, dieselbe Medizin, andere Schlussfolgerung</a></li>
+<li><a href="#/live-demo-2-warum-randomisierung-hilft" id="/toc-live-demo-2-warum-randomisierung-hilft">Live-Demo 2: Warum Randomisierung hilft</a></li>
+<li><a href="#/randomisierung-liefert-ein-glaubwürdiges-kontrafaktual" id="/toc-randomisierung-liefert-ein-glaubwürdiges-kontrafaktual">Randomisierung liefert ein glaubwürdiges Kontrafaktual</a></li>
+<li><a href="#/was-randomisierung-leistet-und-was-nicht" id="/toc-was-randomisierung-leistet-und-was-nicht">Was Randomisierung leistet — und was nicht</a></li>
+<li><a href="#/wenn-keine-randomisierung-möglich-ist" id="/toc-wenn-keine-randomisierung-möglich-ist">Wenn keine Randomisierung möglich ist</a></li>
+</ul></li>
+<li><a href="#/iv.-dags-annahmen-sichtbar-machen" id="/toc-iv.-dags-annahmen-sichtbar-machen">IV. DAGs: Annahmen sichtbar machen</a>
+<ul>
+<li><a href="#/ein-dag-ist-eine-sprache-für-annahmen" id="/toc-ein-dag-ist-eine-sprache-für-annahmen">Ein DAG ist eine Sprache für Annahmen</a></li>
+<li><a href="#/drei-rollen-einer-beobachteten-variable" id="/toc-drei-rollen-einer-beobachteten-variable">Drei Rollen einer beobachteten Variable</a></li>
+<li><a href="#/confounder-den-backdoor-pfad-schließen" id="/toc-confounder-den-backdoor-pfad-schließen">Confounder: Den Backdoor-Pfad schließen</a></li>
+<li><a href="#/die-adjustierungsformel" id="/toc-die-adjustierungsformel">Die Adjustierungsformel</a></li>
+<li><a href="#/mediator-adjustierung-kann-die-forschungsfrage-ändern" id="/toc-mediator-adjustierung-kann-die-forschungsfrage-ändern">Mediator: Adjustierung kann die Forschungsfrage ändern</a></li>
+<li><a href="#/collider-adjustierung-kann-bias-erzeugen" id="/toc-collider-adjustierung-kann-bias-erzeugen">Collider: Adjustierung kann Bias erzeugen</a></li>
+<li><a href="#/live-demo-3-die-rolle-von-w-prüfen" id="/toc-live-demo-3-die-rolle-von-w-prüfen">Live-Demo 3: Die Rolle von <span class="math inline">\(W\)</span> prüfen</a></li>
+<li><a href="#/drei-annahmen-hinter-einer-adjustierungsanalyse" id="/toc-drei-annahmen-hinter-einer-adjustierungsanalyse">Drei Annahmen hinter einer Adjustierungsanalyse</a></li>
+<li><a href="#/mini-fall-welche-variable-gehört-in-die-adjustierung" id="/toc-mini-fall-welche-variable-gehört-in-die-adjustierung">Mini-Fall: Welche Variable gehört in die Adjustierung?</a></li>
+</ul></li>
+<li><a href="#/ausblick-fünf-vertiefungen" id="/toc-ausblick-fünf-vertiefungen">Ausblick: fünf Vertiefungen</a>
+<ul>
+<li><a href="#/causal-discovery-welche-graphen-passen-zu-den-daten" id="/toc-causal-discovery-welche-graphen-passen-zu-den-daten">1. Causal Discovery: Welche Graphen passen zu den Daten?</a></li>
+<li><a href="#/difference-in-differences-ein-kontrafaktual-über-zeit" id="/toc-difference-in-differences-ein-kontrafaktual-über-zeit">2. Difference-in-Differences: Ein Kontrafaktual über Zeit</a></li>
+<li><a href="#/regression-discontinuity-das-lokale-experiment-am-cutoff" id="/toc-regression-discontinuity-das-lokale-experiment-am-cutoff">3. Regression Discontinuity: Das lokale Experiment am Cutoff</a></li>
+<li><a href="#/causal-ml-flexible-adjustierung-ist-keine-identifikation" id="/toc-causal-ml-flexible-adjustierung-ist-keine-identifikation">4. Causal ML: Flexible Adjustierung ist keine Identifikation</a></li>
+<li><a href="#/bayesianische-methoden-annahmen-und-unsicherheit-explizit-machen" id="/toc-bayesianische-methoden-annahmen-und-unsicherheit-explizit-machen">5. Bayesianische Methoden: Annahmen und Unsicherheit explizit machen</a></li>
+</ul></li>
+<li><a href="#/abschluss" id="/toc-abschluss">Abschluss</a>
+<ul>
+<li><a href="#/die-vier-sätze-die-jede-kausale-analyse-tragen" id="/toc-die-vier-sätze-die-jede-kausale-analyse-tragen">Die vier Sätze, die jede kausale Analyse tragen</a></li>
+<li><a href="#/weiterarbeiten-mit-den-apps" id="/toc-weiterarbeiten-mit-den-apps">Weiterarbeiten mit den Apps</a></li>
+</ul></li>
+</ul>
+</nav>
+</section>
+<section>
+<section id="einstieg" class="title-slide slide level1 center">
+<h1>Einstieg</h1>
+
+</section>
+<section id="eine-frage-zwei-mögliche-antworten" class="slide level2">
+<h2>Eine Frage, zwei mögliche Antworten</h2>
+<blockquote>
+<p><strong>Soll ein Arbeitsmarktprogramm zur Weiterbildung ausgebaut werden?</strong></p>
+</blockquote>
+<p>Nach Abschluss des Programms erzielen Teilnehmende im Mittel höhere Löhne als Nicht-Teilnehmende.</p>
+<div class="fragment">
+<p>Ist das Programm wirksam — oder nehmen vor allem Personen teil, die ohnehin bessere Voraussetzungen mitbringen?</p>
+</div>
+<aside class="notes">
+<p>Zeit: 0–4 Minuten. Zunächst nur Handzeichen oder kurze Abstimmung: Wer würde auf Basis dieser Zahl ausbauen? Dann die Gegenfrage stellen. Die ganze Vorlesung liefert eine präzise Sprache für genau diesen Zweifel.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ziel-der-sitzung" class="slide level2 scrollable">
+<h2>Ziel der Sitzung</h2>
+<p>Am Ende könnt ihr eine einfache kausale Behauptung fachlich sauber zerlegen:</p>
+<ol type="1">
+<li><strong>Kausale Frage:</strong> Welche Intervention interessiert uns?</li>
+<li><strong>Estimand:</strong> Welchen Effekt wollen wir definieren?</li>
+<li><strong>Identifikation:</strong> Warum liefert unser Vergleich ein glaubwürdiges Kontrafaktual?</li>
+<li><strong>Schätzung:</strong> Wie berechnen wir den Effekt und seine Unsicherheit?</li>
+</ol>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Kausale Inferenz ist kein Verfahren, das man auf einen Datensatz „anwendet“. Sie ist eine Argumentation darüber, <strong>welcher Vergleich</strong> eine Intervention abbildet.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="fahrplan-für-90-minuten" class="slide level2">
+<h2>Fahrplan für 90 Minuten</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Zeit</th>
+<th>Leitfrage</th>
+<th>Baustein</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0–20 min</td>
+<td>Warum genügt ein Muster nicht?</td>
+<td>Korrelation, Confounding, Simpson-Paradox</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20–43 min</td>
+<td>Was genau ist ein kausaler Effekt?</td>
+<td>Potential Outcomes, ATE, Kontrafaktual</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">43–58 min</td>
+<td>Wann wird ein Gruppenvergleich kausal?</td>
+<td>Zuteilungsmechanismus, Randomisierung</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">58–78 min</td>
+<td>Welche Variablen dürfen wir kontrollieren?</td>
+<td>DAGs, Adjustierung, Annahmen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">78–90 min</td>
+<td>Welche Werkzeuge vertiefen das?</td>
+<td>Fünf Themen der Arbeitsgruppe</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Ankündigen: Die drei ersten Blöcke folgen unmittelbar den drei interaktiven Streamlit-Seiten. Jeweils zuerst eine Vorhersage der Gruppe einholen, dann die Simulation öffnen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="notation" class="slide level2">
+<h2>Notation</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(D_i\in\{0,1\}\)</span></td>
+<td>Treatment/Intervention für Einheit <span class="math inline">\(i\)</span>; <span class="math inline">\(D_i=1\)</span> behandelt</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Y_i\)</span></td>
+<td>beobachtetes Outcome</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Z_i\)</span></td>
+<td>vor dem Treatment gemessene gemeinsame Ursache (<em>Confounder</em>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Y_i(1),\;Y_i(0)\)</span></td>
+<td>potenzielle Outcomes mit bzw. ohne Treatment</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tau\)</span></td>
+<td>kausaler Effekt von <span class="math inline">\(D\)</span> auf <span class="math inline">\(Y\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Wir verwenden <span class="math inline">\(D\)</span> für das Treatment und <span class="math inline">\(Y\)</span> für das Outcome. In den Apps taucht dieselbe Rolle teilweise als <span class="math inline">\(X\)</span> auf.</p>
+</section></section>
+<section>
+<section id="i.-von-mustern-zu-interventionen" class="title-slide slide level1 center">
+<h1>I. Von Mustern zu Interventionen</h1>
+
+</section>
+<section id="drei-fragen-drei-verschiedene-aufgaben" class="slide level2">
+<h2>Drei Fragen — drei verschiedene Aufgaben</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Perspektive</th>
+<th>Frage</th>
+<th>Typische Größe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Vorhersage</strong></td>
+<td>Wie gut lässt sich <span class="math inline">\(Y\)</span> prognostizieren?</td>
+<td><span class="math inline">\(\widehat{Y}=f(X)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Assoziation</strong></td>
+<td>Wie unterscheiden sich beobachtete Gruppen?</td>
+<td><span class="math inline">\(E[Y\mid D=d]\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Kausalität</strong></td>
+<td>Was geschieht, wenn wir <span class="math inline">\(D\)</span> setzen?</td>
+<td><span class="math inline">\(E[Y\mid \operatorname{do}(D=d)]\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Die ersten beiden Fragen sind wichtig. Sie beantworten aber noch nicht, was eine <strong>Intervention</strong> bewirkt.</p>
+</div>
+</section>
+<section id="beobachten-ist-nicht-eingreifen" class="slide level2">
+<h2>Beobachten ist nicht Eingreifen</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<h3 id="beobachtung">Beobachtung</h3>
+<p><span class="math display">\[E[Y\mid D=1]\]</span></p>
+<p>Wir betrachten Einheiten, die behandelt <strong>wurden</strong>. Ihre Behandlung kann mit ihren Voraussetzungen zusammenhängen.</p>
+</div><div class="column" style="width:48%;">
+<h3 id="intervention">Intervention</h3>
+<p><span class="math display">\[E[Y\mid \operatorname{do}(D=1)]\]</span></p>
+<p>Wir stellen uns vor, dass wir das Treatment <strong>zuweisen</strong> und sonst nichts an der Population verändern.</p>
+</div></div>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Confounding liegt vor, wenn Beobachtung und Intervention verschiedene Verteilungen erzeugen. Dann ist <span class="math inline">\(E[Y\mid D=d]\)</span> kein Interventionseffekt.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ein-gemeinsamer-treiber-erzeugt-einen-scheinbaren-effekt" class="slide level2">
+<h2>Ein gemeinsamer Treiber erzeugt einen scheinbaren Effekt</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  Z["Sonnenstunden Z"] --&gt; D["Eisverkauf D"]
+  Z --&gt; Y["Sonnenbrände Y"]
+  D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Der Pfeil <span class="math inline">\(D\rightarrow Y\)</span> ist die Frage, die uns interessiert. Der Pfad</p>
+<p><span class="math display">\[D \leftarrow Z \rightarrow Y\]</span></p>
+<p>liefert jedoch zusätzlich eine <strong>nicht-kausale Assoziation</strong>: An sonnigen Tagen sind Eisverkauf und Sonnenbrände beide hoch — auch wenn Eis keinen Sonnenbrand verursacht.</p>
+</section>
+<section id="live-demo-1-confounder-simulator" class="slide level2">
+<h2>Live-Demo 1: Confounder-Simulator</h2>
+<p>In der App <em>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</em> wird diese Datenwelt simuliert:</p>
+<p><span class="math display">\[
+D=aZ+\varepsilon_D,
+\qquad
+Y=\tau D+bZ+\varepsilon_Y.
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\tau\)</span> (in der App: <span class="math inline">\(c\)</span>) ist der <strong>wahre kausale Effekt</strong>.</li>
+<li>Setzt zuerst <span class="math inline">\(\tau=0\)</span>.</li>
+<li>Erhöht dann <span class="math inline">\(a\)</span> und <span class="math inline">\(b\)</span>.</li>
+</ul>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Vorhersage:</strong> Was passiert mit der einfachen Regressionsgeraden von <span class="math inline">\(Y\)</span> auf <span class="math inline">\(D\)</span>? Und was ändert sich, wenn wir für <span class="math inline">\(Z\)</span> adjustieren?</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei tau/c = 0 und a=b=1,2 wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="omitted-variable-bias-was-die-naive-regression-lernt" class="slide level2">
+<h2>Omitted Variable Bias: Was die naive Regression lernt</h2>
+<p>Wenn <span class="math inline">\(Z\)</span> sowohl <span class="math inline">\(D\)</span> als auch <span class="math inline">\(Y\)</span> beeinflusst, gilt im linearen Modell:</p>
+<p><span class="math display">\[
+\underbrace{\beta_{\mathrm{naiv}}}_{Y\sim D}
+=
+\underbrace{\tau}_{\text{gesuchter Effekt}}
++
+\underbrace{b\frac{\operatorname{Cov}(D,Z)}{\operatorname{Var}(D)}}_{\text{Bias durch }Z}.
+\]</span></p>
+<p>Die Regression ist nicht „schlecht gerechnet“. Sie beantwortet schlicht eine andere Frage: den beobachteten Zusammenhang zwischen <span class="math inline">\(D\)</span> und <span class="math inline">\(Y\)</span>.</p>
+<div class="fragment">
+<p><strong>Wichtige Konsequenz:</strong> Mehr Daten beseitigen systematischen Bias nicht. Sie machen eine verzerrte Schätzung nur präziser.</p>
+</div>
+</section>
+<section id="simpson-paradox-der-aggregattrend-kann-täuschen" class="slide level2">
+<h2>Simpson-Paradox: Der Aggregattrend kann täuschen</h2>
+<p>In der zweiten Demo der App betrachten wir Weiterbildung und Gehalt.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Erfahrungsgruppe</th>
+<th style="text-align: right;">Typische Weiterbildungsstunden</th>
+<th style="text-align: right;">Typisches Gehalt</th>
+<th>Zusammenhang innerhalb der Gruppe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–3 Jahre</td>
+<td style="text-align: right;">hoch</td>
+<td style="text-align: right;">niedrig</td>
+<td>positiv</td>
+</tr>
+<tr class="even">
+<td>4–10 Jahre</td>
+<td style="text-align: right;">mittel</td>
+<td style="text-align: right;">mittel</td>
+<td>positiv</td>
+</tr>
+<tr class="odd">
+<td>&gt;10 Jahre</td>
+<td style="text-align: right;">niedrig</td>
+<td style="text-align: right;">hoch</td>
+<td>positiv</td>
+</tr>
+<tr class="even">
+<td><strong>Alle zusammen</strong></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>kann <strong>negativ</strong> sein</td>
+</tr>
+</tbody>
+</table>
+<p>Die Berufserfahrung <span class="math inline">\(Z\)</span> beeinflusst zugleich Weiterbildung <span class="math inline">\(D\)</span> und Gehalt <span class="math inline">\(Y\)</span>.</p>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Erst den Gesamttrend zeigen, dann in der App nach Erfahrungsgruppen aufschlüsseln. Die Frage ist nicht: „Welcher Plot ist schöner?“, sondern: <strong>Welche Vergleiche beantworten die kausale Frage?</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="erste-zwischenbilanz" class="slide level2">
+<h2>Erste Zwischenbilanz</h2>
+<p>Ein statistischer Zusammenhang kann</p>
+<ul>
+<li>durch einen gemeinsamen Treiber entstehen,</li>
+<li>nach einer sinnvollen Aufschlüsselung schwächer, stärker oder gegenläufig sein,</li>
+<li>für Vorhersage nützlich sein und dennoch kein Interventionseffekt sein.</li>
+</ul>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Die Daten allein sagen nicht, welche Variablen verglichen oder kontrolliert werden sollen. Dafür brauchen wir ein Modell darüber, <strong>wie die Daten entstanden sind</strong>.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="ii.-was-ist-ein-kausaler-effekt" class="title-slide slide level1 center">
+<h1>II. Was ist ein kausaler Effekt?</h1>
+
+</section>
+<section id="zwei-mögliche-welten-derselben-einheit" class="slide level2">
+<h2>Zwei mögliche Welten derselben Einheit</h2>
+<p>Für eine Person <span class="math inline">\(i\)</span> definieren wir zwei potenzielle Outcomes:</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<h3 id="mit-treatment">Mit Treatment</h3>
+<p><span class="math display">\[Y_i(1)\]</span></p>
+<p>Outcome, falls Person <span class="math inline">\(i\)</span> behandelt würde.</p>
+</div><div class="column" style="width:48%;">
+<h3 id="ohne-treatment">Ohne Treatment</h3>
+<p><span class="math display">\[Y_i(0)\]</span></p>
+<p>Outcome, falls <strong>dieselbe</strong> Person <span class="math inline">\(i\)</span> nicht behandelt würde.</p>
+</div></div>
+<p>Der individuelle kausale Effekt ist</p>
+<p><span class="math display">\[\tau_i=Y_i(1)-Y_i(0).\]</span></p>
+<aside class="notes">
+<p>Zeit: 20–24 Minuten. Die Betonung liegt auf „derselben Person, gleicher Zeitpunkt, andere Behandlung“; nicht auf zwei unterschiedlichen Personen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="die-orakeltabelle-wenn-beide-welten-sichtbar-wären" class="slide level2">
+<h2>Die Orakeltabelle: Wenn beide Welten sichtbar wären</h2>
+<p>Beispiel aus der App: Ein Medikament soll einen Gesundheits-Score verbessern.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Person</th>
+<th style="text-align: right;"><span class="math inline">\(Y_i(0)\)</span> ohne Behandlung</th>
+<th style="text-align: right;"><span class="math inline">\(Y_i(1)\)</span> mit Behandlung</th>
+<th style="text-align: right;"><span class="math inline">\(\tau_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">+15</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">+12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">+10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">+12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+</tr>
+</tbody>
+</table>
+<p>Mit einem Orakel könnten wir für jede Person eine Differenz bilden und dann mitteln.</p>
+<div class="fragment">
+<p>In einer realen Studie existiert für jede Person jedoch nur <strong>eine</strong> beobachtete Welt.</p>
+</div>
+</section>
+<section id="das-beobachtete-outcome-und-das-fundamentale-problem" class="slide level2">
+<h2>Das beobachtete Outcome und das fundamentale Problem</h2>
+<p><span class="math display">\[
+Y_i=D_iY_i(1)+(1-D_i)Y_i(0).
+\]</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Treatmentstatus</th>
+<th>Beobachtbar</th>
+<th>Kontrafaktisch, also nicht beobachtbar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(D_i=1\)</span></td>
+<td><span class="math inline">\(Y_i(1)\)</span></td>
+<td><span class="math inline">\(Y_i(0)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(D_i=0\)</span></td>
+<td><span class="math inline">\(Y_i(0)\)</span></td>
+<td><span class="math inline">\(Y_i(1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Für dieselbe Einheit zur selben Zeit sehen wir nie <span class="math inline">\(Y_i(1)\)</span> <strong>und</strong> <span class="math inline">\(Y_i(0)\)</span>. Das ist das fundamentale Problem der kausalen Inferenz — kein Mangel an Rechenleistung.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="von-individuellen-zu-durchschnittlichen-effekten" class="slide level2">
+<h2>Von individuellen zu durchschnittlichen Effekten</h2>
+<p>Weil individuelle Effekte im Allgemeinen nicht direkt beobachtbar sind, definieren wir eine Populationsgröße:</p>
+<p><span class="math display">\[
+\operatorname{ATE}
+=E\big[Y(1)-Y(0)\big]
+=E[Y(1)]-E[Y(0)].
+\]</span></p>
+<p>Der <strong>Average Treatment Effect (ATE)</strong> beantwortet:</p>
+<blockquote>
+<p>Wie stark würde sich das Outcome im Mittel ändern, wenn die Zielpopulation behandelt statt nicht behandelt würde?</p>
+</blockquote>
+<p>Andere Fragen können andere Zielgrößen verlangen, etwa den Effekt für die tatsächlich Behandelten. Der Estimand folgt der Forschungsfrage, nicht dem verfügbaren Datensatz.</p>
+</section>
+<section id="warum-die-beobachtete-gruppendifferenz-nicht-genügt" class="slide level2">
+<h2>Warum die beobachtete Gruppendifferenz nicht genügt</h2>
+<p>Die naheliegende Rechnung ist</p>
+<p><span class="math display">\[
+E[Y\mid D=1]-E[Y\mid D=0].
+\]</span></p>
+<p>Für die behandelte Gruppe beobachten wir aber <span class="math inline">\(Y(1)\)</span>, für die Kontrollgruppe <span class="math inline">\(Y(0)\)</span>:</p>
+<p><span class="math display">\[
+E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
+\]</span></p>
+<p>Es fehlt genau die zentrale Größe <span class="math inline">\(E[Y(0)\mid D=1]\)</span>: Wie wäre es der behandelten Gruppe <strong>ohne</strong> Behandlung ergangen?</p>
+<div class="fragment">
+<p>Das ist die präzise Form von <em>Selection Bias</em>: Die Gruppen können sich bereits ohne Treatment unterscheiden.</p>
+</div>
+</section>
+<section id="denkpause-welcher-vergleich-fehlt" class="slide level2 scrollable">
+<h2>Denkpause: Welcher Vergleich fehlt?</h2>
+<p>Eine Ärztin gibt das Medikament bevorzugt besonders schwer erkrankten Personen. Die behandelte Gruppe erzielt danach einen niedrigeren Gesundheits-Score als die Kontrollgruppe.</p>
+<ol type="1">
+<li>Bedeutet das, dass das Medikament schadet?</li>
+<li>Welche potenziellen Outcomes wären für eine Antwort besonders wichtig?</li>
+<li>Was müsste sich am Zuteilungsmechanismus ändern, damit die Gruppen vergleichbar werden?</li>
+</ol>
+<aside class="notes">
+<p>Zeit: 34–37 Minuten. 90 Sekunden zu zweit, dann einsammeln. Erwartung: Schwer Erkrankte haben niedrigeres Y(0); ein niedriger beobachteter Mittelwert kann einen positiven Behandlungseffekt verdecken. Überleitung: Randomisierung.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fünf-begriffe-eine-logische-reihenfolge" class="slide level2">
+<h2>Fünf Begriffe, eine logische Reihenfolge</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Schritt</th>
+<th>Leitfrage</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Kausale Frage</strong></td>
+<td>Welche Intervention?</td>
+<td>Wirkt das Medikament?</td>
+</tr>
+<tr class="even">
+<td><strong>Estimand</strong></td>
+<td>Welche Zielgröße?</td>
+<td><span class="math inline">\(\operatorname{ATE}\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Identifikation</strong></td>
+<td>Wann ist sie aus Daten lernbar?</td>
+<td>zufällige Zuweisung</td>
+</tr>
+<tr class="even">
+<td><strong>Estimator</strong></td>
+<td>Welche Rechenvorschrift?</td>
+<td>Differenz der Mittelwerte</td>
+</tr>
+<tr class="odd">
+<td><strong>Estimate</strong></td>
+<td>Welcher Stichprobenwert?</td>
+<td><span class="math inline">\(+7{,}4\)</span> Punkte</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Identifikation kommt vor Schätzung.</strong> Ein flexibler Algorithmus, kleine Standardfehler oder viele Daten ersetzen kein fehlendes Kontrafaktual.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="iii.-der-zuteilungsmechanismus-entscheidet" class="title-slide slide level1 center">
+<h1>III. Der Zuteilungsmechanismus entscheidet</h1>
+
+</section>
+<section id="zwei-studien-dieselbe-medizin-andere-schlussfolgerung" class="slide level2">
+<h2>Zwei Studien, dieselbe Medizin, andere Schlussfolgerung</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  A["Schwere Erkrankung Z"] --&gt; B["Ärztliche Auswahl D"]
+  A --&gt; C["Gesundheits-Score Y"]
+  B --&gt; C
+  R["Zufallszahl"] --&gt; D["Randomisierte Zuweisung"]
+  D --&gt; E["Gesundheits-Score Y"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Beobachtungsstudie:</strong> Schwerere Patient:innen erhalten häufiger <span class="math inline">\(D=1\)</span>.</li>
+<li><strong>Randomisierte Studie:</strong> Die Zuweisung enthält systematisch keine Information über die potenziellen Outcomes.</li>
+</ul>
+</section>
+<section id="live-demo-2-warum-randomisierung-hilft" class="slide level2 scrollable">
+<h2>Live-Demo 2: Warum Randomisierung hilft</h2>
+<p>Die App simuliert einen wahren Behandlungseffekt von <span class="math inline">\(+8\)</span> Punkten.</p>
+<ol type="1">
+<li>Wählt <strong>Selbstselektion / ärztliche Auswahl</strong> und variiert die Stichprobengröße.</li>
+<li>Vergleicht Krankheitsschwere in beiden Gruppen und die geschätzte Gruppendifferenz.</li>
+<li>Wechselt zu <strong>randomisierter Zuweisung</strong>.</li>
+</ol>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Was verändert eine größere Stichprobe in beiden Fällen? Achtet nicht nur auf das Konfidenzintervall, sondern auf <strong>Balance vor dem Treatment</strong>.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Zeit: 43–50 Minuten. Die Seite „views/kausalitaet/potential_outcomes.py“ öffnen. Der zentrale Aha-Moment: Bei Selbstselektion wird das Intervall enger um einen verzerrten Wert; bei Randomisierung enger um den wahren ATE.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="randomisierung-liefert-ein-glaubwürdiges-kontrafaktual" class="slide level2">
+<h2>Randomisierung liefert ein glaubwürdiges Kontrafaktual</h2>
+<p>Ideale Randomisierung bedeutet</p>
+<p><span class="math display">\[
+\big(Y(1),Y(0)\big)\perp D.
+\]</span></p>
+<p>Damit sind behandelte und unbehandelte Einheiten im Mittel austauschbar. Insbesondere:</p>
+<p><span class="math display">\[
+E[Y(0)\mid D=1]=E[Y(0)\mid D=0].
+\]</span></p>
+<p>Folglich identifiziert die beobachtete Mittelwertdifferenz den ATE:</p>
+<p><span class="math display">\[
+E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
+\]</span></p>
+</section>
+<section id="was-randomisierung-leistet-und-was-nicht" class="slide level2">
+<h2>Was Randomisierung leistet — und was nicht</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Randomisierung leistet</th>
+<th>Randomisierung ersetzt nicht</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>macht Gruppen im Erwartungswert vergleichbar</td>
+<td>eine präzise Definition des Treatments</td>
+</tr>
+<tr class="even">
+<td>verhindert systematische Selektion in <span class="math inline">\(D\)</span></td>
+<td>ausreichende Fallzahl und saubere Messung</td>
+</tr>
+<tr class="odd">
+<td>legitimiert den einfachen Gruppenvergleich</td>
+<td>Schutz vor Ausfällen, Non-Compliance oder Interferenz</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>In einer endlichen Stichprobe kann es Zufallsunterschiede geben. Sie sind ein <strong>Präzisionsproblem</strong>; systematische Selbstselektion ist ein <strong>Identifikationsproblem</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="wenn-keine-randomisierung-möglich-ist" class="slide level2">
+<h2>Wenn keine Randomisierung möglich ist</h2>
+<p>Viele wichtige Fragen lassen sich nicht per Münzwurf beantworten: etwa Wirkungen von Gesetzen, Preisen oder Bildungspolitik.</p>
+<p>Dann brauchen wir eine begründete Alternative:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  Q["Kausale Frage"] --&gt; E["Estimand"]
+  E --&gt; A["Design und Annahmen"]
+  A --&gt; I["Identifikation"]
+  I --&gt; S["Schätzung"]
+  S --&gt; R["Robustheit &amp; Interpretation"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Der nächste Schritt ist daher nicht „mehr Kontrolle“, sondern: <strong>Welche kausale Rolle spielen unsere Variablen?</strong></p>
+</section></section>
+<section>
+<section id="iv.-dags-annahmen-sichtbar-machen" class="title-slide slide level1 center">
+<h1>IV. DAGs: Annahmen sichtbar machen</h1>
+
+</section>
+<section id="ein-dag-ist-eine-sprache-für-annahmen" class="slide level2">
+<h2>Ein DAG ist eine Sprache für Annahmen</h2>
+<p>Ein <em>Directed Acyclic Graph</em> (DAG) zeichnet Annahmen über den Datenentstehungsprozess auf.</p>
+<ul>
+<li><strong>Knoten:</strong> Variablen</li>
+<li><strong>gerichtete Pfeile:</strong> direkte kausale Einflüsse</li>
+<li><strong>azyklisch:</strong> keine Variable verursacht sich über einen Pfeilpfad selbst</li>
+</ul>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Ein DAG ist nicht einfach ein Plot der Korrelationen und auch kein Ergebnis, das Daten allein liefern. Er ist eine überprüfbare, fachlich begründete Hypothese über die Welt.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="drei-rollen-einer-beobachteten-variable" class="slide level2">
+<h2>Drei Rollen einer beobachteten Variable</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rolle</th>
+<th>Struktur</th>
+<th>Für den <strong>totalen Effekt</strong> von <span class="math inline">\(D\)</span> auf <span class="math inline">\(Y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Confounder</strong> <span class="math inline">\(Z\)</span></td>
+<td><span class="math inline">\(D\leftarrow Z\rightarrow Y\)</span></td>
+<td>für <span class="math inline">\(Z\)</span> adjustieren kann helfen</td>
+</tr>
+<tr class="even">
+<td><strong>Mediator</strong> <span class="math inline">\(M\)</span></td>
+<td><span class="math inline">\(D\rightarrow M\rightarrow Y\)</span></td>
+<td>nicht für <span class="math inline">\(M\)</span> adjustieren, wenn der totale Effekt interessiert</td>
+</tr>
+<tr class="odd">
+<td><strong>Collider</strong> <span class="math inline">\(C\)</span></td>
+<td><span class="math inline">\(D\rightarrow C\leftarrow Y\)</span></td>
+<td>nicht für <span class="math inline">\(C\)</span> adjustieren und nicht darauf selektieren</td>
+</tr>
+</tbody>
+</table>
+<p>Die gleiche gemessene Variable kann je nach kausaler Geschichte jede dieser Rollen spielen.</p>
+</section>
+<section id="confounder-den-backdoor-pfad-schließen" class="slide level2">
+<h2>Confounder: Den Backdoor-Pfad schließen</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  Z["Produktinteresse Z&lt;br/&gt;(vor der Werbung)"] --&gt; D["Werbung D"]
+  Z --&gt; Y["Kauf Y"]
+  D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Das frühere Produktinteresse beeinflusst Targeting und Kauf. Ohne Adjustierung vermischt ein Vergleich von Werbe-Empfangenden und Nicht-Empfangenden Werbeeffekt und Interesse.</p>
+<div class="fragment">
+<p>Wenn <span class="math inline">\(Z\)</span> ausreichend gemessen ist, vergleichen wir innerhalb gleicher <span class="math inline">\(Z\)</span>-Werte und mitteln anschließend über die Zielpopulation.</p>
+</div>
+</section>
+<section id="die-adjustierungsformel" class="slide level2 scrollable">
+<h2>Die Adjustierungsformel</h2>
+<p>Unter den später präzisierten Annahmen gilt für eine diskrete Confounder-Menge <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display">\[
+\operatorname{ATE}
+=\sum_z
+\left( E[Y\mid D=1,Z=z]-E[Y\mid D=0,Z=z] \right)P(Z=z).
+\]</span></p>
+<p>Interpretation in drei Schritten:</p>
+<ol type="1">
+<li>Vergleiche Behandelte und Unbehandelte <strong>bei gleichem <span class="math inline">\(Z=z\)</span></strong>.</li>
+<li>Berechne die bedingte Differenz für jedes <span class="math inline">\(z\)</span>.</li>
+<li>Gewichte diese Differenzen entsprechend der Zielpopulation.</li>
+</ol>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Das ist die formale Version dessen, was der Confounder-Simulator mit der adjustierten Regression demonstriert.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mediator-adjustierung-kann-die-forschungsfrage-ändern" class="slide level2">
+<h2>Mediator: Adjustierung kann die Forschungsfrage ändern</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  D["Werbung D"] --&gt; M["Produktinteresse M"]
+  M --&gt; Y["Kauf Y"]
+  D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Hier entsteht Interesse <strong>durch</strong> die Werbung. Der Pfad <span class="math inline">\(D\rightarrow M\rightarrow Y\)</span> gehört zum Wirkmechanismus.</p>
+<ul>
+<li>Ohne Adjustierung für <span class="math inline">\(M\)</span>: totaler Effekt der Werbung.</li>
+<li>Mit Adjustierung für <span class="math inline">\(M\)</span>: nur der direkte Anteil, der nicht über Interesse verläuft.</li>
+</ul>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>„Kontrolliert für <span class="math inline">\(M\)</span>“ ist nicht automatisch besser. Es kann eine andere kausale Frage beantworten.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="collider-adjustierung-kann-bias-erzeugen" class="slide level2">
+<h2>Collider: Adjustierung kann Bias erzeugen</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  D["Werbung D"] --&gt; C["Klick auf Produktseite C"]
+  Y["Kaufneigung / Kauf Y"] --&gt; C
+  D --&gt; Y
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Wenn wir nur Klickende analysieren oder für <span class="math inline">\(C\)</span> kontrollieren, konditionieren wir auf eine gemeinsame Folge von <span class="math inline">\(D\)</span> und <span class="math inline">\(Y\)</span>.</p>
+<div class="fragment">
+<p>Dadurch öffnen wir einen künstlichen Zusammenhang zwischen Werbung und Kaufneigung: <strong>Collider- bzw. Selektionsbias</strong>.</p>
+</div>
+</section>
+<section id="live-demo-3-die-rolle-von-w-prüfen" class="slide level2">
+<h2>Live-Demo 3: Die Rolle von <span class="math inline">\(W\)</span> prüfen</h2>
+<p>In der DAG-App nutzt dieselbe Variable <span class="math inline">\(W\)</span> drei verschiedene Geschichten:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Einstellung</th>
+<th>Schätzung ohne Adjustierung</th>
+<th>Schätzung mit Adjustierung für <span class="math inline">\(W\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Confounder</td>
+<td>verzerrt</td>
+<td>näher am direkten Effekt</td>
+</tr>
+<tr class="even">
+<td>Mediator</td>
+<td>totaler Effekt</td>
+<td>direkter statt totaler Effekt</td>
+</tr>
+<tr class="odd">
+<td>Collider</td>
+<td>unproblematisch</td>
+<td>künstlich verzerrt</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Stellt vor jeder Einstellung eine Diagnose: <em>Ist <span class="math inline">\(W\)</span> Ursache des Treatments, Folge des Treatments oder gemeinsame Folge?</em> Erst danach die Kennzahlen ansehen.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Zeit: 64–70 Minuten. Die Seite „views/kausalitaet/dags_confounding.py“ öffnen. Die Klasse soll vor jeder Umschaltung entscheiden, ob sie für W kontrollieren würde. Nicht in d-Separation vertiefen; der Fokus liegt auf kausaler Rolle statt statistischer Checkliste.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="drei-annahmen-hinter-einer-adjustierungsanalyse" class="slide level2 scrollable">
+<h2>Drei Annahmen hinter einer Adjustierungsanalyse</h2>
+<p>Für eine klar definierte Intervention und eine geeignete Menge <span class="math inline">\(Z\)</span> benötigen wir:</p>
+<ol type="1">
+<li><strong>Konsistenz / wohldefiniertes Treatment:</strong> Das beobachtete Outcome entspricht dem passenden potenziellen Outcome. Es gibt keine für die Frage relevanten unterschiedlichen Treatment-Versionen oder Interferenzen zwischen Einheiten.</li>
+<li><strong>Bedingte Austauschbarkeit:</strong> Nach Adjustierung für <span class="math inline">\(Z\)</span> ist die Zuweisung unabhängig von den potenziellen Outcomes: <span class="math display">\[\big(Y(1),Y(0)\big)\perp D\mid Z.\]</span></li>
+<li><strong>Positivität (Overlap):</strong> Für jedes relevante <span class="math inline">\(z\)</span> gibt es beide Treatmentzustände: <span class="math display">\[0&lt;P(D=1\mid Z=z)&lt;1.\]</span></li>
+</ol>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Diese Annahmen lassen sich durch Fachwissen, Design und Diagnostik plausibler machen — aber nicht vollständig aus demselben Datensatz beweisen.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mini-fall-welche-variable-gehört-in-die-adjustierung" class="slide level2">
+<h2>Mini-Fall: Welche Variable gehört in die Adjustierung?</h2>
+<p>Ihr wollt den <strong>totalen</strong> Effekt einer Online-Werbung <span class="math inline">\(D\)</span> auf den Kauf <span class="math inline">\(Y\)</span> schätzen. Ihr beobachtet:</p>
+<ul>
+<li><span class="math inline">\(Z\)</span>: Produktinteresse vor der Werbung,</li>
+<li><span class="math inline">\(M\)</span>: Produktinteresse nach der Werbung,</li>
+<li><span class="math inline">\(C\)</span>: Klick auf die Produktseite, der von Werbung und Kaufneigung beeinflusst wird.</li>
+</ul>
+<p><strong>Entscheidet zu zweit:</strong> Für welche Variablen würdet ihr beim totalen Effekt adjustieren — und warum?</p>
+<aside class="notes">
+<p>Zeit: 74–78 Minuten. Auflösung: Z ja, sofern es relevante Confounding-Pfade blockiert; M nicht für den totalen Effekt; C nicht, weil Selektion auf einen Collider Bias erzeugen kann. Betonen: Im Ernstfall benötigt man den vollständigen, fachlich begründeten DAG; dieses Mini-Beispiel abstrahiert.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="ausblick-fünf-vertiefungen" class="title-slide slide level1 center">
+<h1>Ausblick: fünf Vertiefungen</h1>
+
+</section>
+<section id="causal-discovery-welche-graphen-passen-zu-den-daten" class="slide level2">
+<h2>1. Causal Discovery: Welche Graphen passen zu den Daten?</h2>
+<p>Die DAG-App zeigt eine Kette <span class="math inline">\(X\rightarrow Z\rightarrow Y\)</span>: <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span> sind korreliert, nach Kontrolle für <span class="math inline">\(Z\)</span> aber (nahezu) unabhängig.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Algorithmen wie PC, GES oder NOTEARS nutzen solche Muster bedingter Unabhängigkeit. Sie können die Kausalstruktur <strong>unter starken Annahmen</strong> eingrenzen; Daten bestimmen ihre Richtung jedoch meist nicht eindeutig.</p>
+</div>
+</div>
+</div>
+<p><strong>Leitfrage für ein Projekt:</strong> Welche Zusatzannahmen oder Interventionen würden mehrere statistisch gleichwertige DAGs unterscheiden?</p>
+</section>
+<section id="difference-in-differences-ein-kontrafaktual-über-zeit" class="slide level2">
+<h2>2. Difference-in-Differences: Ein Kontrafaktual über Zeit</h2>
+<p>Bei einer Reform vergleichen wir die Veränderung einer betroffenen mit der Veränderung einer Kontrollgruppe:</p>
+<p><span class="math display">\[
+\widehat{\tau}_{\mathrm{DiD}}
+=\big(\bar{Y}_{\mathrm{Treat,post}}-\bar{Y}_{\mathrm{Treat,pre}}\big)
+-\big(\bar{Y}_{\mathrm{Control,post}}-\bar{Y}_{\mathrm{Control,pre}}\big).
+\]</span></p>
+<p>Die tragende Annahme heißt <strong>Parallel Trends</strong>: Ohne Reform hätten sich beide Gruppen im Mittel parallel entwickelt.</p>
+<p><strong>In der App testen:</strong> Einen Extra-Trend der Reformregion einschalten und beobachten, wie DiD präzise den falschen Effekt schätzt.</p>
+</section>
+<section id="regression-discontinuity-das-lokale-experiment-am-cutoff" class="slide level2">
+<h2>3. Regression Discontinuity: Das lokale Experiment am Cutoff</h2>
+<p>Ein Stipendium wird ab einer Testpunktzahl <span class="math inline">\(c_0\)</span> vergeben. Knapp ober- und unterhalb des Cutoffs sollen Personen vergleichbar sein.</p>
+<p><span class="math display">\[
+\tau_{c_0}
+=\lim_{x\downarrow c_0}E[Y\mid X=x]
+-\lim_{x\uparrow c_0}E[Y\mid X=x].
+\]</span></p>
+<ul>
+<li>Der Effekt ist <strong>lokal</strong>: Er gilt am Cutoff, nicht automatisch für alle.</li>
+<li>Ohne Treatment dürfen die potenziellen Outcomes am Cutoff keinen Sprung haben.</li>
+<li>Die Wahl der Bandbreite steuert den Kompromiss aus Nähe und Präzision.</li>
+</ul>
+</section>
+<section id="causal-ml-flexible-adjustierung-ist-keine-identifikation" class="slide level2">
+<h2>4. Causal ML: Flexible Adjustierung ist keine Identifikation</h2>
+<p>Bei vielen, nichtlinear wirkenden Confoundern <span class="math inline">\(X\)</span> nutzt Double/Debiased ML das partiell lineare Modell</p>
+<p><span class="math display">\[
+Y=\tau D+g(X)+\zeta,
+\qquad D=m(X)+\nu.
+\]</span></p>
+<p>ML schätzt die unbekannten Funktionen <span class="math inline">\(g\)</span> und <span class="math inline">\(m\)</span>; anschließend wird der Effekt aus den bereinigten Residuen geschätzt. Cross-Fitting schützt gegen Overfitting.</p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>DML kann für <strong>beobachtete</strong> Confounder flexibel adjustieren. Ob die relevanten Confounder gemessen wurden, bleibt eine Design- und DAG-Frage.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="bayesianische-methoden-annahmen-und-unsicherheit-explizit-machen" class="slide level2">
+<h2>5. Bayesianische Methoden: Annahmen und Unsicherheit explizit machen</h2>
+<p>Bayes verbindet Vorwissen und Daten:</p>
+<p><span class="math display">\[
+p(\theta\mid \text{Daten})\propto p(\text{Daten}\mid\theta)\,p(\theta).
+\]</span></p>
+<p>In der App lässt sich beobachten, wie Prior und Studiendaten die Posterior-Verteilung einer Behandlungswirksamkeit formen.</p>
+<ul>
+<li>Ein <strong>Prior</strong> ist eine explizite Annahme — keine versteckte Voreinstellung.</li>
+<li>Kleine Studien reagieren stark auf plausible Vorannahmen.</li>
+<li>Sensitivitätsanalysen zeigen, wie robust Schlussfolgerungen gegenüber ihnen sind.</li>
+</ul>
+</section></section>
+<section>
+<section id="abschluss" class="title-slide slide level1 center">
+<h1>Abschluss</h1>
+
+</section>
+<section id="die-vier-sätze-die-jede-kausale-analyse-tragen" class="slide level2 scrollable">
+<h2>Die vier Sätze, die jede kausale Analyse tragen</h2>
+<ol type="1">
+<li>Ein beobachteter Zusammenhang beantwortet nicht automatisch eine Interventionsfrage.</li>
+<li>Ein kausaler Effekt vergleicht potenzielle Outcomes derselben Einheit; eines davon ist kontrafaktisch.</li>
+<li>Ein glaubwürdiger Zuteilungsmechanismus oder ein begründetes Design macht den fehlenden Vergleich identifizierbar.</li>
+<li>Kontrollvariablen werden aus einer kausalen Geschichte gewählt — nicht, weil sie verfügbar sind.</li>
+</ol>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Exit Ticket:</strong> Formuliere zu einer Frage aus deinem Fach (a) Treatment, (b) Outcome, (c) Estimand und (d) die wichtigste Annahme, die deinen Vergleich tragen müsste.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="weiterarbeiten-mit-den-apps" class="slide level2">
+<h2>Weiterarbeiten mit den Apps</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ausgangsfrage</th>
+<th>Interaktive Seite</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Warum kann Korrelation täuschen?</td>
+<td><em>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</em></td>
+</tr>
+<tr class="even">
+<td>Was fehlt uns für einen kausalen Effekt?</td>
+<td><em>Potential Outcomes &amp; kontrafaktische Welten</em></td>
+</tr>
+<tr class="odd">
+<td>Welche Variablen gehören in die Adjustierung?</td>
+<td><em>Identifikation: DAGs &amp; Confounding</em></td>
+</tr>
+<tr class="even">
+<td>Wie funktionieren natürliche Experimente, Causal ML oder Bayes?</td>
+<td>die Vertiefungsseiten im Bereich <em>Kausalität</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Merksatz:</strong> Erst die kausale Frage und das Design; dann der Estimator.</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>Künstliche Intelligenz und das Warum · Kausale Inferenz</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="causal_inference_intro_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="causal_inference_intro_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Kopiert");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Kopiert");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

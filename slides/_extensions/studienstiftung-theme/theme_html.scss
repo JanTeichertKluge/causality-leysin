@@ -1,0 +1,191 @@
+/*-- scss:defaults --*/
+
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300,300i,400,400i,500,500i,700,700i);
+@import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+
+@import url(https://use.fontawesome.com/releases/v6.1.1/css/all.css);
+
+// fonts
+$font-family-sans-serif: "UHHSans", "Alegreya Sans", "Droid Serif", "Palatino Linotype",
+  "Book Antiqua", Palatino, "Microsoft YaHei", "Songti SC", sans-serif !default;
+
+/*-- scss:defaults --*/
+$presentation-font-size-root: 30px;
+
+/* Colors */
+
+
+$stusti-yellow: #f7a500;
+$stusti-blue: #00758b;
+$stusti-stonegrey: #3b515b;
+
+
+$text-color: #000000;
+$header-color: $stusti-yellow;
+$background-color: #ffffff;
+$link-color: $stusti-stonegrey;
+$text-bold-color: $stusti-stonegrey;
+$code-highlight-color: rgba(255, 255, 0, 0.5);
+$inverse-text-color: #ffffff;
+$inverse-background-color: $stusti-stonegrey;
+$inverse-header-color: #ffffff;
+$inverse-link-color: $stusti-stonegrey;
+$title-slide-background-color: #ffffff;
+$title-slide-text-color: $stusti-yellow;
+$header-background-color: $stusti-yellow;
+$header-background-text-color: #ffffff;
+$primary: $stusti-yellow;
+$secondary: $stusti-stonegrey;
+$white: #ffffff;
+$black: #000000;
+
+/*-- scss:rules --*/
+body {
+  h1 {
+    color: $header-color !important;
+  }
+  h2 {
+    color: $header-color !important;
+  }
+  h3 {
+    font-weight: 1200;
+    color: $header-color !important;
+  }
+}
+
+.reveal {
+  h1 {
+    font-family: "UHHSans-BoldCaps", $font-family-sans-serif;
+  }
+    h2 {
+    font-family: "UHHSans-BoldCaps", $font-family-sans-serif;
+  }
+  h3 {
+    font-family: "UHHSans-BoldCaps", $font-family-sans-serif;
+  }
+}
+
+.picture {
+  border-style: solid;
+  border-width: 3pt;
+  border-color: $body-color;
+  border-radius: 50%;
+  padding: 5pt;
+  height: 50%;
+  width: auto;
+}
+
+#title-slide {
+  text-align: left;
+
+}
+
+#title-slide {
+  text-align: left;
+
+  .quarto-title-authors {
+    justify-content: left;
+  
+    .quarto-title-author { // optional, test it for yourself
+      padding-left: 30%;
+      padding-right: 0;
+      width: 100%;
+    }
+  }
+}
+
+#title-slide p.date{
+  padding-left: 30%;
+  text-align: left;
+}
+
+#title-slide p,
+#title-slide a {
+  color: #7f7f7f;
+}
+
+.footer {
+  bottom: 10px !important;
+  color: $body-color !important;
+}
+
+.slide-logo {
+  display: block !important;
+  position: fixed !important;
+  top: 0 !important;
+  right: 10px !important;
+  max-height: 15% !important;
+  height: 100% !important;
+  width: auto !important;
+  color: $body-color !important;
+}
+
+.slide-menu-button {
+  left: 10px !important;
+  bottom: 10px !important;
+}
+
+.slide-number,
+.reveal.has-logo .slide-number {
+  bottom: 10px !important;
+  right: 10px !important;
+  top: unset !important;
+  color: $body-color !important;
+}
+
+.cell-output {
+  border: 1px solid $body-color;
+  border-radius: 4px;
+}
+
+code.sourceCode > span {
+  color: $body-bg !important;
+}
+
+.center-x {
+  text-align: center;
+}
+
+@font-face {
+  font-family: "UHHSans";
+  src: url("assets/fonts/Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UHHSans";
+  src: url("assets/fonts/Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UHHSans";
+  src: url("assets/fonts/RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UHHSans";
+  src: url("assets/fonts/BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "UHHSans-BoldCaps";
+  src: url("assets/fonts/BoldCaps.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-variant: small-caps;
+}
+
+@font-face {
+  font-family: "UHHSans-SemiLightCaps";
+  src: url("assets/fonts/SemiLightCaps.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-variant: small-caps;
+}
