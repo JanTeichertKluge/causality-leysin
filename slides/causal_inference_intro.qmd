@@ -1,5 +1,5 @@
 ---
-title: "Kausale Inferenz"
+title: "Einführung in die Kausale Inferenz"
 subtitle: "Von beobachteten Korrelationen zu begründeten Effekten"
 author: "Dr. Oliver Schacht und Jan Teichert-Kluge"
 institute: "Sommerakademie der Studienstiftung des deutschen Volkes"
@@ -21,40 +21,41 @@ execute:
 
 # Einstieg
 
-## Eine Kausale Frage zum Einstieg
+## Wer hat mit Schuhen geschlafen?
 
 :::: {.columns}
 
 ::: {.column width="48%"}
 
-> **Soll ein Arbeitsmarktprogramm zur Weiterbildung ausgebaut werden?**
+> Na: Wer hat gestern am ersten Abend schon mit Schuhen im Bett geschlafen?
 
-Nach Abschluss des Programms erzielen Teilnehmende im Mittel höhere Löhne als Nicht-Teilnehmende.
+Menschen, die mit Schuhen einschlafen, berichten auffällig oft Kopfschmerzen am nächsten Morgen.
 
 ::: {.fragment}
-Ist das Programm wirksam — oder nehmen vor allem Personen teil, die ohnehin bessere Voraussetzungen mitbringen?
+**Verursachen Schuhe im Bett Kopfschmerzen?**
+
+Oder gibt es etwas Drittes, das beides wahrscheinlicher macht?
 :::
 
 :::
 
 ::: {.column width="52%"}
 
-```{mermaid}
-flowchart TB
-  P["Dieselbe Person i"]
-  P -->|Treatment D = 1| Y1["potenzielles Outcome Yᵢ(1)"]
-  P -.->|kein Treatment D = 0| Y0["potenzielles Outcome Yᵢ(0)"]
-```
+<div style="position: relative; height: 340px; width: 100%;">
+  <img src="figs/drunk0.png" alt="Person schläft mit Schuhen im Bett; daneben eine Person mit Kopfschmerzen." class="fragment fade-out" data-fragment-index="1" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;">
+  <img src="figs/drunk.png" alt="Alkohol verursacht sowohl das Einschlafen mit Schuhen als auch Kopfschmerzen." class="fragment fade-in" data-fragment-index="1" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;">
+</div>
 
-<small>Die kausale Frage vergleicht diese beiden möglichen Outcomes — nicht zwei beliebige Gruppenmittelwerte.</small>
+<small>Grafik: [Brady Neal, *Causal Inference from a Machine Learning Perspective*](https://www.bradyneal.com/causal-inference-course#course-textbook/)</small>
 
 :::
 
 ::::
 
 ::: {.notes}
-Zeit: 0–4 Minuten. Zunächst nur Handzeichen oder kurze Abstimmung: Wer würde auf Basis dieser Zahl ausbauen? Dann die Gegenfrage stellen. Die ganze Vorlesung liefert eine präzise Sprache für genau diesen Zweifel.
+Zeit: 0–4 Minuten. Als lockeren Rückbezug auf den ersten Abend fragen; keine persönlichen Antworten einfordern. Dann die Beobachtung zeigen und zwei oder drei plausible Vermutungen sammeln. Erst weiterklicken: Alkohol ist eine gemeinsame Ursache für Schuhe im Bett und Kopfschmerzen. Die Vorlesung liefert die präzise Sprache dafür, warum die erste Assoziation kein Effekt ist.
 :::
+
 
 ## Ziele
 
