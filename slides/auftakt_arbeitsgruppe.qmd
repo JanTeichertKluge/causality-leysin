@@ -41,8 +41,8 @@ Wir werden zunächst zusammen die Grundlagen erarbeiten und dann in Gruppenproje
 
 ## Heute
 
-| Programmpunkt | Format | Frage |
-|---|---:|---|
+| # | Format | Frage |
+|---|---|---|
 | 1 | Ankommen & Orientierung | Wer sind wir, was ist diese AG? |
 | 2 | Vorstellungsrunde | Welche Erfahrungen und Erwartungen sind im Raum? |
 | 3 | Motivationsbeispiele | Wann täuscht Korrelation? |
@@ -77,7 +77,7 @@ Diese Folie ist die Taktung für die Dozierenden. Bei großer Gruppe die Vorstel
 
 ![](figs/jan-teichert-kluge_sqr.jpg){fig-alt="Portrait von Jan" height="190"}
 
-- Promotion in Statistik / **Causal Machine Learning**
+- Doktorand in Statistik / **Causal Machine Learning**
 - Arbeiten u.a. zu Kausaler Inferenz mittels Deep Learning
 - Mitwirkung am Python-Paket **DoubleML**
 - Langjährige Industrie-Erfahrung in Data-Science-Teams
@@ -469,7 +469,7 @@ Die Website liefert zu jedem Thema einen Einstieg, eine Demo und offene Fragen. 
 ::::
 
 
-## Themengestaltung
+## Themengestaltung 🧭
 
 Euer Thema setzt den Rahmen. Euer Projekt nimmt darin **eine** Frage ernst.
 
@@ -481,7 +481,7 @@ Euer Thema setzt den Rahmen. Euer Projekt nimmt darin **eine** Frage ernst.
 Eine gute Forschungsfrage passt in **einen Satz**. Sie ist wissenschaftlich oder praktisch interessant, aber klein genug, um sie mit Daten, einem Experiment oder einer Simulation wirklich zu untersuchen.
 :::
 
-## Ein Projekt ist ein Forschungsargument
+## Beispielhafter Projektaufbau
 
 | Baustein | Was dazu gehört |
 |---|---|
@@ -495,7 +495,7 @@ Eine gute Forschungsfrage passt in **einen Satz**. Sie ist wissenschaftlich oder
 Eine Methode auszuführen oder eine Zahl zu berechnen reicht nicht. Das Ergebnis soll interaktiv sein!
 :::
 
-## Die App macht eine Idee erfahrbar
+## Die App macht eine Idee erfahrbar 🎛️
 
 Eine statische Folie kann ein Ergebnis zeigen. In eurer App sollen andere selbst untersuchen können, was sich verändert, wenn sie zum Beispiel
 
@@ -529,14 +529,14 @@ Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine 
 
 # Kennenlernen in den Teams
 
-## Team-Auftakt
+## Team-Auftakt 🤝
 
 1. **Kurz kennenlernen (falls noch nicht geschehen)** 
 2. **Erste Ideen austauschen**
-3. **Erste Skizze festhalten:**
+3. **Erste Skizze festhalten:** ✍️
   * Wir möchten verstehen: ...
   * Dafür wäre ein gutes Beispiel / Setup: ...
-  * Diese Annahme oder Frage müssten wir klären:
+  * Diese Annahme oder Frage müssten wir klären: ...
 
 ::: {.callout-note appearance="simple"}
 Wenn ihr schon eine Idee vorbereitet habt, nutzt die Runde zur *Diskussion*: Ist die Frage eng genug? 
@@ -546,19 +546,11 @@ Wenn ihr schon eine Idee vorbereitet habt, nutzt die Runde zur *Diskussion*: Ist
 47–55 Minuten. Es geht bewusst nicht um eine endgültige Projektentscheidung. Die Gruppen sollen sich kennenlernen, ihre Vorarbeit sichtbar machen und mit einem gemeinsamen Startpunkt in den späteren Kick-off gehen. Bei der Runde herumgehen und nachfragen: „Was wäre eine kleine, untersuchbare Frage innerhalb eures Themas?“
 :::
 
-## Eure erste Skizze
-
-Haltet am Ende auf einer Karte oder in einer gemeinsamen Notiz fest:
-
-1. **Wir möchten verstehen:** „…“
-2. **Dafür wäre ein gutes Beispiel / Setup:** „…“
-3. **Diese Annahme oder Frage müssen wir noch klären:** „…“
-
 
 
 # Abschluss
 
-## Neugierig geworden?
+## Neugierig geworden? 🔎
 
 Quellen für entspanntes Lernen über kausales ML
 
@@ -571,7 +563,7 @@ Videoreihe mit Kursmaterialien, kurze Videos, verfügbar auf Youtube.
 :::
 
 ::: {.column width="24%"}
-![](figs/bradyneal.png){fig-alt="Vorschaubild der Videoreihe Introduction to Causal Inference von Brady Neal." height="85"}
+![](figs/bradyneal.png){fig-alt="Vorschaubild der Videoreihe Introduction to Causal Inference von Brady Neal." height="150"}
 :::
 
 ::::
@@ -585,7 +577,7 @@ Vorstellung von aktuellen Forschungsthemen rund um Kausalität und Causal AI.
 :::
 
 ::: {.column width="24%"}
-![](figs/causalbandits.jpg){fig-alt="Cover des Causal Bandits Podcast." height="85"}
+![](figs/causalbandits.jpg){fig-alt="Cover des Causal Bandits Podcast." height="150"}
 :::
 
 ::::
@@ -599,12 +591,12 @@ Gut zugängliche Online-Einführung mit vielen anwendungsnahen Geschichten und M
 :::
 
 ::: {.column width="24%"}
-![](figs/themixtape.png){fig-alt="Cover von Causal Inference: The Mixtape." height="85"}
+![](figs/themixtape.png){fig-alt="Cover von Causal Inference: The Mixtape." height="150"}
 :::
 
 ::::
 
 
-## Kurze Pause
+## Kurze Pause ☕
 
 Danach geht es mit dem gemeinsamen **Python-Setup** weiter.
