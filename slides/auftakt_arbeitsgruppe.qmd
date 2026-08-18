@@ -445,7 +445,7 @@ flowchart LR
 |---|---|
 | 🏥 **Randomisierte Experimente / Medizin** | Was leistet ein RCT? |
 | 🔍 **Explainable ML / AI** | Warum sind Modell-Erklärungen nicht automatisch kausal? |
-| 💬 **Causality and LLMs** | Können Sprachmodelle kausal schlussfolgern oder beim Forschen helfen? |
+| 💬 **Causality and LLMs** | Können Sprachmodelle kausal schlussfolgern? |
 | 🕸️ **DAGs / Causal Discovery** | Welche Strukturannahmen lassen sich begründen oder aus Daten eingrenzen? |
 
 :::
@@ -458,171 +458,146 @@ flowchart LR
 | 📐 **Tools: RDD / DiD** | Was lernen wir aus Cutoffs, und parallelen Trends? |
 | 🎲 **Bayesian Methods** | Wie werden Vorwissen und Unsicherheit transparent modelliert? |
 
-:::
+
 
 ::: {.callout-tip appearance="simple"}
 Die Website liefert zu jedem Thema einen Einstieg, eine Demo und offene Fragen. Das Projekt beginnt nicht mit einer fertigen Antwort, sondern mit einer guten Entscheidung darüber, **was ihr zeigen wollt**.
 :::
 
+:::
 
 ::::
 
 
 ## Themengestaltung
 
-Wählt nicht nur nach dem interessantesten Schlagwort.
+Euer Thema setzt den Rahmen. Euer Projekt nimmt darin **eine** Frage ernst.
 
-| Prüffrage | Gute Antwort |
+> Nicht: „Wir erklären unser gesamtes Themengebiet.“
+>
+> Sondern: „Wir untersuchen an einem klaren Beispiel, wann eine Idee oder Methode trägt — und wo ihre Grenze liegt.“
+
+::: {.callout-tip appearance="simple"}
+Eine gute Forschungsfrage passt in **einen Satz**. Sie ist wissenschaftlich oder praktisch interessant, aber klein genug, um sie mit Daten, einem Experiment oder einer Simulation wirklich zu untersuchen.
+:::
+
+## Ein Projekt ist ein Forschungsargument
+
+| Baustein | Was dazu gehört |
 |---|---|
-| **Neugier** | Wir wollen diese Frage wirklich verstehen. |
-| **Lernziel** | Das Thema ergänzt unser Vorwissen sinnvoll. |
-| **Machbarkeit** | In wenigen Tagen können wir ein klares Lernartefakt bauen. |
-| **Beitrag** | Die Gruppe kann anderen eine Annahme, Methode oder Grenze verständlich machen. |
-
-## Ein gutes Projekt
-
-Am Ende entwickelt jede Gruppe eine wissenschaftlich fundierte **Mini-Station**.
-
-:::: {.columns}
-
-::: {.column width="48%"}
-
-### Argument
-
-- klare kausale Frage
-- Kernidee oder Methode
-- eine explizite Annahme
-- Bezug zu einer Studie, einem Design oder einer Kontroverse
-- Grenzen der Schlussfolgerung
-
-:::
-
-::: {.column width="48%"}
-
-### Interaktion
-
-- Simulation, Analyse oder Visualisierung
-- mindestens ein Regler, Vergleich oder Szenario
-- eine sichtbare Annahme oder Grenze
-- nachvollziehbar für die anderen Gruppen
-
-:::
-
-::::
-
-> Eine gute App macht nicht nur Ergebnisse sichtbar. Sie macht ein **wissenschaftliches Argument erfahrbar**.
-
-## Kein Dashboard, sondern eine Erkenntnis
-
-Nicht:
-
-> „Hier sind viele Plots und Kennzahlen.“
-
-Sondern:
-
-> „Wenn diese Annahme verletzt ist, kippt die Interpretation.“  
-> „Wenn wir für diese Variable adjustieren, ändert sich der Estimand.“  
-> „Wenn wir Vorhersage mit Wirkung verwechseln, treffen wir eine andere Entscheidung.“
+| **Frage & Motivation** | eine präzise, nicht triviale Forschungsfrage |
+| **Konzept & Annahmen** | die zentrale Idee und was gelten muss, damit eine Aussage trägt |
+| **Setup** | Daten, Replikation, Benchmark, eigenes Experiment oder Simulation |
+| **Interaktive Analyse** | eine Variation, die etwas zum Vorschein bringt |
+| **Findings & Grenzen** | eine ehrliche Erkenntnis — und was daraus ausdrücklich nicht folgt |
 
 ::: {.callout-important appearance="simple"}
-Die wichtigste Leistung eines Projekts ist nicht die größte technische Komplexität, sondern eine fundierte (kausale) Analyse.
+Eine Methode auszuführen oder eine Zahl zu berechnen reicht nicht. Das Ergebnis soll interaktiv sein!
 :::
 
-## Darstellung der Projekte auf der Website
+## Die App macht eine Idee erfahrbar
 
-:::: {.columns}
+Eine statische Folie kann ein Ergebnis zeigen. In eurer App sollen andere selbst untersuchen können, was sich verändert, wenn sie zum Beispiel
 
-::: {.column width="48%"}
+- eine Annahme oder einen Parameter verändern,
+- zwei Modelle oder Auswertungen vergleichen,
+- eine Datenstruktur, einen Prior, Cutoff oder Prompt variieren.
 
-### Option 1: Projektseite in Markdown
+> **Leitfrage:** Was können andere durch die Interaktion verstehen, was auf einer statischen Folie unsichtbar bliebe?
 
-- Ordner aus der Vorlage kopieren
-- **projekt.md** mit Titel, Team und Erklärung ausfüllen
-- Plots oder Screenshots hinzufügen
-- gut für Theorie, Case Study und Dokumentation
+Eine kleine, präzise App ist besser als ein großes Dashboard ohne klare wissenschaftliche Aussage.
 
+## Vier Arbeitsblöcke
+
+| Block | Tag | Ziel am Ende |
+|---|---|
+| **1 · Scope & Design** | Freitag morgens | Frage, Konzept, Setup |
+| **2 · Analyse** | Freitag vormittags | Kernanalyse, erste Visualisierung |
+| **3 · Streamlit & Story** | Samstag morgens | Interaktion, Erklärung, Findings  |
+| **4 · Finalisierung** | Samstag vormittags | Prototyp der App |
+
+::: {.callout-note appearance="simple"}
+Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine gute App.
 :::
 
-::: {.column width="48%"}
+## Wir sind dazu helfen!
 
-### Kür: Interaktive Streamlit-App
-
-- zusätzlich **app.py** im Projektordner
-- Slider, Simulationen und eigene Visualisierungen
-- nur Pakete aus den vorhandenen Requirements
-- wir helfen beim Debugging und bei der Umsetzung
-
-:::
-
-::::
+- Sowohl inhaltlich als auch technisch, wir arbeiten zusammen 
+- Es geht darum ein Verständnis von Materie und Methodik zu bekommen
 
 # Kennenlernen in den Teams
 
-## Causal Claims Clinic
+## Team-Auftakt
 
-1. **Allein · 1 Minute:** Wähle eine Behauptung oder Studienidee.
-2. **Zu zweit · 3 Minuten:** Formuliert Treatment, Outcome und einen möglichen Bias.
-3. **Zu viert · 4 Minuten:** Skizziert ein Design oder eine Annahme.
-4. **Plenum · 3 Minuten:** Eine Gruppe teilt ihre präziseste Frage.
+1. **Kurz kennenlernen (falls noch nicht geschehen)** 
+2. **Erste Ideen austauschen**
+3. **Erste Skizze festhalten**
 
 ::: {.notes}
-47–58 Minuten. Diese Struktur folgt dem Gedanken von 1–2–4–All: Erst selbst denken, dann Vergleichsmöglichkeiten erweitern. Bei knapper Zeit Plenum auf zwei Beiträge begrenzen.
+47–55 Minuten. Es geht bewusst nicht um eine endgültige Projektentscheidung. Die Gruppen sollen sich kennenlernen, ihre Vorarbeit sichtbar machen und mit einem gemeinsamen Startpunkt in den späteren Kick-off gehen. Bei der Runde herumgehen und nachfragen: „Was wäre eine kleine, untersuchbare Frage innerhalb eures Themas?“
 :::
 
-## Ausgangspunkte
+## Eure erste Skizze
 
-Wählt eine Karte oder bringt eine eigene Frage ein:
+Haltet am Ende auf einer Karte oder in einer gemeinsamen Notiz fest:
 
-- „Mentoring erhöht Studienerfolg.“
-- „KI-Feedback verbessert wissenschaftliches Schreiben.“
-- „Homeoffice steigert Produktivität.“
-- „Screeningprogramme verbessern Gesundheit.“
-- „Eine Preiserhöhung senkt Nachfrage.“
-- „Explainable AI erhöht Vertrauen in Entscheidungen.“
-- „LLMs verbessern kausales Denken.“
+1. **Wir möchten verstehen:** „…“
+2. **Dafür wäre ein gutes Beispiel / Setup:** „…“
+3. **Diese Annahme oder Frage müssen wir noch klären:** „…“
 
-**Ziel:** Nicht sofort die richtige Methode nennen. Zuerst die Frage so präzise formulieren, dass eine Methode überhaupt beurteilt werden kann.
-
-## Causal Canvas
-
-| Baustein | Leitfrage |
-|---|---|
-| Einheit | Wer oder was wird betrachtet? |
-| Treatment | Welche Intervention oder Variation interessiert uns? |
-| Outcome | Was soll sich verändern? |
-| Counterfactual | Was wäre ohne Treatment geschehen? |
-| Naiver Vergleich | Welche Auswertung läge zunächst nahe? |
-| Gefahr | Warum könnte dieser Vergleich irreführend sein? |
-| Nächster Schritt | Experiment, DAG, RDD, DiD, ML, Bayes oder Sensitivität? |
-
-::: {.callout-tip appearance="simple"}
-Bewahrt eure Canvas auf. Sie kann der Ausgangspunkt für eine Themenpräferenz oder ein eigenes Projekt werden.
+::: {.callout-note appearance="simple"}
+Wenn ihr schon eine starke Idee vorbereitet habt, nutzt die Runde als *Stress-Test*: Ist die Frage eng genug? Und ist schon erkennbar, was andere später mit der App selbst herausfinden können?
 :::
 
 # Abschluss
 
-## Für morgen
+## Neugierig geworden?
 
-1. **Einführung in Machine Learning**  
-   Was kann ein Modell aus Daten lernen?
+Quellen für entspanntes Lernen über kausales ML
 
-2. **Einführung in Kausale Inferenz**  
-   Was müssen wir zusätzlich wissen oder annehmen, um aus Daten über Interventionen zu lernen?
+:::: {.columns}
 
-::: {.callout-important appearance="simple"}
-Die Leitfrage für morgen:  
-**Was wäre passiert, wenn wir anders gehandelt hätten?**
+::: {.column width="76%"}
+**Schauen:** [Brady Neal: *Introduction to Causal Inference*](https://www.bradyneal.com/causal-inference-course/)
+
+Videoreihe mit Kursmaterialien, kurze Videos, verfügbar auf Youtube.
 :::
 
-## Fazit für heute
+::: {.column width="24%"}
+![](figs/bradyneal.png){fig-alt="Vorschaubild der Videoreihe Introduction to Causal Inference von Brady Neal." height="85"}
+:::
 
-- Die AG ist ein Labor: Methodisches Arbeiten, kausale Argumente und Prototypen zählen.
-- Kausalität beginnt mit einer präzisen Frage, nicht mit einem Algorithmus.
-- Gute Projekte verbinden Methode, Annahmen, Interaktion und Grenzen.
-- Im Kern geht es bei kausaler Inferenz um die Frage, was unter einer anderen Entscheidung passiert wäre.
+::::
 
-## Bild- und Quellenhinweise
+:::: {.columns}
 
-- Schuhe im Bett / Kopfschmerzen: [Brady Neal, *Causal Inference from a Machine Learning Perspective*](https://www.bradyneal.com/causal-inference-course#course-textbook/)
-- Weitere Quellen und Einordnungen sind direkt in den jeweiligen Lehrgrafiken angegeben.
-- Die Wein-Grafik ist eine eigens für diese Präsentation erzeugte Lehrillustration; sie stellt keine empirische Evidenz dar.
+::: {.column width="76%"}
+**Hören:** [Causal Bandits Podcast](https://causalbanditspodcast.com/)
+
+Vorstellung von aktuellen Forschungsthemen rund um Kausalität und Causal AI.
+:::
+
+::: {.column width="24%"}
+![](figs/causalbandits.jpg){fig-alt="Cover des Causal Bandits Podcast." height="85"}
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="76%"}
+**Lesen:** [*Causal Inference: The Mixtape*](https://mixtape.scunning.com/)
+
+Gut zugängliche Online-Einführung mit vielen anwendungsnahen Geschichten und Methoden.
+:::
+
+::: {.column width="24%"}
+![](figs/themixtape.png){fig-alt="Cover von Causal Inference: The Mixtape." height="85"}
+:::
+
+::::
+
+
+## Kurze Pause
+
+Danach geht es mit dem gemeinsamen **Python-Setup** weiter.
