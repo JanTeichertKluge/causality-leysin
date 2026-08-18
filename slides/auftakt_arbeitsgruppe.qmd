@@ -454,7 +454,7 @@ flowchart LR
 
 | Thema | Kernfrage |
 |---|---|
-| 🎯 **Causal Inference with ML** | Für wen wirkt eine Maßnahme — und wie hilft ML? |
+| 🎯 **Causal Inference with ML** | Für wen wirkt eine Maßnahme, und wie hilft ML? |
 | 📐 **Tools: RDD / DiD** | Was lernen wir aus Cutoffs, und parallelen Trends? |
 | 🎲 **Bayesian Methods** | Wie werden Vorwissen und Unsicherheit transparent modelliert? |
 
@@ -475,7 +475,7 @@ Euer Thema setzt den Rahmen. Euer Projekt nimmt darin **eine** Frage ernst.
 
 > Nicht: „Wir erklären unser gesamtes Themengebiet.“
 >
-> Sondern: „Wir untersuchen an einem klaren Beispiel, wann eine Idee oder Methode trägt — und wo ihre Grenze liegt.“
+> Sondern: „Wir untersuchen an einem klaren Beispiel, wann eine Idee oder Methode trägt, und wo ihre Grenze liegt.“
 
 ::: {.callout-tip appearance="simple"}
 Eine gute Forschungsfrage passt in **einen Satz**. Sie ist wissenschaftlich oder praktisch interessant, aber klein genug, um sie mit Daten, einem Experiment oder einer Simulation wirklich zu untersuchen.
@@ -485,11 +485,11 @@ Eine gute Forschungsfrage passt in **einen Satz**. Sie ist wissenschaftlich oder
 
 | Baustein | Was dazu gehört |
 |---|---|
-| **Frage & Motivation** | eine präzise, nicht triviale Forschungsfrage |
+| **Frage & Motivation** | eine präzise Forschungsfrage |
 | **Konzept & Annahmen** | die zentrale Idee und was gelten muss, damit eine Aussage trägt |
 | **Setup** | Daten, Replikation, Benchmark, eigenes Experiment oder Simulation |
 | **Interaktive Analyse** | eine Variation, die etwas zum Vorschein bringt |
-| **Findings & Grenzen** | eine ehrliche Erkenntnis — und was daraus ausdrücklich nicht folgt |
+| **Findings & Grenzen** | eine Erkenntnis und ihre Limitationen |
 
 ::: {.callout-important appearance="simple"}
 Eine Methode auszuführen oder eine Zahl zu berechnen reicht nicht. Das Ergebnis soll interaktiv sein!
@@ -510,7 +510,7 @@ Eine kleine, präzise App ist besser als ein großes Dashboard ohne klare wissen
 ## Vier Arbeitsblöcke
 
 | Block | Tag | Ziel am Ende |
-|---|---|
+|---|---|---|
 | **1 · Scope & Design** | Freitag morgens | Frage, Konzept, Setup |
 | **2 · Analyse** | Freitag vormittags | Kernanalyse, erste Visualisierung |
 | **3 · Streamlit & Story** | Samstag morgens | Interaktion, Erklärung, Findings  |
@@ -522,7 +522,7 @@ Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine 
 
 ## Keine Sorge
 
-**Wir sind dazu helfen!** ​🙂​🙏​
+**Wir sind da, um zu helfen!** ​🙂​🙏​
 
 - Sowohl inhaltlich als auch technisch, wir arbeiten zusammen 
 - Es geht darum ein Verständnis von Materie und Methodik zu bekommen
