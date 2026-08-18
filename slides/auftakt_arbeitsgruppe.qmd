@@ -437,36 +437,17 @@ flowchart LR
 
 ## Themen der Gruppenarbeit
 
-:::: {.columns}
-
-::: {.column width="50%"}
-
-| Thema | Kernfrage |
-|---|---|
-| 🏥 **Randomisierte Experimente / Medizin** | Was leistet ein RCT? |
-| 🔍 **Explainable ML / AI** | Warum sind Modell-Erklärungen nicht automatisch kausal? |
-| 💬 **Causality and LLMs** | Können Sprachmodelle kausal schlussfolgern? |
-| 🕸️ **DAGs / Causal Discovery** | Welche Strukturannahmen lassen sich begründen oder aus Daten eingrenzen? |
-
-:::
-
-::: {.column width="50%"}
-
-| Thema | Kernfrage |
-|---|---|
-| 🎯 **Causal Inference with ML** | Für wen wirkt eine Maßnahme, und wie hilft ML? |
-| 📐 **Tools: RDD / DiD** | Was lernen wir aus Cutoffs, und parallelen Trends? |
-| 🎲 **Bayesian Methods** | Wie werden Vorwissen und Unsicherheit transparent modelliert? |
-
-
+🏥 **Randomisierte Experimente / Medizin**
+🔍 **Explainable ML / AI** 
+💬 **Causality and LLMs** 
+🕸️ **DAGs / Causal Discovery** 
+🎯 **Causal Inference with ML**
+📐 **Tools: RDD / DiD** 
+🎲 **Bayesian Methods** 
 
 ::: {.callout-tip appearance="simple"}
 Die Website liefert zu jedem Thema einen Einstieg, eine Demo und offene Fragen. Das Projekt beginnt nicht mit einer fertigen Antwort, sondern mit einer guten Entscheidung darüber, **was ihr zeigen wollt**.
 :::
-
-:::
-
-::::
 
 
 ## Themengestaltung 🧭
@@ -505,16 +486,16 @@ Eine statische Folie kann ein Ergebnis zeigen. In eurer App sollen andere selbst
 
 > **Leitfrage:** Was können andere durch die Interaktion verstehen, was auf einer statischen Folie unsichtbar bliebe?
 
-Eine kleine, präzise App ist besser als ein großes Dashboard ohne klare wissenschaftliche Aussage.
+**Eine kleine, präzise App ist besser als ein großes Dashboard ohne klare wissenschaftliche Aussage.**
 
 ## Vier Arbeitsblöcke
 
 | Block | Tag | Ziel am Ende |
 |---|---|---|
-| **1 · Scope & Design** | Freitag morgens | Frage, Konzept, Setup |
-| **2 · Analyse** | Freitag vormittags | Kernanalyse, erste Visualisierung |
-| **3 · Streamlit & Story** | Samstag morgens | Interaktion, Erklärung, Findings  |
-| **4 · Finalisierung** | Samstag vormittags | Prototyp der App |
+| **Scope & Design** | Freitag morgens | Frage, Konzept, Setup |
+| **Analyse** | Freitag vormittags | Kernanalyse, erste Visualisierung |
+| **Streamlit & Story** | Samstag morgens | Interaktion, Erklärung, Findings  |
+| **Finalisierung** | Samstag vormittags | Prototyp der App |
 
 ::: {.callout-note appearance="simple"}
 Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine gute App.
