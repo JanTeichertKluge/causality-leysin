@@ -520,7 +520,9 @@ Eine kleine, präzise App ist besser als ein großes Dashboard ohne klare wissen
 Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine gute App.
 :::
 
-## Wir sind dazu helfen!
+## Keine Sorge
+
+**Wir sind dazu helfen!** ​🙂​🙏​
 
 - Sowohl inhaltlich als auch technisch, wir arbeiten zusammen 
 - Es geht darum ein Verständnis von Materie und Methodik zu bekommen
@@ -531,7 +533,14 @@ Erst muss das wissenschaftliche Argument funktionieren. Danach wird daraus eine 
 
 1. **Kurz kennenlernen (falls noch nicht geschehen)** 
 2. **Erste Ideen austauschen**
-3. **Erste Skizze festhalten**
+3. **Erste Skizze festhalten:**
+  * Wir möchten verstehen: ...
+  * Dafür wäre ein gutes Beispiel / Setup: ...
+  * Diese Annahme oder Frage müssten wir klären:
+
+::: {.callout-note appearance="simple"}
+Wenn ihr schon eine Idee vorbereitet habt, nutzt die Runde zur *Diskussion*: Ist die Frage eng genug? 
+:::
 
 ::: {.notes}
 47–55 Minuten. Es geht bewusst nicht um eine endgültige Projektentscheidung. Die Gruppen sollen sich kennenlernen, ihre Vorarbeit sichtbar machen und mit einem gemeinsamen Startpunkt in den späteren Kick-off gehen. Bei der Runde herumgehen und nachfragen: „Was wäre eine kleine, untersuchbare Frage innerhalb eures Themas?“
@@ -545,9 +554,7 @@ Haltet am Ende auf einer Karte oder in einer gemeinsamen Notiz fest:
 2. **Dafür wäre ein gutes Beispiel / Setup:** „…“
 3. **Diese Annahme oder Frage müssen wir noch klären:** „…“
 
-::: {.callout-note appearance="simple"}
-Wenn ihr schon eine starke Idee vorbereitet habt, nutzt die Runde als *Stress-Test*: Ist die Frage eng genug? Und ist schon erkennbar, was andere später mit der App selbst herausfinden können?
-:::
+
 
 # Abschluss
 
