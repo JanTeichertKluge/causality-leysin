@@ -1,0 +1,628 @@
+---
+title: "Willkommen in der Arbeitsgruppe"
+subtitle: "Künstliche Intelligenz und das „Warum“"
+author: "Dr. Oliver Schacht und Jan Teichert-Kluge"
+institute: "Sommerakademie Leysin 2026 · Studienstiftung des deutschen Volkes"
+lang: de
+format:
+  studienstiftung-theme-revealjs:
+    transition: fade
+    slide-number: "c/t"
+    progress: true
+    controls: true
+    footer: "Künstliche Intelligenz und das Warum · Arbeitsgruppenauftakt"
+    chalkboard: false
+    toc: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Auftakt
+
+## Willkommen
+
+Schön, dass du dabei bist ​🙂​
+
+Die nächsten **8 Tage** arbeiten wir in dieser Arbeitsgruppe an der Schnittstelle von
+ **Maschinellen Lernen**, **Statistik** und **Kausaler Inferenz**.
+
+::: {.fragment}
+> Wir untersuchen nicht nur, welche Korrelationen Daten enthalten, sondern wann diese Muster etwas über **Ursache und Wirkung** aussagen.
+
+Wir werden zunächst zusammen die Grundlagen erarbeiten und dann in Gruppenprojekten vertiefen.
+:::
+
+
+::: {.notes}
+0–3 Minuten. Zuerst nur die Beobachtung vorlesen und zehn Sekunden raten lassen: „Was könnte hier passiert sein?“ Erst nach zwei oder drei Wortmeldungen weiterschalten. Die Grafik wechselt dann zur gemeinsamen Ursache Alkohol. Leitidee: Ein auffälliges Muster genügt nicht für eine Ursache.
+:::
+
+## Heute
+
+| Programmpunkt | Format | Frage |
+|---|---:|---|
+| 1 | Ankommen & Orientierung | Wer sind wir, was ist diese AG? |
+| 2 | Vorstellungsrunde | Welche Erfahrungen und Erwartungen sind im Raum? |
+| 3 | Motivationsbeispiele | Wann täuscht Korrelation? |
+| 4 | Gruppenarbeit & Projekte | Wie arbeiten wir in den nächsten Tagen? |
+
+::: {.notes}
+Diese Folie ist die Taktung für die Dozierenden. Bei großer Gruppe die Vorstellungsrunde straff halten und den vierten Forschungsfall als Backup behandeln.
+:::
+
+# Die Arbeitsgruppe
+
+## Das sind wir
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+### Dr. Oliver Schacht
+
+![](figs/oliver.png){fig-alt="Portrait von Oliver" height="190"}
+
+- Promotion in Statistik / **Causal Machine Learning**
+- Arbeiten u.a. zum Einsatz kausaler KI in der Halbleiterfertigung
+- Mitwirkung am Python-Paket **DoubleML**
+- Erfahrung im Data Science Consulting bei Economic AI
+
+:::
+
+::: {.column width="48%"}
+
+### Jan Teichert-Kluge
+
+![](figs/jan-teichert-kluge_sqr.jpg){fig-alt="Portrait von Jan" height="190"}
+
+- Promotion in Statistik / **Causal Machine Learning**
+- Arbeiten u.a. zu Kausaler Inferenz mittels Deep Learning
+- Mitwirkung am Python-Paket **DoubleML**
+- Langjährige Industrie-Erfahrung in Data-Science-Teams
+
+:::
+
+::::
+
+## Inhalte der Arbeitsgruppe
+
+* Die AG behandelt die Grundlagen der kausalen Inferenz (mit ML)
+
+  * Zentrale Konzepte der kausalen Inferenz:
+    * Potenzielle Outcomes und kontrafaktische Szenarien
+    * Definition kausaler Effekte
+    * Grafische Modelle
+  * Statistische Methoden zur Untersuchung von Kausalität:
+    * Randomisierte Experimente
+    * Beobachtungsstudien
+    * Identifikation kausaler Effekte
+    * Schätzung mit ML
+
+## Lernziele der Arbeitsgruppe
+
+* Wir wollen methodische Skills vermitteln, die in Studium, Beruf und Forschung hilfreich sein werden, z.B.,
+
+  * wie man allgemeine Intuitionen auf eine handhabbare Weise formalisiert
+  * wie man Hypothesen ableitet, die anhand von Daten getestet werden können
+  * problemorientiertes und selbstorganisiertes Lernen
+  * die Fähigkeit, Assoziation von Kausalität zu unterscheiden – sehr wichtig für Ihr ganzes Leben! 🙂​
+
+
+## Gemeinsame vs. Gruppenarbeit
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+### Gemeinsam
+
+- Grundlagen zu ML und Kausalinferenz
+- technische Unterstützung: Python, VS Code und Streamlit
+- Vorstellung und Diskussion der Gruppenprojekte
+
+:::
+
+::: {.column width="48%"}
+
+### In den Gruppen
+
+- ein Vertiefungsthema eigenständig erschließen
+- eine kausale Fragestellung inkl. Annahmen, Schätzung usw. beantworten
+- eine kleine interaktive App oder Analyse bauen
+- Annahmen, Grenzen und offene Fragen sichtbar machen
+
+:::
+
+::::
+
+::: {.callout-important appearance="simple"}
+Uns geht es nicht um eine Referatsreihe. Die Gruppenarbeiten sind ein Labor. 
+Es geht darum mit Daten und Methodiken zu arbeiten und dabei zu lernen!
+:::
+
+::: {.callout-important appearance="simple"}
+Die abschließenden Präsentationen sind keine Prüfungen! Sie sind Anregungspunkt für Diskussionen.
+:::
+
+## Wer seid ihr?
+
+Wir wollen euch kennenlernen, z.B.,
+
+- Name, Studienfach
+- Ein Thema, das dich wissenschaftlich beschäftigt
+- Was du gerne im Rahmen der Arbeitsgruppe verstehen würdet
+
+::: {.callout-tip appearance="simple"}
+Bist du schonmal auf einen Trugschluss durch Korrelationen gestoßen?
+:::
+
+::: {.notes}
+10–20 Minuten. Eine sichtbare Uhr hilft. Nach etwa zwölf Minuten aktiv schließen und ankündigen, dass Fachinteressen beim Projektmatching wieder aufgegriffen werden.
+:::
+
+## Positionsbarometer
+
+Stellt euch gemäß eurer Position im Raum auf.
+
+| Linkes Ende | Rechtes Ende |
+|---|---|
+| stimme gar nicht zu | stimme voll zu |
+
+Aussagen:
+
+::: {.fragment}
+1. „Ein sehr gutes ML-Modell liefert automatisch gute Entscheidungen.“ 
+::: 
+::: {.fragment}
+2. „Kausalität ist vor allem gesunder Menschenverstand.“
+:::
+::: {.fragment}
+3. „Je größer Modell und Datenmenge, desto besser wird der Output.“
+:::
+
+::: {.notes}
+20–25 Minuten. Nach jeder Aussage zwei kontrastierende Stimmen einholen, nicht auflösen. Die Aussagen werden im Verlauf der Woche präziser.
+:::
+
+# Warum das „Warum“ zählt
+
+## Schokolade als Nobelstrategie?
+
+:::: {.columns}
+
+::: {.column width="43%"}
+
+> Länder mit höherem Schokoladenkonsum haben mehr Nobelpreisträger:innen pro Kopf.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: Confounding.** Wohlstand, Bildungs- und Forschungsinfrastruktur erhöhen plausibel sowohl den Schokoladenkonsum als auch die Chance auf wissenschaftliche Spitzenleistungen.
+:::
+:::
+
+:::
+
+::: {.column width="57%"}
+
+![](figs/nobelpreise.png){fig-alt="Positive Korrelation zwischen Schokoladenkonsum und Nobelpreisträgerinnen und Nobelpreisträgern pro Kopf." height="375"}
+
+:::
+
+::::
+
+
+## Attraktivität schlägt auf den Charakter?
+
+:::: {.columns}
+
+::: {.column width="43%"}
+
+> Auf einer Dating-Plattform erhalten sehr attraktive Profile kürzere, weniger persönliche Nachrichten.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: Selektions- bzw. Colliderbias.** Wer nur Menschen auf Datingapps betrachtet, konditioniert auf einen Auswahlprozess. Diese Teilmenge liefert nicht zwangsläufig valide Schlüsse auf die Population.
+:::
+:::
+
+:::
+
+::: {.column width="57%"}
+
+<div style="height: 330px; overflow: hidden;">
+  <img src="figs/dating_collider.png" alt="Lehrkarte über eine Beobachtung aus Dating-Apps" style="width: 100%; margin: 0; transform: translateY(0);">
+</div>
+
+:::
+
+::::
+
+## KI und Geisteswissenschaftsabschlüsse
+
+:::: {.columns}
+
+::: {.column width="43%"}
+
+> Die weltweite Verbreitung von KI und die Zahl der Geisteswissenschaftsabschlüsse verlaufen fast parallel.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: Scheinkorrelation.** Eine gemeinsame Zeitachse kann sehr unterschiedliche Größen gleichzeitig verändern. Ohne plausiblen Wirkmechanismus und Vergleichsdesign ist die fast perfekte Korrelation keine Evidenz für einen Effekt.
+:::
+:::
+
+:::
+
+::: {.column width="57%"}
+
+![](figs/adoption.png){fig-alt="Zwei stark ähnlich verlaufende Zeitreihen."}
+
+:::
+
+::::
+
+## Der Mindestlohn macht alles teuerer!!11!
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+> Nach einer Mindestlohnerhöhung steigen auch die Preise für Brot und Brötchen.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: gemeinsame Trends und Rückkopplung.** Lebenshaltungskosten, Branchenkosten und politische Reaktionen können Löhne und Preise zugleich bewegen. Ein glaubwürdiger Vergleich könnte etwa ein **Difference-in-Differences**-Design nutzen.
+:::
+:::
+
+:::
+
+::: {.column width="60%"}
+
+![](figs/broetchen.png){fig-alt="Grafik zur Entwicklung von Mindestlohn und Preisen in mehreren Branchen." height=500}
+
+:::
+
+::::
+
+## Wein als heimlicher Covid Impfstoff?
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+> In Beobachtungsdaten scheint regelmäßiger Weinkonsum mit einem niedrigeren COVID-Risiko einherzugehen.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: Confounding.** Alter, Einkommen, Gesundheit, Zugang zu Versorgung und Kontaktverhalten können sowohl den Konsum von Wein als auch das Erkrankungsrisiko beeinflussen.
+:::
+:::
+
+:::
+
+::: {.column width="55%"}
+
+![](figs/wein-covid2.png){fig-alt="Lehrillustration zu Wein als scheinbarem Schutzfaktor gegen COVID."}
+
+:::
+
+::::
+
+## Krankenhausaufenthalte machen krank?
+
+:::: {.columns}
+
+::: {.column width="43%"}
+
+> Patient:innen mit langen Krankenhausaufenthalten haben später im Mittel einen schlechteren Gesundheitszustand.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: umgekehrte Kausalität.** Häufig macht nicht der Aufenthalt krank; ein schwerer Ausgangszustand führt zugleich zu längerer Verweildauer und schlechterer späterer Gesundheit.
+:::
+:::
+
+:::
+
+::: {.column width="57%"}
+
+<div style="overflow: hidden;">
+  <img src="figs/hospital_stay.png" alt="Lehrkarte zu Krankenhausaufenthalten und Gesundheit" style="width: 100%; margin: 0;">
+</div>
+
+:::
+
+::::
+
+## Ausgebuchte Unterkünfte, schmerzende Augen
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+> Regionen mit vielen ausgebuchten Airbnbs verzeichnen zugleich auffällig viele Suchanfragen nach „Augenschmerzen“.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: gemeinsame Ursache.** Die Sonnenfinsternis vom 8. April 2024 brachte Reisende auf ihren Verlauf und führte zugleich zu mehr Suchanfragen nach Beschwerden rund um das Beobachten der Finsternis.
+:::
+:::
+
+:::
+
+::: {.column width="70%"}
+
+::: {layout-ncol=2 layout-valign="center"}
+![](figs/airbnb.jpeg){fig-alt="Karte zu Airbnb- und Vrbo-Buchungen entlang des Verlaufs der Sonnenfinsternis."}
+
+![](figs/augenschmerzen.jpeg){fig-alt="Karte zum Suchvolumen für Augenbeschwerden in den USA."}
+:::
+
+:::
+
+::::
+
+## Covid Booster und Sterblichkeitsraten
+
+:::: {.columns}
+
+::: {.column width="43%"}
+
+> In den Gesamtdaten ist die Sterblichkeit unter den geboosterten Patient:innen höher.
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+**Mögliche Diagnose: Simpsons Paradox.** Wenn Geboosterte im Schnitt deutlich älter sind, dominieren sie in den Rohdaten. Innerhalb jeder Altersgruppe kann die Sterblichkeit dennoch niedriger sein; erst die Altersstandardisierung macht den Vergleich sinnvoll.
+:::
+:::
+
+:::
+
+::: {.column width="57%"}
+
+![](figs/covid.png){fig-alt="Tabelle mit Sterblichkeitsraten nach Impfstatus und Altersgruppe"}
+:::
+
+::::
+
+
+## Vom Muster zum Argument
+
+::: {.incremental}
+- **Kausale Frage**  
+  Welchen Effekt wollen wir ermitteln?
+
+- **Counterfactual**  
+  Was wäre sonst geschehen?
+
+- **Design, Annahmen & Identifikation**  
+  Warum ist der Vergleich glaubwürdig?
+
+- **Schätzung**  
+  Welche Schätzgröße folgt aus den Daten?
+
+- **Interpretation**  
+  Was zeigt sie, und was nicht?
+:::
+
+::: {.fragment}
+::: {.callout-note appearance="simple"}
+Ein (ML-)Modell kann eine Zahl ausgeben. Eine kausale Analyse muss zusätzlich begründen, warum diese Zahl als kausaler Effekt interpretiert werden darf.
+:::
+:::
+
+# Die nächsten Tage
+
+## Ablaufplan
+
+```{mermaid}
+flowchart LR
+  A["19.08.<br/>Auftakt & Setup"] --> B["20.08.<br/>ML & Kausalinferenz"]
+  B --> C["21.–22.08.<br/>Projekt-Sprint"]
+  C --> D["24.–25.08.<br/>Gruppenpräsentationen"]
+  D --> E["26.08.<br/>Synthese & Feedback"]
+```
+
+- Heute setzen wir noch zusammen Python auf und erkunden Streamlit.
+- Morgen gibt es interaktive Input Sessions zu ML und kausaler Inferenz
+- Am 21.08. und 22.08. ist Zeit für die Gruppenarbeit
+- Am 23.08. ist frei; die Präsentationen verteilen sich auf den 24. und 25.08.
+
+::: {.notes}
+35–38 Minuten. Die genauen Uhrzeiten stehen auf der Ablaufplan-Seite; hier nur den Rhythmus zeigen: Grundlagen → Gruppenarbeit → gegenseitiges Lernen → Synthese.
+:::
+
+## Themen der Gruppenarbeit
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+| Thema | Kernfrage |
+|---|---|
+| 🏥 **Randomisierte Experimente / Medizin** | Was leistet ein RCT? |
+| 🔍 **Explainable ML / AI** | Warum sind Modell-Erklärungen nicht automatisch kausal? |
+| 💬 **Causality and LLMs** | Können Sprachmodelle kausal schlussfolgern oder beim Forschen helfen? |
+| 🕸️ **DAGs / Causal Discovery** | Welche Strukturannahmen lassen sich begründen oder aus Daten eingrenzen? |
+
+:::
+
+::: {.column width="50%"}
+
+| Thema | Kernfrage |
+|---|---|
+| 🎯 **Causal Inference with ML** | Für wen wirkt eine Maßnahme — und wie hilft ML? |
+| 📐 **Tools: RDD / DiD** | Was lernen wir aus Cutoffs, und parallelen Trends? |
+| 🎲 **Bayesian Methods** | Wie werden Vorwissen und Unsicherheit transparent modelliert? |
+
+:::
+
+::: {.callout-tip appearance="simple"}
+Die Website liefert zu jedem Thema einen Einstieg, eine Demo und offene Fragen. Das Projekt beginnt nicht mit einer fertigen Antwort, sondern mit einer guten Entscheidung darüber, **was ihr zeigen wollt**.
+:::
+
+
+::::
+
+
+## Themengestaltung
+
+Wählt nicht nur nach dem interessantesten Schlagwort.
+
+| Prüffrage | Gute Antwort |
+|---|---|
+| **Neugier** | Wir wollen diese Frage wirklich verstehen. |
+| **Lernziel** | Das Thema ergänzt unser Vorwissen sinnvoll. |
+| **Machbarkeit** | In wenigen Tagen können wir ein klares Lernartefakt bauen. |
+| **Beitrag** | Die Gruppe kann anderen eine Annahme, Methode oder Grenze verständlich machen. |
+
+## Ein gutes Projekt
+
+Am Ende entwickelt jede Gruppe eine wissenschaftlich fundierte **Mini-Station**.
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+### Argument
+
+- klare kausale Frage
+- Kernidee oder Methode
+- eine explizite Annahme
+- Bezug zu einer Studie, einem Design oder einer Kontroverse
+- Grenzen der Schlussfolgerung
+
+:::
+
+::: {.column width="48%"}
+
+### Interaktion
+
+- Simulation, Analyse oder Visualisierung
+- mindestens ein Regler, Vergleich oder Szenario
+- eine sichtbare Annahme oder Grenze
+- nachvollziehbar für die anderen Gruppen
+
+:::
+
+::::
+
+> Eine gute App macht nicht nur Ergebnisse sichtbar. Sie macht ein **wissenschaftliches Argument erfahrbar**.
+
+## Kein Dashboard, sondern eine Erkenntnis
+
+Nicht:
+
+> „Hier sind viele Plots und Kennzahlen.“
+
+Sondern:
+
+> „Wenn diese Annahme verletzt ist, kippt die Interpretation.“  
+> „Wenn wir für diese Variable adjustieren, ändert sich der Estimand.“  
+> „Wenn wir Vorhersage mit Wirkung verwechseln, treffen wir eine andere Entscheidung.“
+
+::: {.callout-important appearance="simple"}
+Die wichtigste Leistung eines Projekts ist nicht die größte technische Komplexität, sondern eine fundierte (kausale) Analyse.
+:::
+
+## Darstellung der Projekte auf der Website
+
+:::: {.columns}
+
+::: {.column width="48%"}
+
+### Option 1: Projektseite in Markdown
+
+- Ordner aus der Vorlage kopieren
+- **projekt.md** mit Titel, Team und Erklärung ausfüllen
+- Plots oder Screenshots hinzufügen
+- gut für Theorie, Case Study und Dokumentation
+
+:::
+
+::: {.column width="48%"}
+
+### Kür: Interaktive Streamlit-App
+
+- zusätzlich **app.py** im Projektordner
+- Slider, Simulationen und eigene Visualisierungen
+- nur Pakete aus den vorhandenen Requirements
+- wir helfen beim Debugging und bei der Umsetzung
+
+:::
+
+::::
+
+# Kennenlernen in den Teams
+
+## Causal Claims Clinic
+
+1. **Allein · 1 Minute:** Wähle eine Behauptung oder Studienidee.
+2. **Zu zweit · 3 Minuten:** Formuliert Treatment, Outcome und einen möglichen Bias.
+3. **Zu viert · 4 Minuten:** Skizziert ein Design oder eine Annahme.
+4. **Plenum · 3 Minuten:** Eine Gruppe teilt ihre präziseste Frage.
+
+::: {.notes}
+47–58 Minuten. Diese Struktur folgt dem Gedanken von 1–2–4–All: Erst selbst denken, dann Vergleichsmöglichkeiten erweitern. Bei knapper Zeit Plenum auf zwei Beiträge begrenzen.
+:::
+
+## Ausgangspunkte
+
+Wählt eine Karte oder bringt eine eigene Frage ein:
+
+- „Mentoring erhöht Studienerfolg.“
+- „KI-Feedback verbessert wissenschaftliches Schreiben.“
+- „Homeoffice steigert Produktivität.“
+- „Screeningprogramme verbessern Gesundheit.“
+- „Eine Preiserhöhung senkt Nachfrage.“
+- „Explainable AI erhöht Vertrauen in Entscheidungen.“
+- „LLMs verbessern kausales Denken.“
+
+**Ziel:** Nicht sofort die richtige Methode nennen. Zuerst die Frage so präzise formulieren, dass eine Methode überhaupt beurteilt werden kann.
+
+## Causal Canvas
+
+| Baustein | Leitfrage |
+|---|---|
+| Einheit | Wer oder was wird betrachtet? |
+| Treatment | Welche Intervention oder Variation interessiert uns? |
+| Outcome | Was soll sich verändern? |
+| Counterfactual | Was wäre ohne Treatment geschehen? |
+| Naiver Vergleich | Welche Auswertung läge zunächst nahe? |
+| Gefahr | Warum könnte dieser Vergleich irreführend sein? |
+| Nächster Schritt | Experiment, DAG, RDD, DiD, ML, Bayes oder Sensitivität? |
+
+::: {.callout-tip appearance="simple"}
+Bewahrt eure Canvas auf. Sie kann der Ausgangspunkt für eine Themenpräferenz oder ein eigenes Projekt werden.
+:::
+
+# Abschluss
+
+## Für morgen
+
+1. **Einführung in Machine Learning**  
+   Was kann ein Modell aus Daten lernen?
+
+2. **Einführung in Kausale Inferenz**  
+   Was müssen wir zusätzlich wissen oder annehmen, um aus Daten über Interventionen zu lernen?
+
+::: {.callout-important appearance="simple"}
+Die Leitfrage für morgen:  
+**Was wäre passiert, wenn wir anders gehandelt hätten?**
+:::
+
+## Fazit für heute
+
+- Die AG ist ein Labor: Methodisches Arbeiten, kausale Argumente und Prototypen zählen.
+- Kausalität beginnt mit einer präzisen Frage, nicht mit einem Algorithmus.
+- Gute Projekte verbinden Methode, Annahmen, Interaktion und Grenzen.
+- Im Kern geht es bei kausaler Inferenz um die Frage, was unter einer anderen Entscheidung passiert wäre.
+
+## Bild- und Quellenhinweise
+
+- Schuhe im Bett / Kopfschmerzen: [Brady Neal, *Causal Inference from a Machine Learning Perspective*](https://www.bradyneal.com/causal-inference-course#course-textbook/)
+- Weitere Quellen und Einordnungen sind direkt in den jeweiligen Lehrgrafiken angegeben.
+- Die Wein-Grafik ist eine eigens für diese Präsentation erzeugte Lehrillustration; sie stellt keine empirische Evidenz dar.

@@ -20,3 +20,7 @@ Thumbs.db
 
 references/
 Lecture/
+
+*/.quarto/
+*_files/
+input/
