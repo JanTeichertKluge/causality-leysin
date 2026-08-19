@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge">
-  <title>Kausale Inferenz</title>
+  <title>Einführung in die Kausale Inferenz</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -138,8 +138,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="_extensions/studienstiftung-theme/assets/logo.svg" data-background-position="98% 2%" data-background-size="30%" class="quarto-title-block center">
-  <h1 class="title">Kausale Inferenz</h1>
-  <p class="subtitle">Von beobachteten Mustern zu begründeten Interventionen</p>
+  <h1 class="title">Einführung in die Kausale Inferenz</h1>
+  <p class="subtitle">Von beobachteten Korrelationen zu begründeten Effekten</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -158,37 +158,26 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <h1>Einstieg</h1>
 
 </section>
-<section id="eine-kausalfrage" class="slide level2">
-<h2>Eine Kausalfrage</h2>
+<section id="wer-hat-mit-schuhen-geschlafen" class="slide level2">
+<h2>Wer hat mit Schuhen geschlafen?</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
 <blockquote>
-<p><strong>Soll ein Arbeitsmarktprogramm zur Weiterbildung ausgebaut werden?</strong></p>
+<p>Na: Wer hat gestern am ersten Abend schon mit Schuhen im Bett geschlafen?</p>
 </blockquote>
-<p>Nach Abschluss des Programms erzielen Teilnehmende im Mittel höhere Löhne als Nicht-Teilnehmende.</p>
+<p>Menschen, die mit Schuhen einschlafen, berichten auffällig oft Kopfschmerzen am nächsten Morgen.</p>
 <div class="fragment">
-<p>Ist das Programm wirksam — oder nehmen vor allem Personen teil, die ohnehin bessere Voraussetzungen mitbringen?</p>
+<p><strong>Verursachen Schuhe im Bett Kopfschmerzen?</strong></p>
+<p>Oder gibt es etwas Drittes, das beides wahrscheinlicher macht?</p>
 </div>
 </div><div class="column" style="width:52%;">
-<div class="cell" data-reveal="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-  P["Dieselbe Person i"]
-  P --&gt;|Treatment D = 1| Y1["potenzielles Outcome Yᵢ(1)"]
-  P -.-&gt;|kein Treatment D = 0| Y0["potenzielles Outcome Yᵢ(0)"]
-</pre>
+<div style="position: relative; height: 340px; width: 100%;">
+<p><img src="figs/drunk0.png" alt="Person schläft mit Schuhen im Bett; daneben eine Person mit Kopfschmerzen." class="fragment fade-out" data-fragment-index="1" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;"> <img src="figs/drunk.png" alt="Alkohol verursacht sowohl das Einschlafen mit Schuhen als auch Kopfschmerzen." class="fragment fade-in" data-fragment-index="1" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;"></p>
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p><small>Die kausale Frage vergleicht diese beiden möglichen Outcomes — nicht zwei beliebige Gruppenmittelwerte.</small></p>
+<p><small>Grafik: <a href="https://www.bradyneal.com/causal-inference-course#course-textbook/">Brady Neal, <em>Causal Inference from a Machine Learning Perspective</em></a></small></p>
 </div></div>
 <aside class="notes">
-<p>Zeit: 0–4 Minuten. Zunächst nur Handzeichen oder kurze Abstimmung: Wer würde auf Basis dieser Zahl ausbauen? Dann die Gegenfrage stellen. Die ganze Vorlesung liefert eine präzise Sprache für genau diesen Zweifel.</p>
+<p>Zeit: 0–4 Minuten. Als lockeren Rückbezug auf den ersten Abend fragen; keine persönlichen Antworten einfordern. Dann die Beobachtung zeigen und zwei oder drei plausible Vermutungen sammeln. Erst weiterklicken: Alkohol ist eine gemeinsame Ursache für Schuhe im Bett und Kopfschmerzen. Die Vorlesung liefert die präzise Sprache dafür, warum die erste Assoziation kein Effekt ist.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

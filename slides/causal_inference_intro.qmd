@@ -33,8 +33,6 @@ Menschen, die mit Schuhen einschlafen, berichten auffällig oft Kopfschmerzen am
 
 ::: {.fragment}
 **Verursachen Schuhe im Bett Kopfschmerzen?**
-
-Oder gibt es etwas Drittes, das beides wahrscheinlicher macht?
 :::
 
 :::
@@ -65,6 +63,7 @@ Am Ende könnt ihr eine einfache kausale Behauptung fachlich sauber zerlegen:
 2. **Estimand:** Welchen Effekt wollen wir definieren?
 3. **Identifikation:** Warum liefert unser Vergleich ein glaubwürdiges Kontrafaktual?
 4. **Schätzung:** Wie berechnen wir den Effekt und seine Unsicherheit?
+5. **Interpretation:**
 
 ::: {.callout-tip appearance="simple"}
 Kausale Inferenz ist kein Verfahren, das man auf einen Datensatz „anwendet“. Sie ist eine Argumentation darüber, **welcher Vergleich** eine Intervention abbildet.
@@ -74,26 +73,14 @@ Kausale Inferenz ist kein Verfahren, das man auf einen Datensatz „anwendet“.
 
 | Thema | Zugehörige App / Interaktion |
 |---:|---|---|
-| Korrelation, Confounding, Simpson-Paradox | *Korrelation $\neq$ Kausalität* |
-| Potential Outcomes, ATE, Zuteilungsmechanismen | *Kausale Effekte & kontrafaktische Welten* |
-| DAGs, Adjustierung, Annahmen | *Identifikation: DAGs & Confounding* |
-| Quasi-Experimente, Causal ML, Bayes | Vertiefungsseiten im Bereich *Kausalität* |
+| Korrelation, Confounding, Simpson-Paradox | Korrelation $\neq$ Kausalität* |
+| Potential Outcomes, ATE, Zuteilungsmechanismen | Kausale Effekte & kontrafaktische Welten |
+| DAGs, Adjustierung, Annahmen | Identifikation: DAGs & Confounding |
+| Vertiefungen | Überblick über die Themen der Gruppenarbeit |
 
 ::: {.notes}
 Ankündigen: Die drei ersten Blöcke folgen unmittelbar den drei interaktiven Streamlit-Seiten. Jeweils zuerst eine Vorhersage der Gruppe einholen, dann die Simulation öffnen.
 :::
-
-## Notation
-
-| Symbol | Bedeutung |
-|---|---|
-| $D_i\in\{0,1\}$ | Treatment/Intervention für Einheit $i$; $D_i=1$ behandelt |
-| $Y_i$ | beobachtetes Outcome |
-| $Z_i$ | vor dem Treatment gemessene gemeinsame Ursache (*Confounder*) |
-| $Y_i(1),\;Y_i(0)$ | potenzielle Outcomes mit bzw. ohne Treatment |
-| $\theta$ | kausaler Effekt von $D$ auf $Y$ |
-
-Wir verwenden $D$ für das Treatment und $Y$ für das Outcome. In den Apps taucht dieselbe Rolle teilweise als $X$ auf.
 
 # I. Von Mustern zu Interventionen
 
@@ -124,6 +111,19 @@ Die ersten beiden Fragen sind wichtig. Sie beantworten aber noch nicht, was eine
 :::
 
 ::::
+
+## Notation
+
+| Symbol | Bedeutung |
+|---|---|
+| $D_i\in\{0,1\}$ | Treatment/Intervention für Einheit $i$; $D_i=1$ behandelt |
+| $Y_i$ | beobachtetes Outcome |
+| $Z_i$ | vor dem Treatment gemessene gemeinsame Ursache (*Confounder*) |
+| $Y_i(1),\;Y_i(0)$ | potenzielle Outcomes mit bzw. ohne Treatment |
+| $\theta$ | kausaler Effekt von $D$ auf $Y$ |
+
+Wir verwenden $D$ für das Treatment und $Y$ für das Outcome. In den Apps taucht dieselbe Rolle teilweise als $X$ auf.
+
 
 ## Beobachtung und Kontrafaktual
 
@@ -196,7 +196,7 @@ $$
 Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei tau/c = 0 und a=b=1,2 wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.
 :::
 
-## Omitted Variable Bias
+## Confounding Bias
 
 Wenn $Z$ sowohl $D$ als auch $Y$ beeinflusst, gilt im linearen Modell:
 
@@ -223,21 +223,23 @@ In der zweiten Demo der App betrachten wir Weiterbildung und Gehalt.
 | 0–3 Jahre | hoch | niedrig | positiv |
 | 4–10 Jahre | mittel | mittel | positiv |
 | >10 Jahre | niedrig | hoch | positiv |
+:::{.fragment}
 | **Alle zusammen** | — | — | kann **negativ** sein |
 
 Die Berufserfahrung $Z$ beeinflusst zugleich Weiterbildung $D$ und Gehalt $Y$.
 
 ::: {.callout-tip appearance="simple"}
-Erst den Gesamttrend zeigen, dann in der App nach Erfahrungsgruppen aufschlüsseln. Die Frage ist nicht: „Welcher Plot ist schöner?“, sondern: **Welche Vergleiche beantworten die kausale Frage?**
+Erst den Gesamttrend zeigen, dann in der App nach Erfahrungsgruppen aufschlüsseln. 
+:::
 :::
 
-## Merksatz
+## Merke
 
-Ein statistischer Zusammenhang kann
+Ein statistischer Zusammenhang (Korrelation) kann
 
 - durch einen gemeinsamen Treiber entstehen,
-- nach einer sinnvollen Aufschlüsselung schwächer, stärker oder gegenläufig sein,
-- für Vorhersage nützlich sein und dennoch kein Interventionseffekt sein.
+- nach einer Aufschlüsselung schwächer, stärker oder gegenläufig sein,
+- für Vorhersage nützlich sein **obwohl** er nicht kausal ist.
 
 ::: {.callout-important appearance="simple"}
 Die Daten allein sagen nicht, welche Variablen verglichen oder kontrolliert werden sollen. Dafür brauchen wir ein Modell darüber, **wie die Daten entstanden sind**.
