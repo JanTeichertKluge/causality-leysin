@@ -435,11 +435,17 @@ flowchart LR
 ## Themen der Gruppenarbeit
 
 🏥 **Randomisierte Experimente / Medizin**
+
 🔍 **Explainable ML / AI** 
+
 💬 **Causality and LLMs** 
+
 🕸️ **DAGs / Causal Discovery** 
+
 🎯 **Causal Inference with ML**
+
 📐 **Tools: RDD / DiD** 
+
 🎲 **Bayesian Methods** 
 
 ::: {.callout-tip appearance="simple"}
