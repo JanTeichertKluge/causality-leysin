@@ -148,18 +148,15 @@ Die abschließenden Präsentationen sind keine Prüfungen! Sie sind Anregungspun
 
 ## Wer seid ihr?
 
-Wir wollen euch kennenlernen, z.B.,
+Jeder stellt seinen Sitznachbarn vor!
 
-- Name, Studienfach
-- Ein Thema, das dich wissenschaftlich beschäftigt
-- Was du gerne im Rahmen der Arbeitsgruppe verstehen würdet
+1. Ihr habt 3 Minuten Zeit euren Sitznachbarn kennenzulernen
+2. Wir machen eine Runde - wie viel kannst du uns über deinen Sitznachbarn erzählen?
+   - z.B., Name, Studienort, Forschungsinteresse oder Fach, Fun Fact ​​​🙂​
 
-::: {.callout-tip appearance="simple"}
-Bist du schonmal auf einen Trugschluss durch Korrelationen gestoßen?
-:::
 
 ::: {.notes}
-10–20 Minuten. Eine sichtbare Uhr hilft. Nach etwa zwölf Minuten aktiv schließen und ankündigen, dass Fachinteressen beim Projektmatching wieder aufgegriffen werden.
+10–25 Minuten. Eine sichtbare Uhr hilft. Nach etwa zwölf Minuten aktiv schließen und ankündigen, dass Fachinteressen beim Projektmatching wieder aufgegriffen werden.
 :::
 
 ## Positionsbarometer
@@ -173,13 +170,13 @@ Stellt euch gemäß eurer Position im Raum auf.
 Aussagen:
 
 ::: {.fragment}
-1. „Ein sehr gutes ML-Modell liefert automatisch gute Entscheidungen.“ 
+1. „In meinem Studienfach ist zwischen Korrelation und Kausalitäten unterscheiden sehr wichtig.“ 
 ::: 
 ::: {.fragment}
-2. „Kausalität ist vor allem gesunder Menschenverstand.“
+2. „(Trainierte) Modelle mit großen Datenmengen und vielen Parametern liefern automatisch einen guten Output.“
 :::
 ::: {.fragment}
-3. „Je größer Modell und Datenmenge, desto besser wird der Output.“
+3. „Die Definition von Zielgröße und Annahmen ist bei datengetriebener Forschung wichtiger als die Stichprobengröße“
 :::
 
 ::: {.notes}
@@ -526,8 +523,6 @@ Wenn ihr schon eine Idee vorbereitet habt, nutzt die Runde zur *Diskussion*: Ist
 ::: {.notes}
 47–55 Minuten. Es geht bewusst nicht um eine endgültige Projektentscheidung. Die Gruppen sollen sich kennenlernen, ihre Vorarbeit sichtbar machen und mit einem gemeinsamen Startpunkt in den späteren Kick-off gehen. Bei der Runde herumgehen und nachfragen: „Was wäre eine kleine, untersuchbare Frage innerhalb eures Themas?“
 :::
-
-
 
 # Abschluss
 
