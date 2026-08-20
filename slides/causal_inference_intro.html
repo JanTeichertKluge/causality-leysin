@@ -158,8 +158,8 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <h1>Einstieg</h1>
 
 </section>
-<section id="wer-hat-mit-schuhen-geschlafen" class="slide level2">
-<h2>Wer hat mit Schuhen geschlafen?</h2>
+<section id="hat-wer-mit-schuhen-geschlafen" class="slide level2">
+<h2>Hat wer mit Schuhen geschlafen?</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
 <blockquote>
@@ -168,7 +168,6 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <p>Menschen, die mit Schuhen einschlafen, berichten auffällig oft Kopfschmerzen am nächsten Morgen.</p>
 <div class="fragment">
 <p><strong>Verursachen Schuhe im Bett Kopfschmerzen?</strong></p>
-<p>Oder gibt es etwas Drittes, das beides wahrscheinlicher macht?</p>
 </div>
 </div><div class="column" style="width:52%;">
 <div style="position: relative; height: 340px; width: 100%;">
@@ -190,61 +189,43 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
           display:block!important;
       }</style></aside>
 </section>
-<section id="ziele" class="slide level2 scrollable">
-<h2>Ziele</h2>
-<p>Am Ende könnt ihr eine einfache kausale Behauptung fachlich sauber zerlegen:</p>
-<ol type="1">
-<li><strong>Kausale Frage:</strong> Welche Intervention interessiert uns?</li>
-<li><strong>Estimand:</strong> Welchen Effekt wollen wir definieren?</li>
-<li><strong>Identifikation:</strong> Warum liefert unser Vergleich ein glaubwürdiges Kontrafaktual?</li>
-<li><strong>Schätzung:</strong> Wie berechnen wir den Effekt und seine Unsicherheit?</li>
-</ol>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Kausale Inferenz ist kein Verfahren, das man auf einen Datensatz „anwendet“. Sie ist eine Argumentation darüber, <strong>welcher Vergleich</strong> eine Intervention abbildet.</p>
-</div>
-</div>
-</div>
+<section id="ziel-dieser-einführung" class="slide level2">
+<h2>Ziel dieser Einführung 🎯</h2>
+<ul>
+<li>Gestern haben wir verschiedene kausale Fragestellungen und Biases <strong>qualitativ</strong> beschrieben.</li>
+<li>Heute schauen wir darauf, wie wir diese Erkenntnisse <strong>quantifizieren</strong>.</li>
+</ul>
+<p>Dazu sprechen wir über: - Potenzielle Outcomes und Counterfactuals - Das fundamentale Problem der kausalen Inferenz sowie das Simpson-Paradox - Wie man einen kausalen Effekt definiert - Identifikation von kausalen Effekten (Randomisierung oder DAGs)</p>
 </section>
-<section id="überblick" class="slide level2">
-<h2>Überblick</h2>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 30%">
-<col style="width: 30%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Thema</th>
-<th>Zugehörige App / Interaktion</th>
-<th></th>
+<th>Thema</th>
+<th>Zugehörige App</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">Korrelation, Confounding, Simpson-Paradox</td>
-<td><em>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</em></td>
-<td></td>
+<td>Korrelation, Confounding, Simpson-Paradox</td>
+<td>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">Potential Outcomes, ATE, Zuteilungsmechanismen</td>
-<td><em>Kausale Effekte &amp; kontrafaktische Welten</em></td>
-<td></td>
+<td>Potenzielle Outcomes, ATE, Zuteilungsmechanismen</td>
+<td>Kausale Effekte &amp; kontrafaktische Welten</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">DAGs, Adjustierung, Annahmen</td>
-<td><em>Identifikation: DAGs &amp; Confounding</em></td>
-<td></td>
+<td>DAGs, Adjustierung, Annahmen</td>
+<td>Identifikation: DAGs &amp; Confounding</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">Quasi-Experimente, Causal ML, Bayes</td>
-<td>Vertiefungsseiten im Bereich <em>Kausalität</em></td>
-<td></td>
+<td>Vertiefungen</td>
+<td>Tools, CML und Bayes</td>
 </tr>
 </tbody>
 </table>
@@ -261,6 +242,11 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section></section>
+<section>
+<section id="i.-von-mustern-zu-interventionen" class="title-slide slide level1 center">
+<h1>I. Von Mustern zu Interventionen</h1>
+
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
@@ -285,7 +271,7 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <td>beobachtetes Outcome</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(Z_i\)</span></td>
+<td><span class="math inline">\(Z_i\)</span> (oder: <span class="math inline">\(X_i\)</span>)</td>
 <td>vor dem Treatment gemessene gemeinsame Ursache (<em>Confounder</em>)</td>
 </tr>
 <tr class="even">
@@ -296,14 +282,16 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <td><span class="math inline">\(\theta\)</span></td>
 <td>kausaler Effekt von <span class="math inline">\(D\)</span> auf <span class="math inline">\(Y\)</span></td>
 </tr>
+<tr class="even">
+<td><span class="math inline">\(E[\cdot]\)</span></td>
+<td>Erwartungswert</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(E[\cdot \mid \cdot]\)</span></td>
+<td>Bedingter Erwartungswert</td>
+</tr>
 </tbody>
 </table>
-<p>Wir verwenden <span class="math inline">\(D\)</span> für das Treatment und <span class="math inline">\(Y\)</span> für das Outcome. In den Apps taucht dieselbe Rolle teilweise als <span class="math inline">\(X\)</span> auf.</p>
-</section></section>
-<section>
-<section id="i.-von-mustern-zu-interventionen" class="title-slide slide level1 center">
-<h1>I. Von Mustern zu Interventionen</h1>
-
 </section>
 <section id="drei-fragen" class="slide level2">
 <h2>Drei Fragen</h2>
@@ -392,19 +380,19 @@ Dr.&nbsp;Oliver Schacht und Jan Teichert-Kluge
 <pre class="mermaid mermaid-js">flowchart LR
   Z["Sonnenstunden Z"] --&gt; D["Eisverkauf D"]
   Z --&gt; Y["Sonnenbrände Y"]
-  D --&gt; Y
+  D -.-&gt; Y
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<p>Der Pfeil <span class="math inline">\(D\rightarrow Y\)</span> ist die Frage, die uns interessiert. Der Pfad</p>
+<p>Der gestrichelte Pfeil <span class="math inline">\(D\rightarrow Y\)</span> ist die Frage, die uns interessiert. Der Pfad</p>
 <p><span class="math display">\[D \leftarrow Z \rightarrow Y\]</span></p>
-<p>liefert jedoch zusätzlich eine <strong>nicht-kausale Assoziation</strong>: An sonnigen Tagen sind Eisverkauf und Sonnenbrände beide hoch — auch wenn Eis keinen Sonnenbrand verursacht.</p>
+<p>liefert jedoch zusätzlich eine <strong>nicht-kausale Assoziation</strong>: An sonnigen Tagen sind Eisverkauf und Sonnenbrände beide hoch, auch wenn Eis keinen Sonnenbrand verursacht.</p>
 </section>
 <section id="demo-confounding" class="slide level2">
-<h2>Demo: Confounding</h2>
+<h2>Demo: Confounding 🎛️</h2>
 <p>In der App <em>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</em> wird diese Datenwelt simuliert:</p>
 <p><span class="math display">\[
 D=aZ+\varepsilon_D,
@@ -412,22 +400,11 @@ D=aZ+\varepsilon_D,
 Y=\theta D+bZ+\varepsilon_Y.
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\theta\)</span> (in der App: <span class="math inline">\(c\)</span>) ist der <strong>wahre kausale Effekt</strong>.</li>
-<li>Setzt zuerst <span class="math inline">\(\theta=0\)</span>.</li>
-<li>Erhöht dann <span class="math inline">\(a\)</span> und <span class="math inline">\(b\)</span>.</li>
+<li><span class="math inline">\(\theta\)</span> (bzw. in der App <span class="math inline">\(c\)</span>) ist der <strong>wahre kausale Effekt</strong>.</li>
 </ul>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Vorhersage:</strong> Was passiert mit der einfachen Regressionsgeraden von <span class="math inline">\(Y\)</span> auf <span class="math inline">\(D\)</span>? Und was ändert sich, wenn wir für <span class="math inline">\(Z\)</span> adjustieren?</p>
-</div>
-</div>
-</div>
+<p>Was passiert mit der einfachen Regressionsgeraden von <span class="math inline">\(Y\)</span> auf <span class="math inline">\(D\)</span>? Und was ändert sich, wenn wir für <span class="math inline">\(Z\)</span> adjustieren?</p>
 <aside class="notes">
-<p>Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei tau/c = 0 und a=b=1,2 wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.</p>
+<p>Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei <span class="math inline">\(\theta/c=0\)</span> und <span class="math inline">\(a=b=1{,}2\)</span> wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -440,8 +417,8 @@ Y=\theta D+bZ+\varepsilon_Y.
           display:block!important;
       }</style></aside>
 </section>
-<section id="omitted-variable-bias" class="slide level2">
-<h2>Omitted Variable Bias</h2>
+<section id="confounding-bias" class="slide level2">
+<h2>Confounding Bias</h2>
 <p>Wenn <span class="math inline">\(Z\)</span> sowohl <span class="math inline">\(D\)</span> als auch <span class="math inline">\(Y\)</span> beeinflusst, gilt im linearen Modell:</p>
 <p><span class="math display">\[
 \underbrace{\beta_{\mathrm{naiv}}}_{Y\sim D}
@@ -457,7 +434,8 @@ Y=\theta D+bZ+\varepsilon_Y.
 </section>
 <section id="simpson-paradox-der-aggregattrend-kann-täuschen" class="slide level2">
 <h2>Simpson-Paradox: Der Aggregattrend kann täuschen</h2>
-<p>In der zweiten Demo der App betrachten wir Weiterbildung und Gehalt.</p>
+<p>Wir betrachten eine Studie zu Weiterbildungsstunden und Gehalt. Ist der Zusammenhang wirklich negativ?</p>
+<div class="fragment">
 <table class="caption-top">
 <colgroup>
 <col style="width: 21%">
@@ -493,51 +471,37 @@ Y=\theta D+bZ+\varepsilon_Y.
 <td>positiv</td>
 </tr>
 <tr class="even">
-<td><strong>Alle zusammen</strong></td>
-<td style="text-align: right;">—</td>
-<td style="text-align: right;">—</td>
+<td>Alle zusammen</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
 <td>kann <strong>negativ</strong> sein</td>
 </tr>
 </tbody>
 </table>
 <p>Die Berufserfahrung <span class="math inline">\(Z\)</span> beeinflusst zugleich Weiterbildung <span class="math inline">\(D\)</span> und Gehalt <span class="math inline">\(Y\)</span>.</p>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Erst den Gesamttrend zeigen, dann in der App nach Erfahrungsgruppen aufschlüsseln. Die Frage ist nicht: „Welcher Plot ist schöner?“, sondern: <strong>Welche Vergleiche beantworten die kausale Frage?</strong></p>
-</div>
-</div>
 </div>
 </section>
-<section id="merksatz" class="slide level2">
-<h2>Merksatz</h2>
-<p>Ein statistischer Zusammenhang kann</p>
+<section id="zwischenfazit" class="slide level2">
+<h2>Zwischenfazit</h2>
+<p>Ein statistischer Zusammenhang (Korrelation) kann</p>
 <ul>
 <li>durch einen gemeinsamen Treiber entstehen,</li>
-<li>nach einer sinnvollen Aufschlüsselung schwächer, stärker oder gegenläufig sein,</li>
-<li>für Vorhersage nützlich sein und dennoch kein Interventionseffekt sein.</li>
+<li>nach einer Aufschlüsselung schwächer, stärker oder gegenläufig sein,</li>
+<li>für Vorhersage nützlich sein <strong>obwohl</strong> er nicht kausal ist.</li>
 </ul>
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Die Daten allein sagen nicht, welche Variablen verglichen oder kontrolliert werden sollen. Dafür brauchen wir ein Modell darüber, <strong>wie die Daten entstanden sind</strong>.</p>
-</div>
-</div>
-</div>
+<p><strong>Merke:</strong></p>
+<ul>
+<li>Daten allein sagen nicht, welche Variablen verglichen oder kontrolliert werden sollen.</li>
+<li>Wir brauchen ein Modell darüber, <strong>wie die Daten entstanden sind</strong>.</li>
+</ul>
 </section></section>
 <section>
 <section id="ii.-was-ist-ein-kausaler-effekt" class="title-slide slide level1 center">
 <h1>II. Was ist ein kausaler Effekt?</h1>
 
 </section>
-<section id="zwei-welten" class="slide level2">
-<h2>Zwei Welten</h2>
+<section id="potenzielle-outcomes-definition-kausaler-effekte" class="slide level2">
+<h2>Potenzielle Outcomes: Definition kausaler Effekte</h2>
 <p>Für eine Person <span class="math inline">\(i\)</span> definieren wir zwei potenzielle Outcomes:</p>
 <div class="columns">
 <div class="column" style="width:48%;">
@@ -565,8 +529,8 @@ Y=\theta D+bZ+\varepsilon_Y.
           display:block!important;
       }</style></aside>
 </section>
-<section id="orakeltabelle" class="slide level2">
-<h2>Orakeltabelle</h2>
+<section id="das-orakel-schaut-in-die-glaskugel" class="slide level2">
+<h2>Das Orakel schaut in die Glaskugel</h2>
 <p>Beispiel aus der App: Ein Medikament soll einen Gesundheits-Score verbessern.</p>
 <table class="caption-top">
 <colgroup>
@@ -617,6 +581,7 @@ Y=\theta D+bZ+\varepsilon_Y.
 </tbody>
 </table>
 <p>Mit einem Orakel könnten wir für jede Person eine Differenz bilden und dann mitteln.</p>
+<p>Wie verändert sich das, wenn wir in die reale Welt wechseln?</p>
 <div class="fragment">
 <p>In einer realen Studie existiert für jede Person jedoch nur <strong>eine</strong> beobachtete Welt.</p>
 </div>
@@ -627,16 +592,11 @@ Y=\theta D+bZ+\varepsilon_Y.
 Y_i=D_iY_i(1)+(1-D_i)Y_i(0).
 \]</span></p>
 <table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Treatmentstatus</th>
 <th>Beobachtbar</th>
-<th>Kontrafaktisch, also nicht beobachtbar</th>
+<th>Kontrafaktisch</th>
 </tr>
 </thead>
 <tbody>
@@ -658,44 +618,24 @@ Y_i=D_iY_i(1)+(1-D_i)Y_i(0).
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Für dieselbe Einheit zur selben Zeit sehen wir nie <span class="math inline">\(Y_i(1)\)</span> <strong>und</strong> <span class="math inline">\(Y_i(0)\)</span>. Das ist das fundamentale Problem der kausalen Inferenz — kein Mangel an Rechenleistung.</p>
+<p>Für dieselbe Einheit zur selben Zeit sehen wir nie <span class="math inline">\(Y_i(1)\)</span> <strong>und</strong> <span class="math inline">\(Y_i(0)\)</span>.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="durchschnittliche-effekte" class="slide level2">
 <h2>Durchschnittliche Effekte</h2>
-<p>Weil individuelle Effekte im Allgemeinen nicht direkt beobachtbar sind, definieren wir eine Populationsgröße:</p>
+<p>Weil individuelle Effekte im Allgemeinen nicht direkt beobachtbar sind, schauen wir auf Populationsebene:</p>
 <p><span class="math display">\[
 \operatorname{ATE}
 =E\big[Y(1)-Y(0)\big]
-=E[Y(1)]-E[Y(0)].
+=E[Y(1)]-E[Y(0)]
 \]</span></p>
+<div class="fragment">
 <p>Der <strong>Average Treatment Effect (ATE)</strong> beantwortet:</p>
 <blockquote>
-<p>Wie stark würde sich das Outcome im Mittel ändern, wenn die Zielpopulation behandelt statt nicht behandelt würde?</p>
+<p>Wie stark würde sich das Outcome im Mittel ändern, wenn alle in der Population behandelt wären?</p>
 </blockquote>
-<p>Andere Fragen können andere Zielgrößen verlangen, etwa den Effekt für die tatsächlich Behandelten. Der Estimand folgt der Forschungsfrage, nicht dem verfügbaren Datensatz.</p>
-</section>
-<section id="ate-att-und-atu" class="slide level2">
-<h2>ATE, ATT und ATU</h2>
-<p>Bei heterogenen Effekten muss vor der Schätzung klar sein, <strong>für welche Population</strong> der Effekt gelten soll:</p>
-<p><span class="math display">\[
-\begin{aligned}
-\operatorname{ATE} &amp;= E\big[Y(1)-Y(0)\big],\\
-\operatorname{ATT} &amp;= E\big[Y(1)-Y(0)\mid D=1\big],\\
-\operatorname{ATU} &amp;= E\big[Y(1)-Y(0)\mid D=0\big].
-\end{aligned}
-\]</span></p>
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Wenn Personen ihre Behandlung mit Blick auf ihren erwarteten Nutzen wählen, sind <span class="math inline">\(\operatorname{ATT}\)</span> und <span class="math inline">\(\operatorname{ATU}\)</span> im Allgemeinen verschieden. Ein geschätzter Effekt beantwortet deshalb immer eine <strong>Populationsfrage</strong>.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="der-naive-vergleich" class="slide level2">
@@ -704,13 +644,15 @@ Y_i=D_iY_i(1)+(1-D_i)Y_i(0).
 <p><span class="math display">\[
 E[Y\mid D=1]-E[Y\mid D=0].
 \]</span></p>
-<p>Für die behandelte Gruppe beobachten wir aber <span class="math inline">\(Y(1)\)</span>, für die Kontrollgruppe <span class="math inline">\(Y(0)\)</span>:</p>
+<p>Für die behandelte Gruppe beobachten wir <span class="math inline">\(Y(1)\)</span>, für die Kontrollgruppe <span class="math inline">\(Y(0)\)</span>:</p>
 <p><span class="math display">\[
 E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 \]</span></p>
-<p>Es fehlt genau die zentrale Größe <span class="math inline">\(E[Y(0)\mid D=1]\)</span>: Wie wäre es der behandelten Gruppe <strong>ohne</strong> Behandlung ergangen?</p>
 <div class="fragment">
-<p>Das ist die präzise Form von <em>Selection Bias</em>: Die Gruppen können sich bereits ohne Treatment unterscheiden.</p>
+<p>Es fehlt genau die zentrale Größe <span class="math inline">\(E[Y(0)\mid D=1]\)</span>: Wie wäre es der behandelten Gruppe <strong>ohne</strong> Behandlung ergangen?</p>
+</div>
+<div class="fragment">
+<p>Das ist die formale Definition von <em>Selection Bias</em>: Die Gruppen können sich bereits ohne Treatment unterscheiden.</p>
 </div>
 </section>
 <section id="zerlegung-der-gruppendifferenz" class="slide level2">
@@ -734,18 +676,20 @@ E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Die Gleichung ist keine Schätzmethode. Sie zeigt, <strong>welche Annahmen</strong> der einfache Gruppenvergleich benötigt, um den ATE zu messen.</p>
+<p>Diese Gleichung zeigt, <strong>welche Annahmen</strong> der einfache Gruppenvergleich benötigt, um den ATE zu messen.</p>
 </div>
 </div>
 </div>
-<p><small>Vgl. <a href="https://mixtape.scunning.com/04-potential_outcomes">Cunningham, <em>Causal Inference: The Mixtape</em>, Kap. 4</a>.</small></p>
 </section>
-<section id="denkpause" class="slide level2 scrollable">
-<h2>Denkpause</h2>
-<p>Eine Ärztin gibt das Medikament bevorzugt besonders schwer erkrankten Personen. Die behandelte Gruppe erzielt danach einen niedrigeren Gesundheits-Score als die Kontrollgruppe.</p>
+<section id="kurze-übung" class="slide level2 scrollable">
+<h2>Kurze Übung 🧠</h2>
+<ul>
+<li>Eine Ärztin gibt das Medikament bevorzugt besonders schwer erkrankten Personen.</li>
+<li>Die behandelte Gruppe erzielt danach einen niedrigeren Gesundheits-Score als die Kontrollgruppe.</li>
+</ul>
 <ol type="1">
-<li>Bedeutet das, dass das Medikament schadet?</li>
-<li>Welche potenziellen Outcomes wären für eine Antwort besonders wichtig?</li>
+<li>Formalisiert dies im Potential Outcomes Framework.</li>
+<li>Welchen Bias würdet ihr erwarten im <strong>SDO</strong>?</li>
 <li>Was müsste sich am Zuteilungsmechanismus ändern, damit die Gruppen vergleichbar werden?</li>
 </ol>
 <aside class="notes">
@@ -762,8 +706,8 @@ E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
           display:block!important;
       }</style></aside>
 </section>
-<section id="kausaler-workflow" class="slide level2">
-<h2>Kausaler Workflow</h2>
+<section id="zwischenfazit-kausaler-workflow" class="slide level2">
+<h2>Zwischenfazit: Kausaler Workflow</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -805,16 +749,7 @@ E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 </tr>
 </tbody>
 </table>
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Identifikation kommt vor Schätzung.</strong> Ein flexibler Algorithmus, kleine Standardfehler oder viele Daten ersetzen kein fehlendes Kontrafaktual.</p>
-</div>
-</div>
-</div>
+<p><strong>Identifikation kommt vor Schätzung.</strong></p>
 </section></section>
 <section>
 <section id="iii.-der-zuteilungsmechanismus-entscheidet" class="title-slide slide level1 center">
@@ -846,23 +781,13 @@ E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 </ul>
 </section>
 <section id="demo-randomisierung" class="slide level2 scrollable">
-<h2>Demo: Randomisierung</h2>
+<h2>Demo: Randomisierung 🎛️</h2>
 <p>Die App simuliert einen wahren Behandlungseffekt von <span class="math inline">\(+8\)</span> Punkten.</p>
 <ol type="1">
-<li>Wählt <strong>Selbstselektion / ärztliche Auswahl</strong> und variiert die Stichprobengröße.</li>
-<li>Vergleicht Krankheitsschwere in beiden Gruppen und die geschätzte Gruppendifferenz.</li>
-<li>Wechselt zu <strong>randomisierter Zuweisung</strong>.</li>
+<li>Was ändert eine größere Stichprobe bei <strong>Selbstselektion / ärztliche Auswahl</strong>?</li>
+<li>Ist der Effekt bei <strong>randomisierter Zuweisung</strong> unbiased?</li>
+<li>Hilft eine größere Stichprobe bei Randomisierung?</li>
 </ol>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Was verändert eine größere Stichprobe in beiden Fällen? Achtet nicht nur auf das Konfidenzintervall, sondern auf <strong>Balance vor dem Treatment</strong>.</p>
-</div>
-</div>
-</div>
 <aside class="notes">
 <p>Zeit: 43–50 Minuten. Die Seite „views/kausalitaet/potential_outcomes.py“ öffnen. Der zentrale Aha-Moment: Bei Selbstselektion wird das Intervall enger um einen verzerrten Wert; bei Randomisierung enger um den wahren ATE.</p>
 <style type="text/css">
@@ -883,7 +808,7 @@ E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 <p><span class="math display">\[
 \big(Y(1),Y(0)\big)\perp D.
 \]</span></p>
-<p>Damit sind behandelte und unbehandelte Einheiten im Mittel austauschbar. Insbesondere:</p>
+<p>Damit sind behandelte und unbehandelte Einheiten im Mittel <strong>austauschbar</strong>. Insbesondere:</p>
 <p><span class="math display">\[
 E[Y(0)\mid D=1]=E[Y(0)\mid D=0].
 \]</span></p>
@@ -894,65 +819,16 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 </section>
 <section id="randomisierung-grenzen" class="slide level2">
 <h2>Randomisierung: Grenzen</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Randomisierung leistet</th>
-<th>Randomisierung ersetzt nicht</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>macht Gruppen im Erwartungswert vergleichbar</td>
-<td>eine präzise Definition des Treatments</td>
-</tr>
-<tr class="even">
-<td>verhindert systematische Selektion in <span class="math inline">\(D\)</span></td>
-<td>ausreichende Fallzahl und saubere Messung</td>
-</tr>
-<tr class="odd">
-<td>legitimiert den einfachen Gruppenvergleich</td>
-<td>Schutz vor Ausfällen, Non-Compliance oder Interferenz</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>In einer endlichen Stichprobe kann es Zufallsunterschiede geben. Sie sind ein <strong>Präzisionsproblem</strong>; systematische Selbstselektion ist ein <strong>Identifikationsproblem</strong>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="identifikation" class="slide level2">
-<h2>Identifikation</h2>
-<p>Viele wichtige Fragen lassen sich nicht per Münzwurf beantworten: etwa Wirkungen von Gesetzen, Preisen oder Bildungspolitik.</p>
-<p>Dann brauchen wir eine begründete Alternative:</p>
-<div class="cell" data-reveal="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  Q["Kausale Frage"] --&gt; E["Estimand"]
-  E --&gt; A["Design und Annahmen"]
-  A --&gt; I["Identifikation"]
-  I --&gt; S["Schätzung"]
-  S --&gt; R["Robustheit &amp; Interpretation"]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Der nächste Schritt ist daher nicht „mehr Kontrolle“, sondern: <strong>Welche kausale Rolle spielen unsere Variablen?</strong></p>
+<ul>
+<li>Randomisierung gilt als <em>Goldstandard</em> der kausalen Inferenz.</li>
+<li>So einfach ist es aber nicht:
+<ul>
+<li>In kleinen Stichproben können zufällige Ungleichgewichte entstehen.</li>
+<li>Non-Compliance verändert den relevanten Estimand und braucht eine passende Analyse.</li>
+</ul></li>
+</ul>
+<p><strong>Häufig ist Randomisierung technisch oder ethisch unmöglich.</strong></p>
+<p>Wenn Randomisierung nicht greift, müssen wir schauen: <strong>Welche kausale Rolle spielen unsere Variablen?</strong></p>
 </section></section>
 <section>
 <section id="iv.-dags-annahmen-sichtbar-machen" class="title-slide slide level1 center">
@@ -967,16 +843,6 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <li><strong>gerichtete Pfeile:</strong> direkte kausale Einflüsse</li>
 <li><strong>azyklisch:</strong> keine Variable verursacht sich über einen Pfeilpfad selbst</li>
 </ul>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Ein DAG ist nicht einfach ein Plot der Korrelationen und auch kein Ergebnis, das Daten allein liefern. Er ist eine überprüfbare, fachlich begründete Hypothese über die Welt.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="drei-strukturen" class="slide level2">
 <h2>Drei Strukturen</h2>
@@ -1032,7 +898,7 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  Z["Produktinteresse Z&lt;br/&gt;(vor der Werbung)"] --&gt; D["Werbung D"]
+  Z["Produktinteresse Z&lt;br/&gt;"] --&gt; D["Werbung D"]
   Z --&gt; Y["Kauf Y"]
   D --&gt; Y
 </pre>
@@ -1041,7 +907,7 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 </div>
 </div>
 </div>
-<p>Das frühere Produktinteresse beeinflusst Targeting und Kauf. Ohne Adjustierung vermischt ein Vergleich von Werbe-Empfangenden und Nicht-Empfangenden Werbeeffekt und Interesse.</p>
+<p>Das frühere Produktinteresse beeinflusst Targeting und Kauf; zur Identifikation ist Adjustierung nötig.</p>
 <div class="fragment">
 <p>Wenn <span class="math inline">\(Z\)</span> ausreichend gemessen ist, vergleichen wir innerhalb gleicher <span class="math inline">\(Z\)</span>-Werte und mitteln anschließend über die Zielpopulation.</p>
 </div>
@@ -1053,22 +919,12 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <li>keine Nachfahren von <span class="math inline">\(D\)</span> enthält und</li>
 <li>jeden Pfad zwischen <span class="math inline">\(D\)</span> und <span class="math inline">\(Y\)</span> blockiert, der mit einem Pfeil <strong>in</strong> <span class="math inline">\(D\)</span> beginnt.</li>
 </ol>
-<p>Für den einfachen Graphen <span class="math inline">\(D\leftarrow Z\rightarrow Y\)</span> genügt es, auf <span class="math inline">\(Z\)</span> zu konditionieren. Bei mehreren Variablen muss die gesamte kausale Geschichte geprüft werden.</p>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>„Wir kontrollieren für alles Messbare“ ist keine Identifikationsstrategie: Mediatoren ändern den Estimand, Collider öffnen Bias-Pfade.</p>
-</div>
-</div>
-</div>
-<p><small>Vgl. <a href="https://mixtape.scunning.com/03-directed_acyclical_graphs">Cunningham, <em>Causal Inference: The Mixtape</em>, Kap. 3</a>.</small></p>
+<p>Für den einfachen Graphen <span class="math inline">\(D\leftarrow Z\rightarrow Y\)</span> genügt es, auf <span class="math inline">\(Z\)</span> zu konditionieren.</p>
+<p><strong>„Wir kontrollieren für alles Messbare“ ist keine Identifikationsstrategie</strong>: Mediatoren ändern den Estimand, Collider öffnen Bias-Pfade.</p>
 </section>
 <section id="die-adjustierungsformel" class="slide level2 scrollable">
 <h2>Die Adjustierungsformel</h2>
-<p>Unter den später präzisierten Annahmen gilt für eine diskrete Confounder-Menge <span class="math inline">\(Z\)</span>:</p>
+<p>Unter Annahmen gilt für eine diskrete Confounder-Menge <span class="math inline">\(Z\)</span>:</p>
 <p><span class="math display">\[
 \operatorname{ATE}
 =\sum_z
@@ -1080,16 +936,6 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <li>Berechne die bedingte Differenz für jedes <span class="math inline">\(z\)</span>.</li>
 <li>Gewichte diese Differenzen entsprechend der Zielpopulation.</li>
 </ol>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Das ist die formale Version dessen, was der Confounder-Simulator mit der adjustierten Regression demonstriert.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="mediator" class="slide level2">
 <h2>Mediator</h2>
@@ -1147,8 +993,9 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 </div>
 </section>
 <section id="demo-adjustierung" class="slide level2">
-<h2>Demo: Adjustierung</h2>
+<h2>Demo: Adjustierung 🎛️</h2>
 <p>In der DAG-App nutzt dieselbe Variable <span class="math inline">\(W\)</span> drei verschiedene Geschichten:</p>
+<div class="fragment">
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -1166,7 +1013,7 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <tr class="odd">
 <td>Confounder</td>
 <td>verzerrt</td>
-<td>näher am direkten Effekt</td>
+<td>näher am wahren Effekt</td>
 </tr>
 <tr class="even">
 <td>Mediator</td>
@@ -1180,15 +1027,6 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 </tr>
 </tbody>
 </table>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Stellt vor jeder Einstellung eine Diagnose: <em>Ist <span class="math inline">\(W\)</span> Ursache des Treatments, Folge des Treatments oder gemeinsame Folge?</em> Erst danach die Kennzahlen ansehen.</p>
-</div>
-</div>
 </div>
 <aside class="notes">
 <p>Zeit: 64–70 Minuten. Die Seite „views/kausalitaet/dags_confounding.py“ öffnen. Die Klasse soll vor jeder Umschaltung entscheiden, ob sie für W kontrollieren würde. Nicht in d-Separation vertiefen; der Fokus liegt auf kausaler Rolle statt statistischer Checkliste.</p>
@@ -1204,51 +1042,22 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
           display:block!important;
       }</style></aside>
 </section>
-<section id="drei-annahmen" class="slide level2 scrollable">
-<h2>Drei Annahmen</h2>
+<section id="drei-typische-annahmen" class="slide level2 scrollable">
+<h2>Drei typische Annahmen</h2>
 <p>Für eine klar definierte Intervention und eine geeignete Menge <span class="math inline">\(Z\)</span> benötigen wir:</p>
 <ol type="1">
-<li><strong>Konsistenz / wohldefiniertes Treatment:</strong> Das beobachtete Outcome entspricht dem passenden potenziellen Outcome. Es gibt keine für die Frage relevanten unterschiedlichen Treatment-Versionen oder Interferenzen zwischen Einheiten.</li>
+<li><strong>Konsistenz / wohldefiniertes Treatment:</strong> Das beobachtete Outcome entspricht dem passenden potenziellen Outcome. Es gibt keine für die Frage relevanten unterschiedlichen Treatment-Varianten oder Interferenzen zwischen Einheiten.</li>
 <li><strong>Bedingte Austauschbarkeit:</strong> Nach Adjustierung für <span class="math inline">\(Z\)</span> ist die Zuweisung unabhängig von den potenziellen Outcomes: <span class="math display">\[\big(Y(1),Y(0)\big)\perp D\mid Z.\]</span></li>
 <li><strong>Positivität (Overlap):</strong> Für jedes relevante <span class="math inline">\(z\)</span> gibt es beide Treatmentzustände: <span class="math display">\[0&lt;P(D=1\mid Z=z)&lt;1.\]</span></li>
 </ol>
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Diese Annahmen lassen sich durch Fachwissen, Design und Diagnostik plausibler machen — aber nicht vollständig aus demselben Datensatz beweisen.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="anwendung" class="slide level2">
-<h2>Anwendung</h2>
-<p>Ihr wollt den <strong>totalen</strong> Effekt einer Online-Werbung <span class="math inline">\(D\)</span> auf den Kauf <span class="math inline">\(Y\)</span> schätzen. Ihr beobachtet:</p>
 <ul>
-<li><span class="math inline">\(Z\)</span>: Produktinteresse vor der Werbung,</li>
-<li><span class="math inline">\(M\)</span>: Produktinteresse nach der Werbung,</li>
-<li><span class="math inline">\(C\)</span>: Klick auf die Produktseite, der von Werbung und Kaufneigung beeinflusst wird.</li>
+<li>Fachwissen, Design und Diagnostik können diese Annahmen plausibel machen.</li>
+<li>Allein aus den beobachteten Daten lassen sie sich nicht beweisen.</li>
 </ul>
-<p><strong>Entscheidet zu zweit:</strong> Für welche Variablen würdet ihr beim totalen Effekt adjustieren — und warum?</p>
-<aside class="notes">
-<p>Zeit: 74–78 Minuten. Auflösung: Z ja, sofern es relevante Confounding-Pfade blockiert; M nicht für den totalen Effekt; C nicht, weil Selektion auf einen Collider Bias erzeugen kann. Betonen: Im Ernstfall benötigt man den vollständigen, fachlich begründeten DAG; dieses Mini-Beispiel abstrahiert.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section></section>
 <section>
-<section id="ausblick-fünf-vertiefungen" class="title-slide slide level1 center">
-<h1>Ausblick: fünf Vertiefungen</h1>
+<section id="ausblick-vertiefungen-in-der-gruppenarbeit" class="title-slide slide level1 center">
+<h1>Ausblick: Vertiefungen in der Gruppenarbeit 🔭</h1>
 
 </section>
 <section id="causal-discovery-welche-graphen-passen-zu-den-daten" class="slide level2">
@@ -1260,15 +1069,14 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Algorithmen wie PC, GES oder NOTEARS nutzen solche Muster bedingter Unabhängigkeit. Sie können die Kausalstruktur <strong>unter starken Annahmen</strong> eingrenzen; Daten bestimmen ihre Richtung jedoch meist nicht eindeutig.</p>
+<p>Algorithmen wie PC, GES oder NOTEARS nutzen solche Muster bedingter Unabhängigkeit. Sie können die Kausalstruktur <strong>unter Annahmen</strong> eingrenzen; Daten bestimmen ihre Richtung jedoch meist nicht eindeutig.</p>
 </div>
 </div>
 </div>
-<p><strong>Leitfrage für ein Projekt:</strong> Welche Zusatzannahmen oder Interventionen würden mehrere statistisch gleichwertige DAGs unterscheiden?</p>
 </section>
 <section id="difference-in-differences-ein-kontrafaktual-über-zeit" class="slide level2">
 <h2>2. Difference-in-Differences: Ein Kontrafaktual über Zeit</h2>
-<p>Bei einer Reform vergleichen wir die Veränderung einer betroffenen mit der Veränderung einer Kontrollgruppe:</p>
+<p>Bei einer Reform (Mindestlohn, Tankrabatt) vergleichen wir die Veränderung einer betroffenen mit der Veränderung einer Kontrollgruppe:</p>
 <p><span class="math display">\[
 \widehat{\theta}_{\mathrm{DiD}}
 =\big(\bar{Y}_{\mathrm{Treat,post}}-\bar{Y}_{\mathrm{Treat,pre}}\big)
@@ -1291,24 +1099,14 @@ E[Y\mid D=1]-E[Y\mid D=0]=E[Y(1)]-E[Y(0)].
 <li>Die Wahl der Bandbreite steuert den Kompromiss aus Nähe und Präzision.</li>
 </ul>
 </section>
-<section id="causal-ml-flexible-adjustierung-ist-keine-identifikation" class="slide level2">
-<h2>4. Causal ML: Flexible Adjustierung ist keine Identifikation</h2>
+<section id="causal-ml-ml-ersetzt-keine-identifikation" class="slide level2">
+<h2>4. Causal ML: ML ersetzt keine Identifikation</h2>
 <p>Bei vielen, nichtlinear wirkenden Confoundern <span class="math inline">\(X\)</span> nutzt Double/Debiased ML das partiell lineare Modell</p>
 <p><span class="math display">\[
 Y=\theta D+g(X)+\zeta,
 \qquad D=m(X)+\nu.
 \]</span></p>
-<p>ML schätzt die unbekannten Funktionen <span class="math inline">\(g\)</span> und <span class="math inline">\(m\)</span>; anschließend wird der Effekt aus den bereinigten Residuen geschätzt. Cross-Fitting schützt gegen Overfitting.</p>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>DML kann für <strong>beobachtete</strong> Confounder flexibel adjustieren. Ob die relevanten Confounder gemessen wurden, bleibt eine Design- und DAG-Frage.</p>
-</div>
-</div>
-</div>
+<p>ML schätzt die unbekannten Funktionen <span class="math inline">\(g\)</span> und <span class="math inline">\(m\)</span>; anschließend wird der Effekt aus den bereinigten Residuen geschätzt.</p>
 </section>
 <section id="bayesianische-methoden-annahmen-und-unsicherheit-explizit-machen" class="slide level2">
 <h2>5. Bayesianische Methoden: Annahmen und Unsicherheit explizit machen</h2>
@@ -1318,7 +1116,7 @@ p(\theta\mid \text{Daten})\propto p(\text{Daten}\mid\theta)\,p(\theta).
 \]</span></p>
 <p>In der App lässt sich beobachten, wie Prior und Studiendaten die Posterior-Verteilung einer Behandlungswirksamkeit formen.</p>
 <ul>
-<li>Ein <strong>Prior</strong> ist eine explizite Annahme — keine versteckte Voreinstellung.</li>
+<li>Ein <strong>Prior</strong> ist eine explizite Annahme, keine versteckte Voreinstellung.</li>
 <li>Kleine Studien reagieren stark auf plausible Vorannahmen.</li>
 <li>Sensitivitätsanalysen zeigen, wie robust Schlussfolgerungen gegenüber ihnen sind.</li>
 </ul>
@@ -1329,57 +1127,13 @@ p(\theta\mid \text{Daten})\propto p(\text{Daten}\mid\theta)\,p(\theta).
 
 </section>
 <section id="takeaways" class="slide level2 scrollable">
-<h2>Takeaways</h2>
+<h2>Takeaways 🧳</h2>
 <ol type="1">
 <li>Ein beobachteter Zusammenhang beantwortet nicht automatisch eine Interventionsfrage.</li>
 <li>Ein kausaler Effekt vergleicht potenzielle Outcomes derselben Einheit; eines davon ist kontrafaktisch.</li>
 <li>Ein glaubwürdiger Zuteilungsmechanismus oder ein begründetes Design macht den fehlenden Vergleich identifizierbar.</li>
-<li>Kontrollvariablen werden aus einer kausalen Geschichte gewählt — nicht, weil sie verfügbar sind.</li>
+<li>Kontrollvariablen werden aus dem DAG gewählt. Confounder nützen; Mediatoren oder Collider können potenziell schaden.</li>
 </ol>
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Exit Ticket:</strong> Formuliere zu einer Frage aus deinem Fach (a) Treatment, (b) Outcome, (c) Estimand und (d) die wichtigste Annahme, die deinen Vergleich tragen müsste.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="nächste-schritte" class="slide level2">
-<h2>Nächste Schritte</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Ausgangsfrage</th>
-<th>Interaktive Seite</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Warum kann Korrelation täuschen?</td>
-<td><em>Korrelation <span class="math inline">\(\neq\)</span> Kausalität</em></td>
-</tr>
-<tr class="even">
-<td>Was fehlt uns für einen kausalen Effekt?</td>
-<td><em>Potential Outcomes &amp; kontrafaktische Welten</em></td>
-</tr>
-<tr class="odd">
-<td>Welche Variablen gehören in die Adjustierung?</td>
-<td><em>Identifikation: DAGs &amp; Confounding</em></td>
-</tr>
-<tr class="even">
-<td>Wie funktionieren natürliche Experimente, Causal ML oder Bayes?</td>
-<td>die Vertiefungsseiten im Bereich <em>Kausalität</em></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Merksatz:</strong> Erst die kausale Frage und das Design; dann der Estimator.</p>
 
 </section></section>
     </div>

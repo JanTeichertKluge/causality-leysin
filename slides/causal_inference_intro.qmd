@@ -55,14 +55,14 @@ Zeit: 0–4 Minuten. Als lockeren Rückbezug auf den ersten Abend fragen; keine 
 :::
 
 
-## Ziel dieser Einführung
+## Ziel dieser Einführung 🎯
 
-- Gestern habe wir verschiedene kausale Fragestellungen und Biase **qualitativ** beschrieben
-- Heute wollen wir anschauen, wir man unsere Erkenntnisse **quantifiziert**
+- Gestern haben wir verschiedene kausale Fragestellungen und Biases **qualitativ** beschrieben.
+- Heute schauen wir darauf, wie wir diese Erkenntnisse **quantifizieren**.
 
 Dazu sprechen wir über:
- - Potential Outcomes und Counterfactuals
- - Das fundamentale Problem der Kausalen Inferenz sowie das Simpsons Paradoxon
+ - Potenzielle Outcomes und Counterfactuals
+ - Das fundamentale Problem der kausalen Inferenz sowie das Simpson-Paradox
  - Wie man einen kausalen Effekt definiert
  - Identifikation von kausalen Effekten (Randomisierung oder DAGs)
 
@@ -70,9 +70,9 @@ Dazu sprechen wir über:
 ## Agenda
 
 | Thema | Zugehörige App |
-|---:|---|---|
+|---|---|
 | Korrelation, Confounding, Simpson-Paradox | Korrelation $\neq$ Kausalität |
-| Potential Outcomes, ATE, Zuteilungsmechanismen | Kausale Effekte & kontrafaktische Welten |
+| Potenzielle Outcomes, ATE, Zuteilungsmechanismen | Kausale Effekte & kontrafaktische Welten |
 | DAGs, Adjustierung, Annahmen | Identifikation: DAGs & Confounding |
 | Vertiefungen | Tools, CML und Bayes |
 
@@ -92,7 +92,7 @@ Ankündigen: Die drei ersten Blöcke folgen unmittelbar den drei interaktiven St
 | $Y_i(1),\;Y_i(0)$ | potenzielle Outcomes mit bzw. ohne Treatment |
 | $\theta$ | kausaler Effekt von $D$ auf $Y$ |
 | $E[\cdot]$ | Erwartungswert |
-| $E[\cdot | \cdot]$ | Bedingter Erwartungswert |
+| $E[\cdot \mid \cdot]$ | Bedingter Erwartungswert |
 
 ## Drei Fragen
 
@@ -162,16 +162,16 @@ Confounding liegt vor, wenn die beobachteten Gruppen kein glaubwürdiges Gegenst
 flowchart LR
   Z["Sonnenstunden Z"] --> D["Eisverkauf D"]
   Z --> Y["Sonnenbrände Y"]
-  D --> Y
+  D -.-> Y
 ```
 
-Der Pfeil $D\rightarrow Y$ ist die Frage, die uns interessiert. Der Pfad
+Der gestrichelte Pfeil $D\rightarrow Y$ ist die Frage, die uns interessiert. Der Pfad
 
 $$D \leftarrow Z \rightarrow Y$$
 
 liefert jedoch zusätzlich eine **nicht-kausale Assoziation**: An sonnigen Tagen sind Eisverkauf und Sonnenbrände beide hoch, auch wenn Eis keinen Sonnenbrand verursacht.
 
-## Demo: Confounding
+## Demo: Confounding 🎛️
 
 In der App *Korrelation $\neq$ Kausalität* wird diese Datenwelt simuliert:
 
@@ -181,14 +181,13 @@ D=aZ+\varepsilon_D,
 Y=\theta D+bZ+\varepsilon_Y.
 $$
 
-- $\theta$ (bzw., in der App, $c$) ist der **wahre kausale Effekt**.
+- $\theta$ (bzw. in der App $c$) ist der **wahre kausale Effekt**.
 
-::: {.callout-tip appearance="simple"}
-**Vorhersage:** Was passiert mit der einfachen Regressionsgeraden von $Y$ auf $D$? Und was ändert sich, wenn wir für $Z$ adjustieren?
-:::
+Was passiert mit der einfachen Regressionsgeraden von $Y$ auf $D$? Und was ändert sich, wenn wir für $Z$ adjustieren?
+
 
 ::: {.notes}
-Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei tau/c = 0 und a=b=1,2 wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.
+Zeit: 8–13 Minuten. Die Seite „views/kausalitaet/korrelation.py“ öffnen. Bei $\theta/c=0$ und $a=b=1{,}2$ wird die falsche Steigung deutlich. Erst nach einer Vorhersage die Kennzahlen „wahrer Effekt“, „naiv“ und „adjustiert“ zeigen.
 :::
 
 ## Confounding Bias
@@ -211,15 +210,15 @@ Die Regression ist nicht „schlecht gerechnet“. Sie beantwortet schlicht eine
 
 ## Simpson-Paradox: Der Aggregattrend kann täuschen
 
-In der zweiten Demo der App betrachten wir Weiterbildung und Gehalt.
+Wir betrachten eine Studie zu Weiterbildungsstunden und Gehalt. Ist der Zusammenhang wirklich negativ?
 
+:::{.fragment}
 | Erfahrungsgruppe | Typische Weiterbildungsstunden | Typisches Gehalt | Zusammenhang innerhalb der Gruppe |
 |---|---:|---:|---|
 | 0–3 Jahre | hoch | niedrig | positiv |
 | 4–10 Jahre | mittel | mittel | positiv |
 | >10 Jahre | niedrig | hoch | positiv |
-:::{.fragment}
-**Alle zusammen**: Zusammenhang kann **negativ** sein 
+| Alle zusammen | - | - | kann **negativ** sein |
 
 Die Berufserfahrung $Z$ beeinflusst zugleich Weiterbildung $D$ und Gehalt $Y$.
 
@@ -241,7 +240,7 @@ Ein statistischer Zusammenhang (Korrelation) kann
 
 # II. Was ist ein kausaler Effekt?
 
-## Potentielle Outcomes und Definition kausaler Effekt
+## Potenzielle Outcomes: Definition kausaler Effekte
 
 Für eine Person $i$ definieren wir zwei potenzielle Outcomes:
 
@@ -288,6 +287,8 @@ Beispiel aus der App: Ein Medikament soll einen Gesundheits-Score verbessern.
 | … | … | … | … |
 
 Mit einem Orakel könnten wir für jede Person eine Differenz bilden und dann mitteln.
+
+Wie verändert sich das, wenn wir in die reale Welt wechseln?
 
 ::: {.fragment}
 In einer realen Studie existiert für jede Person jedoch nur **eine** beobachtete Welt.
@@ -337,7 +338,6 @@ Für die behandelte Gruppe beobachten wir $Y(1)$, für die Kontrollgruppe $Y(0)$
 $$
 E[Y(1)\mid D=1]-E[Y(0)\mid D=0].
 $$
-:::
 
 :::{.fragment}
 Es fehlt genau die zentrale Größe $E[Y(0)\mid D=1]$: Wie wäre es der behandelten Gruppe **ohne** Behandlung ergangen?
@@ -367,7 +367,7 @@ $$
 Diese Gleichung zeigt, **welche Annahmen** der einfache Gruppenvergleich benötigt, um den ATE zu messen.
 :::
 
-## Kurze Übung
+## Kurze Übung 🧠
 
  - Eine Ärztin gibt das Medikament bevorzugt besonders schwer erkrankten Personen. 
  - Die behandelte Gruppe erzielt danach einen niedrigeren Gesundheits-Score als die Kontrollgruppe.
@@ -408,15 +408,13 @@ flowchart TB
 - **Beobachtungsstudie:** Schwerere Patient:innen erhalten häufiger $D=1$.
 - **Randomisierte Studie:** Die Zuweisung enthält systematisch keine Information über die potenziellen Outcomes.
 
-## Demo: Randomisierung
+## Demo: Randomisierung 🎛️
 
 Die App simuliert einen wahren Behandlungseffekt von $+8$ Punkten.
 
-1. Wählt **Selbstselektion / ärztliche Auswahl** und variiert die Stichprobengröße.
-2. Vergleicht Krankheitsschwere in beiden Gruppen und die geschätzte Gruppendifferenz.
-3. Wechselt zu **randomisierter Zuweisung**.
-
-Was verändert eine größere Stichprobe in beiden Fällen? Achtet nicht nur auf das Konfidenzintervall, sondern auf **Balance vor dem Treatment**.
+1. Was ändert eine größere Stichprobe bei **Selbstselektion / ärztliche Auswahl**?
+2. Ist der Effekt bei **randomisierter Zuweisung** unbiased?
+3. Hilft eine größere Stichprobe bei Randomisierung?
 
 ::: {.notes}
 Zeit: 43–50 Minuten. Die Seite „views/kausalitaet/potential_outcomes.py“ öffnen. Der zentrale Aha-Moment: Bei Selbstselektion wird das Intervall enger um einen verzerrten Wert; bei Randomisierung enger um den wahren ATE.
@@ -444,14 +442,14 @@ $$
 
 ## Randomisierung: Grenzen
 
- - Randomisierung gilt als der *Goldstandard* der kausalen Inferenz
+ - Randomisierung gilt als *Goldstandard* der kausalen Inferenz.
  - So einfach ist es aber nicht:
-   - In kleinen Samples kann es zufällige Selektion geben
-   - Non-Compliance führt zu Bias
+   - In kleinen Stichproben können zufällige Ungleichgewichte entstehen.
+   - Non-Compliance verändert den relevanten Estimand und braucht eine passende Analyse.
 
 **Häufig ist Randomisierung technisch oder ethisch unmöglich.**
 
-Wenn Random nicht greift, müssen wir schauen, **welche kausale Rolle unsere Variablen spielen?**
+Wenn Randomisierung nicht greift, müssen wir schauen: **Welche kausale Rolle spielen unsere Variablen?**
 
 # IV. DAGs: Annahmen sichtbar machen
 
@@ -499,7 +497,7 @@ flowchart LR
   D --> Y
 ```
 
-Das frühere Produktinteresse beeinflusst Targeting und Kauf, zur Identifikation ist adjustierung nötig!
+Das frühere Produktinteresse beeinflusst Targeting und Kauf; zur Identifikation ist Adjustierung nötig.
 
 ::: {.fragment}
 Wenn $Z$ ausreichend gemessen ist, vergleichen wir innerhalb gleicher $Z$-Werte und mitteln anschließend über die Zielpopulation.
@@ -554,7 +552,7 @@ Hier entsteht Interesse **durch** die Werbung. Der Pfad $D\rightarrow M\rightarr
 
 ```{mermaid}
 flowchart LR
-  D["Werbung D"] --> C["KInteresse (Klick auf Produktseite C)"]
+  D["Werbung D"] --> C["Klick auf Produktseite C"]
   Y["Kaufneigung / Kauf Y"] --> C
   D --> Y
 ```
@@ -565,14 +563,14 @@ Wenn wir nur Klickende analysieren oder für $C$ kontrollieren, konditionieren w
 Dadurch öffnen wir einen künstlichen Zusammenhang zwischen Werbung und Kaufneigung: **Collider- bzw. Selektionsbias**.
 :::
 
-## Demo: Adjustierung
+## Demo: Adjustierung 🎛️
 
 In der DAG-App nutzt dieselbe Variable $W$ drei verschiedene Geschichten:
 
 :::{.fragment}
 | Einstellung | Schätzung ohne Adjustierung | Schätzung mit Adjustierung für $W$ |
 |---|---|---|
-| Confounder | verzerrt | näher am direkten Effekt |
+| Confounder | verzerrt | näher am wahren Effekt |
 | Mediator | totaler Effekt | direkter statt totaler Effekt |
 | Collider | unproblematisch | künstlich verzerrt |
 :::
@@ -585,17 +583,17 @@ Zeit: 64–70 Minuten. Die Seite „views/kausalitaet/dags_confounding.py“ öf
 
 Für eine klar definierte Intervention und eine geeignete Menge $Z$ benötigen wir:
 
-1. **Konsistenz / wohldefiniertes Treatment:** Das beobachtete Outcome entspricht dem passenden potenziellen Outcome. Es gibt keine für die Frage relevanten unterschiedlichen Treatment-Versionen oder Interferenzen zwischen Einheiten.
+1. **Konsistenz / wohldefiniertes Treatment:** Das beobachtete Outcome entspricht dem passenden potenziellen Outcome. Es gibt keine für die Frage relevanten unterschiedlichen Treatment-Varianten oder Interferenzen zwischen Einheiten.
 2. **Bedingte Austauschbarkeit:** Nach Adjustierung für $Z$ ist die Zuweisung unabhängig von den potenziellen Outcomes:
    $$\big(Y(1),Y(0)\big)\perp D\mid Z.$$
 3. **Positivität (Overlap):** Für jedes relevante $z$ gibt es beide Treatmentzustände:
    $$0<P(D=1\mid Z=z)<1.$$
 
 
- - Diese Annahmen lassen sich durch Fachwissen, Design und Diagnostik plausibel machen
- - Die Annahmen sind nicht testbar!!
+ - Fachwissen, Design und Diagnostik können diese Annahmen plausibel machen.
+ - Allein aus den beobachteten Daten lassen sie sich nicht beweisen.
 
-# Ausblick: Vertiefungen in der Gruppenarbeit
+# Ausblick: Vertiefungen in der Gruppenarbeit 🔭
 
 ## 1. Causal Discovery: Welche Graphen passen zu den Daten?
 
@@ -660,10 +658,10 @@ In der App lässt sich beobachten, wie Prior und Studiendaten die Posterior-Vert
 
 # Abschluss
 
-## Takeaways
+## Takeaways 🧳
 
 1. Ein beobachteter Zusammenhang beantwortet nicht automatisch eine Interventionsfrage.
 2. Ein kausaler Effekt vergleicht potenzielle Outcomes derselben Einheit; eines davon ist kontrafaktisch.
 3. Ein glaubwürdiger Zuteilungsmechanismus oder ein begründetes Design macht den fehlenden Vergleich identifizierbar.
-4. Kontrollvariablen werden aus dem DAG gewählt. Confounder nützen, Mediator oder Collider schaden potentiell.
+4. Kontrollvariablen werden aus dem DAG gewählt. Confounder nützen; Mediatoren oder Collider können potenziell schaden.
 
