@@ -1,0 +1,336 @@
+---
+title: "Projekt-Framing Sprint"
+subtitle: "Vom Thema zur Projektidee"
+author: "Dr. Oliver Schacht und Jan Teichert-Kluge"
+institute: "Sommerakademie Leysin 2026 · Studienstiftung des deutschen Volkes"
+lang: de
+format:
+  studienstiftung-theme-revealjs:
+    transition: fade
+    slide-number: "c/t"
+    progress: true
+    controls: true
+    footer: "Künstliche Intelligenz und das Warum · Projekt-Framing Sprint"
+    chalkboard: false
+    toc: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Willkommen zur Gruppenarbeit
+
+**Zur Erinnerung:** In der Gruppenarbeit wollen wir eine kleine Streamlit App erstellen, die im Rahmen eures Vertiefungsthema eine wissenschaftliche Frage untersucht.
+
+**Die finale Präsentation:** besteht sowohl aus einer Einführung in euer Thema (aufbauend auf den Einführungen gestern), als auch in der Präsentation eueres Praxisprojekts.
+
+# Project Framing Sprint
+
+## Ablauf · 09:00–10:30
+
+| Zeit | Format | Inhalt |
+|---|---|---|
+| **09:00–09:10** | Gemeinsamer Auftakt | Arbeitsbild und Ziel |
+| **09:10–09:50** | Projektidee auf dem Flipchart | Ideen weiterentwickeln und sichtbar machen |
+| **09:50–10:05** | Gallery Walk | Impulse von anderen Gruppen erhalten |
+| **10:05–10:20** | Zurück im Team | Projektsizze gezielt nachschärfen |
+| **10:20–10:30** | Lightning Round | Nächste Schritte für alle erklären |
+
+::: {.notes}
+Als zeitliche Klammer sichtbar lassen. Die 40 Minuten Gruppenarbeit sind der Kern; bei Verzögerung zuerst den Gallery Walk auf zehn Minuten und die Lightning Round auf 45 Sekunden pro Gruppe kürzen.
+:::
+
+## Was am Ende der 1. Session sthene soll 🎯
+
+> Jede Gruppe hat eine belastbare Vorstellung davon, **welche Frage in Ihrem Themengebiet sie wie bearbeiten möchte und wie daraus eine interaktive Untersuchung werden könnte.**
+
+::: {.fragment}
+Es geht noch nicht um Programmierung, wichtig ist dass eine konkrete Skizze auf Papier entsteht!
+:::
+
+::: {.notes}
+09:00–09:10. Nur das Ziel erklären und den Druck herausnehmen. Nicht erneut Themen auswählen lassen: Die Gruppen sind bereits zugeteilt und haben sich vorbereitet.
+:::
+
+# 1. Projektidee sichtbar machen
+
+## Ein gemeinsames Arbeitsbild
+
+```{mermaid}
+flowchart TB
+    P["Unsere Projektidee"]
+    P --- F["❓ Frage<br/>Was wollen wir herausfinden?"]
+    P --- M["🧠 Idee / Methode<br/>Was ist der wissenschaftliche Kern?"]
+    P --- U["🔎 Untersuchung<br/>Was könnten wir vergleichen, variieren oder simulieren?"]
+    P --- A["🎛️ App<br/>Was soll später interaktiv erfahrbar werden?"]
+    P --- O["🗂️ Offen<br/>Was müssen wir noch klären?"]
+```
+
+::: {.fragment}
+**Nicht alles muss schon gefüllt sein.** Wer weit ist, konkretisiert Analyse und App. Wer noch sucht, arbeitet zunächst an Frage und Methode.
+:::
+
+::: {.notes}
+Flipchart exemplarisch zeigen, aber nicht als auszufüllende Schablone verteilen. Die fünf Begriffe können sichtbar bleiben, die Gruppen sollen jedoch frei anordnen und ergänzen.
+:::
+
+## Bringt euer Projekt zu Papier
+
+**Material pro Gruppe:** ein Flipchartblatt, Metaplankarten, Marker.
+
+> Bringt den aktuellen Stand eures Projekts so auf das Flipchart, dass Personen aus anderen Gruppen in zwei Minuten verstehen, **was** ihr untersuchen wollt und **wie** daraus eine App werden könnte.
+
+- Gedanken frei anordnen, verschieben, streichen und gruppieren.
+- Ein DAG, eine Gleichung, ein Versuchsdesign oder eine App-Skizze sind genauso willkommen wie Stichworte.
+- Nicht Vollständigkeit zählt, sondern eine verständliche gemeinsame Geschichte.
+
+::: {.notes}
+09:10–09:50. Material ausgeben und die Arbeitsanweisung einmal vorlesen. Dann direkt in die Gruppen. Die Flipcharts sollten so aufgehängt werden können, dass sie später einen Rundgang erlauben.
+:::
+
+# 2. Gegenseitig weiterdenken
+
+## Gallery Walk 🖼️
+
+Geht durch den Raum und schaut euch **zwei bis drei** andere Projekte an.
+
+Jeder kann drei Klebezettel verteilen.
+
+| Klebezettel | Aufgabe |
+|---|---|
+| 💡 **Interessant** | Das finde ich besonders stark. |
+| ❓ **Unklar** | Das habe ich noch nicht verstanden. |
+| → **Idee** | Das könnte man noch weiterentwickeln. |
+
+::: {.fragment}
+**Konkrete Impulse** statt Urteile.
+:::
+
+::: {.notes}
+09:50–10:05. Auf 15 Minuten begrenzen; bei sieben Gruppen kann jede Gruppe drei Beiträge geben, insgesamt müssen nicht alle Plakate besucht werden. Kurz vor Ende ankündigen, dass jede Gruppe zu ihrem eigenen Flipchart zurückgeht.
+:::
+
+## Aus Feedback wird der nächste Schritt
+
+Geht zurück zu eurem Flipchart und lest das Feedback.
+
+> Entscheidet gemeinsam, was ihr aufgrund des Feedbacks schärft.
+
+
+::: {.notes}
+10:05–10:20. Die drei Sätze sind der einzige standardisierte Output. Nicht alles Feedback einarbeiten lassen: Eine gute, bewusste Entscheidung reicht.
+:::
+
+# 3. Kurzer Abgleich der nächsten Session
+
+## Lightning Round ⚡
+
+**Maximal 60 Sekunden pro Gruppe, nicht das Flipchart präsentieren**
+
+
+> **Unsere derzeitige Projektidee:** …
+
+> **Als Erstes wollen wir ausprobieren:** …
+
+> **Das ist noch unklar:** …
+
+
+::: {.fragment}
+Rücksprachen oder Feedback gerne in der Pause ​​​🙂​
+:::
+
+
+::: {.notes}
+10:20–10:30. Zeit sichtbar stoppen. Bei mehr als zehn Gruppen nur einen Satz pro Gruppe oder Tandem-Lightning-Rounds organisieren. Die Dozierenden notieren vor allem offene Ressourcen- und Beratungsbedarfe.
+:::
+
+## Was wir erreicht haben 🚀
+
+- ein geteiltes Bild eurer Projektidee,
+- fachliche und interaktive Impulse aus der Gruppe,
+- einen nächsten, überschaubaren Schritt.
+
+> Nicht die perfekte Idee ist das Ziel – sondern eine Idee, die man als Nächstes **untersuchen** kann.
+
+::: {.notes}
+Kurz abschließen und Übergang zum nächsten Arbeitsblock machen. Die Ergebnisse der Lightning Round geben euch eine gute Grundlage, gezielte Hilfen, Datenquellen oder technische Beispiele vorzubereiten.
+:::
+
+# Session 2: Idee in Daten übersetzen
+
+## From Idea to Evidence
+
+> **Session 1:** Idee auf Papier.  
+> **Session 2:** Idee in Daten übersetzen.
+
+Notebook, Skript oder Streamlit sind dabei völlig gleichberechtigt.
+
+::: {.notes}
+Kurze Überleitung zum Flipchart aus Session 1: Heute wird daraus kein fertiges Produkt, sondern ein erstes untersuchbares Setup. Kein neues Methodenframing eröffnen.
+:::
+
+## Ablauf · 10:45–12:30
+
+| Zeit | Format | Inhalt |
+|---|---|---|
+| **10:45–10:55** | Gemeinsames Framing | Von der Idee zum ersten Ergebnis |
+| **10:55–12:00** | Freie Projektarbeit | Daten, Experiment und erste Analyse |
+| **12:05–12:15** | Freeze the experiment | Ein sichtbares Ergebnis vorbereiten |
+| **12:05–12:25** | Show one thing | Kurzer Sync über den Projektstand |
+| **12:25–12:30** | Feedback | Blocker, Wünsche und Stimmung |
+
+::: {.notes}
+Der lange Arbeitsblock ist bewusst geschützt. Nur bei gravierenden Technikproblemen zentral unterbrechen; sonst von Team zu Team coachen.
+:::
+
+## Was am Ende stehen soll 🎯
+
+> Bringt eure Projektidee aus Session 1 zum ersten Mal **mit Daten zum Laufen**.
+
+::: {.fragment}
+**Technische Eleganz ist heute zweitrangig.** Entscheidend sind ein korrektes Setup, sinnvolle Vergleiche und eine präzise Interpretation.
+:::
+
+- **Notebook** ist völlig ausreichend; wer weiter ist, kann direkt Streamlit verwenden.
+- **Nutzt KI-Unterstützung**
+   - *Vibe-Coding* ist nur dann schlecht, wenn man alles auf einmal, blackbox artig generieren lässt und dann nicht Versteht
+   - Mit konkreter Ownership des Projekts und der Inhalte kann die Umsetzung in Code / Markdown sehr gut auf ein LLM übertragen werden!
+   - Schaut durch was generiert wird: Was hat das Modell falsch verstanden? Was ist quatsch?
+- Weitere inspirationen: Packages, die bestehenden Intro-Apps zu allen Themen, ...
+- Wichtiger als jede Zeile selbst zu schreiben: Versteht ihr, **was** der Code berechnet?
+
+::: {.notes}
+10:45–10:55. Diesen Anspruch ausdrücklich setzen: KI-unterstütztes Prototyping ist erwünscht, aber der wissenschaftliche Gehalt muss von der Gruppe verstanden und vertreten werden.
+:::
+
+## Ein Ergebnis, über das man sprechen kann
+
+:::: {.columns}
+
+::: {.column width="25%"}
+
+### Daten
+
+Reale, simulierte oder experimentelle Daten; ein Benchmark oder API-Ergebnisse.
+
+:::
+
+::: {.column width="25%"}
+
+### Analyse
+
+Ein Effekt, ein Modell, eine Promptserie, ein rekonstruierter Graph oder ein Posterior.
+
+:::
+
+::: {.column width="25%"}
+
+### Sichtbar
+
+Ein Plot, eine Tabelle, ein Modelloutput oder ein systematischer Vergleich.
+
+:::
+
+::: {.column width="25%"}
+
+### Erkenntnis
+
+> Was haben wir jetzt, was wir vor einer Stunde noch nicht wussten?
+
+:::
+
+::::
+
+::: {.fragment}
+> Auch „Unsere ursprüngliche Idee funktioniert so nicht“ ist ein wertvolles Ergebnis.
+:::
+
+::: {.notes}
+Diese Orientierung ist kein Pflichtformular. Bei fortgeschrittenen Teams kann „sichtbar“ schon eine App-Interaktion sein; bei anderen reicht ein belastbarer Notebook-Output.
+:::
+
+# Freie Projektarbeit
+
+## Macht aus der Idee einen untersuchbaren Gegenstand
+
+Wählt selbst euren nächsten sinnvollen Schritt.
+
+
+> Der gemeinsame Nenner ist nicht die Technik, sondern: **Aus einer Idee wird ein untersuchbarer Gegenstand.**
+
+::: {.notes}
+10:55–12:00. Beispiele nur als Anstoß zeigen, nicht als Aufgabenkatalog. Die Gruppen arbeiten anschließend ohne zentrale Unterbrechung.
+:::
+
+
+## Freeze the experiment 🧊
+
+> In ungefähr zehn Minuten machen wir einen kurzen Sync. Versucht bis dahin, **ein Ergebnis einzufrieren**, das ihr den anderen zeigen könnt.
+
+Das kann sein:
+
+- ein Plot, eine Tabelle oder ein Modelloutput,
+- ein Promptvergleich oder eine App-Interaktion,
+- oder auch ein klar benannter Fehler, an dem ihr gerade hängt.
+
+::: {.notes}
+12:00–12:12. Den Zuruf zu Beginn dieses Zeitfensters geben und die Teams dann konsolidieren lassen. So endet die Arbeitsphase nicht mit parallel laufenden Installationen oder unfertigen Notebook-Zellen.
+:::
+
+# Kurzer Sync
+
+## Show one thing 👀
+
+**Maximal 60 Sekunden pro Gruppe. Zeigt genau ein Artefakt.**
+
+> **Das haben wir ausprobiert.**
+
+> **Das lernen wir gerade daraus / hier hängen wir gerade.**
+
+
+::: {.notes}
+12:12–12:24. Bei sieben Gruppen bleiben rund fünf Minuten Puffer für Wechsel. Die Moderation stoppt freundlich, aber konsequent nach 60 Sekunden.
+:::
+
+# Zum Abschluss ein Stimmungsbild
+
+## Mini-Sailboat ⛵
+
+Gebt jede:r **drei Klebezettel und einen Punkt** ab:
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+### 💨 Rückenwind und ⚓ Anker
+
+> Was hilft euch gerade – oder was blockiert euch gerade?
+
+:::
+
+::: {.column width="33%"}
+
+### 🏝️ Nächste Etappe
+
+> Was wünscht ihr euch von uns für Session 3 und 4?
+
+:::
+
+::: {.column width="33%"}
+
+### 🌤️ Wetterlage
+
+Setzt einen Punkt:
+
+☀️ läuft gut · 🌤️ okay · ☁️ unsicher · 🌧️ festgefahren
+
+:::
+
+::::
+
+
+::: {.notes}
+12:24–12:30. Ein gemeinsames Flipchart mit Insel oben, Boot in der Mitte sowie Rückenwind und Anker rechts/links vorbereiten. Zettel anschließend fotografieren oder aufbewahren und erst im Dozierendenteam auswerten.
+:::
+
