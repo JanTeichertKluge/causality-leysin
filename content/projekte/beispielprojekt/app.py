@@ -22,7 +22,12 @@ ORDNER = Path(__file__).parent
 if str(ORDNER) not in sys.path:
     sys.path.insert(0, str(ORDNER))
 
-import analyse  # noqa: E402  (erst nach dem sys.path-Eintrag importierbar)
+from utils.projektmodul import lade_modul  # noqa: E402
+
+# Jedes Projekt hat eine eigene analyse.py. Ueber den Dateipfad geladen,
+# damit sich die gleichnamigen Module der Projekte nicht gegenseitig
+# ueberschreiben (sonst: AttributeError auf der Streamlit-Cloud).
+analyse = lade_modul(__file__, "analyse")
 
 from utils.theming import FARBEN, merkkasten
 
