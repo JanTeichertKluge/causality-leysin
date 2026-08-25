@@ -6,3 +6,8 @@ scikit-learn>=1.4
 scipy>=1.11
 statsmodels>=0.14
 PyYAML>=6.0
+networkx
+causal-learn
+pymc
+arviz
+matplotlib
