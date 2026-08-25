@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 import lime.lime_tabular
+import streamlit as st
 import sys
 from pathlib import Path
 import plotly.graph_objects as go
@@ -20,11 +21,16 @@ standard_features = [
         "body_mass_g"
     ]
 
+@st.cache_data
 def load_data():
-    data = pd.read_csv(ORDNER/'penguins.csv')
+    pfad = ORDNER / 'penguins.csv'
+    if not pfad.exists():
+        raise FileNotFoundError(f"penguins.csv fehlt: {pfad}")
+    data = pd.read_csv(pfad)
     data = data.dropna() # removes rows with NaN values. 333 datapoints remain.
     return data
 
+@st.cache_resource
 def train_blackbox(data, report=True):
     target = "species"
     features = standard_features
