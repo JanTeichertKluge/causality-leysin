@@ -25,6 +25,11 @@ DATA_DIR = Path(__file__).resolve().parent / "datasets"
 
 st.title("☕ Causal Discovery: Kaffeekonsum und Lebenserwartung")
 
+st.caption(
+    "Sommerakademie Künstliche Intelligenz | "
+    "Thema: DAGs and PC Algorithm"
+)
+
 st.markdown(
     """
 ### Forschungsfrage
