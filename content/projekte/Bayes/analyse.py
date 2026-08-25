@@ -184,13 +184,15 @@ def berechne_partial_pooling(df_obs):
     # --------------------------------------------------------
     # 95%-Credible-Intervals
     # --------------------------------------------------------
+    # ArviZ >= 0.12: Argument heisst hdi_prob, das Ergebnis ist ein Dataset
+    # mit der Dimension "hdi" und den Koordinaten "lower"/"higher".
     p_hdi = az.hdi(
         trace.posterior["p"],
-        prob=0.95
-    )
+        hdi_prob=0.95
+    )["p"]
 
-    p_lower = p_hdi.sel(ci_bound="lower").values
-    p_upper = p_hdi.sel(ci_bound="upper").values
+    p_lower = p_hdi.sel(hdi="lower").values
+    p_upper = p_hdi.sel(hdi="higher").values
 
     # --------------------------------------------------------
     # Ergebnisse an ursprünglichen DataFrame anhängen
