@@ -1,0 +1,176 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KI und das Warum</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style> :root{--nacht:#1e3a5f;--gletscher:#3e6db5;--sonne:#e8804c} .reveal{font-family:Arial,sans-serif;color:#22252a}.reveal h1,.reveal h2,.reveal h3{color:var(--nacht);text-transform:none}.reveal h2{border-bottom:3px solid #e3e8f0;padding-bottom:.25em}.reveal strong{color:var(--gletscher)}.reveal blockquote{border-left:5px solid var(--sonne);background:#fff8f3;box-shadow:none;padding:.6em 1em;width:90%}.reveal li{margin:.3em 0}</style></head><body><div class="reveal"><div class="slides"><section><h2></h2></section><section><h2>Unser Weg</h2><p>Wir sind von der Frage ausgegangen, wie Modelle aus Daten lernen und wie wir</p>
+<p>wissenschaftlich belastbare Aussagen über Ursache und Wirkung treffen können.</p>
+<ul>
+<li><strong>Verstehen:</strong> zentrale Ideen und Begriffe</li>
+<li><strong>Ausprobieren:</strong> Methoden an Beispielen und Simulationen</li>
+<li><strong>Selbst bauen:</strong> eine eigene interaktive Streamlit-App</li>
+<li><strong>Erklären:</strong> Ergebnisse, Annahmen und Grenzen sichtbar machen</li>
+</ul>
+<blockquote>Der rote Faden war nicht die Methode allein. Entscheidend war immer die</blockquote>
+<blockquote>wissenschaftliche Frage dahinter.</blockquote></section><section><h2>Die Grundlagen: Maschinelles Lernen</h2><p>Wir haben Modelle nicht als Zauberkästen behandelt, sondern als Werkzeuge mit</p>
+<p>Stärken und Grenzen.</p>
+<h3>Modelle</h3>
+<ul>
+<li>lineare Regression</li>
+<li>Regularisierung mit Lasso und Ridge</li>
+<li>Bäume und Ensembles</li>
+<li>neuronale Netze</li>
+</ul>
+<h3>Fragen</h3>
+<ul>
+<li>Was soll ein Modell lernen?</li>
+<li>Wie messen wir gute Vorhersagen?</li>
+<li>Was passiert bei Überanpassung?</li>
+<li>Wie können wir ein Modell erklären?</li>
+</ul></section><section><h2>Vom Datensatz zur Vorhersage</h2><p>Der ML-Teil begann bei einer praktischen Frage: Wie wird aus einer Tabelle</p>
+<p>eine nachvollziehbare Vorhersage?</p>
+<ol>
+<li>1. <strong>Daten verstehen:</strong> Variablen, Zielgröße und Datenqualität</li>
+<li>2. <strong>Modell wählen:</strong> von der linearen Regression bis zum Ensemble</li>
+<li>3. <strong>Güte prüfen:</strong> Training, Testdaten und passende Metriken</li>
+<li>4. <strong>Komplexität steuern:</strong> Overfitting erkennen und regularisieren</li>
+<li>5. <strong>Ergebnis erklären:</strong> wichtige Variablen und plausible Grenzen</li>
+</ul>
+<p>Eine gute Vorhersage ist noch keine kausale Erklärung. Ein Modell kann Muster</p>
+<p>finden, ohne den Mechanismus dahinter zu kennen.</p></section><section><h2>Die Grundlagen: Kausalität</h2><p>Vorhersage und Erklärung sind nicht dasselbe. Für kausale Aussagen mussten wir</p>
+<p>Annahmen explizit machen und die Datenentstehung mitdenken.</p>
+<ul>
+<li>Korrelation und Kausalität</li>
+<li>Potential Outcomes und RCTs</li>
+<li>DAGs und Confounding</li>
+<li>Difference-in-Differences und RDD</li>
+</ul>
+<ul>
+<li>kausales Machine Learning</li>
+<li>Bayesian Methods</li>
+<li>Identifikation vor Schätzung</li>
+<li>Sensibilität für Annahmen</li>
+</ul>
+<p>Die zentrale Frage lautet: **Welche Aussage erlauben unsere Daten und unsere</p>
+<p>Annahmen wirklich?**</p></section><section><h2>Ein Weg durch kausale Designs</h2><p>Je weniger wir selbst kontrollieren können, desto wichtiger werden Annahmen,</p>
+<p>Vergleiche und ein gutes Verständnis der Datenentstehung.</p>
+<h3>1. Kontrollierte Experimente</h3>
+<p>Bei RCTs wird die Zuweisung zufällig bestimmt. Das schafft die stärkste Basis</p>
+<p>für einen direkten Vergleich.</p>
+<p><strong>Projekt:</strong> RCTs und Non-Compliance</p>
+<h3>2. Quasi-Experimente</h3>
+<p>DiD und RDD nutzen natürliche Schwellen oder zeitliche Veränderungen. Die</p>
+<p>Identifikation hängt an klaren Annahmen.</p>
+<p><strong>Projekt:</strong> Hurricane Irma, DiD und RDD</p>
+<h3>3. Beobachtungsstudien</h3>
+<p>Bei DAGs, Double ML und Bayesian Methods müssen wir Confounding und</p>
+<p>Unsicherheit besonders sorgfältig behandeln.</p>
+<p><strong>Projekte:</strong> Kaffee, Impfung, Krankenhäuser</p>
+<p>Der Weg nach rechts macht die Daten nicht schlechter. Er macht nur sichtbarer,</p>
+<p>wie viel Arbeit in Design und Annahmen steckt.</p></section><section><h2>1. Kontrollierte Experimente</h2><p>Beim RCT wird die Behandlung per Zufall zugewiesen. Dadurch sind die Gruppen</p>
+<p>im Durchschnitt vergleichbar, bevor die Behandlung beginnt.</p>
+<h3>Was wird dadurch möglich?</h3>
+<ul>
+<li>ein klarer Treatment-Control-Vergleich</li>
+<li>eine transparente Definition des Effekts</li>
+<li>eine starke Basis für Identifikation</li>
+</ul>
+<h3>Wo wird es schwierig?</h3>
+<ul>
+<li>nicht alle halten die Zuweisung ein</li>
+<li>manche Personen fallen aus</li>
+<li>Intention-to-Treat und Per-Protocol beantworten verschiedene Fragen</li>
+</ul>
+<p>Das RCT-Projekt machte sichtbar, dass selbst ein kontrolliertes Design eine</p>
+<p>präzise Analyse und klare Sprache braucht.</p></section><section><h2>2. Quasi-Experimente</h2><p>Wenn eine randomisierte Zuweisung nicht möglich ist, können institutionelle</p>
+<p>Regeln oder zeitliche Veränderungen einen plausiblen Vergleich schaffen.</p>
+<h3>Difference-in-Differences</h3>
+<p>Wir vergleichen Veränderungen über die Zeit zwischen einer behandelten und</p>
+<p>einer Vergleichsgruppe.</p>
+<p><strong>Kritische Annahme:</strong> Ohne Intervention hätten sich die Trends ähnlich</p>
+<p>entwickelt.</p>
+<h3>Regression Discontinuity</h3>
+<p>Eine Schwelle bestimmt, wer die Behandlung erhält. Direkt an dieser Schwelle</p>
+<p>werden sehr ähnliche Einheiten verglichen.</p>
+<p><strong>Kritische Annahme:</strong> Es gibt keinen anderen Sprung genau an der Schwelle.</p>
+<p>Das Projekt zu Hurricane Irma verband beide Ideen mit simulierten Daten und</p>
+<p>einem konkreten Anwendungsfall.</p></section><section><h2>3. Beobachtungsstudien</h2><p>In Beobachtungsdaten entscheiden Menschen, Institutionen oder Prozesse selbst,</p>
+<p>wer welcher Behandlung ausgesetzt ist. Gruppen unterscheiden sich deshalb oft</p>
+<p>schon vor dem Vergleich.</p>
+<h3>Unsere Werkzeuge</h3>
+<ul>
+<li>DAGs für die Datenentstehung</li>
+<li>Adjustierung für Confounder</li>
+<li>Double ML für flexible Modelle</li>
+<li>Bayesian Shrinkage bei kleinen Fallzahlen</li>
+</ul>
+<h3>Unsere Vorsicht</h3>
+<ul>
+<li>Welche Variablen dürfen wir kontrollieren?</li>
+<li>Welche Confounder fehlen vielleicht?</li>
+<li>Wie groß ist die Unsicherheit?</li>
+<li>Gilt das Ergebnis auch außerhalb der Stichprobe?</li>
+</ul>
+<p>Die Projekte zu Kaffee, Impfung und Krankenhäusern zeigten drei verschiedene</p>
+<p>Wege, mit solchen Unsicherheiten produktiv umzugehen.</p></section><section><h2>Von der Idee zur Projekt-App</h2><p>In den Gruppenprojekten wurde aus einem Konzept eine kleine Forschungsarbeit.</p>
+<p><strong>Frage → Konzept → Setup → Interaktive Analyse → Findings und Grenzen</strong></p>
+<p>Die Streamlit-App ist dabei mehr als eine hübsche Oberfläche. Sie macht eine</p>
+<p>Annahme, einen Parameter oder einen Vergleich direkt erfahrbar.</p></section><section><h2>Sieben Fragen, sieben Perspektiven</h2><h3>Kausale Designs</h3>
+<ul>
+<li>RCTs und Non-Compliance</li>
+<li>Difference-in-Differences und RDD</li>
+<li>Causal Inference mit Double ML</li>
+<li>Kaffeekonsum und kausale Strukturen</li>
+</ul>
+<h3>Erklären und Denken</h3>
+<ul>
+<li>Explainable AI</li>
+<li>Bayesian Shrinkage bei kleinen Kliniken</li>
+<li>LLMs und kausales Denken</li>
+</ul>
+<p>Jede Gruppe hat einen anderen Zugang gewählt. Zusammen zeigen die Projekte,</p>
+<p>wie breit die gemeinsame Werkzeugkiste geworden ist.</p></section><section><h2>Die Projektgalerie im Überblick</h2><h3>Eine Kausalkette</h3>
+<p><strong>RCTs</strong> zeigen, wie Randomisierung Vergleichbarkeit schafft.</p>
+<p><strong>DiD und RDD</strong> zeigen, wie wir plausible Vergleichsgruppen finden.</p>
+<p><strong>DAGs und Double ML</strong> zeigen, wie wir Beobachtungsdaten strukturieren und</p>
+<p>Confounding adressieren.</p>
+<h3>Ergänzende Perspektiven</h3>
+<p><strong>Explainable AI</strong> fragt, wie Modelle ihre Vorhersagen begründen.</p>
+<p><strong>Bayesian Methods</strong> machen Unsicherheit und Shrinkage greifbar.</p>
+<p><strong>LLMs</strong> werden darauf geprüft, ob sie logische Zusammenhänge wirklich</p>
+<p>verarbeiten oder nur plausible Muster reproduzieren.</p></section><section><h2>Was wird durch Interaktion sichtbar?</h2><h3>Variieren</h3>
+<p>Parameter, Cutoffs, Priors, Prompts oder Stichprobengrößen verändern.</p>
+<h3>Vergleichen</h3>
+<p>Modelle, Schätzer oder Auswertungen nebeneinander betrachten.</p>
+<h3>Hinterfragen</h3>
+<p>Fälle erzeugen, in denen eine Methode an ihre Grenze kommt.</p>
+<p>Das ist der besondere Wert unserer Projektseiten: Man sieht nicht nur ein</p>
+<p>Ergebnis, man kann herausfinden, warum es sich verändert.</p></section><section><h2>Ein paar Zahlen zur App</h2></section><section><h2>29</h2><p>Seiten in der Navigation</p></section><section><h2>13</h2><p>Methodenkapitel zu ML und Kausalität</p></section><section><h2>7</h2><p>Gruppenprojekte von Studierenden</p></section><section><h2>8</h2><p>Projekt-Apps inklusive Beispielprojekt</p>
+<p><strong>Fun Fact:</strong> In der Navigation treffen Grundlagen, sieben Projektfragen und</p>
+<p>acht interaktive Projektseiten aufeinander. Die App ist damit zugleich</p>
+<p>Lehrbuch, Galerie und Experimentierfeld.</p></section><section><h2>Statistik als Teil der Geschichte</h2><p>Die Zahlen der App erzählen nicht nur etwas über ihren Umfang. Sie zeigen auch,</p>
+<p>wie wir gearbeitet haben:</p>
+<ul>
+<li><strong>Viele Seiten:</strong> Grundlagen und Projekte stehen nebeneinander und lassen</li>
+</ul>
+<p>  sich direkt verknüpfen.</p>
+<ul>
+<li><strong>Mehrere Designs:</strong> Die Projektgalerie spannt den Bogen von Randomisierung</li>
+</ul>
+<p>  bis zu Beobachtungsdaten.</p>
+<ul>
+<li><strong>Interaktive Apps:</strong> Jede Gruppe übersetzt mindestens eine methodische Idee</li>
+</ul>
+<p>  in eine Variation, einen Vergleich oder ein sichtbares Gegenbeispiel.</p>
+<p>Die eigentliche Kennzahl ist deshalb nicht nur die Zahl der Seiten. Es ist die</p>
+<p>Zahl der Fragen, die man mit ihnen selbst weiter untersuchen kann.</p></section><section><h2>Was bleibt?</h2><ul>
+<li>Ein Modell ist nur so gut wie die Frage, die wir ihm stellen.</li>
+<li>Kausale Aussagen brauchen Design, Annahmen und Transparenz.</li>
+<li>Interaktion hilft, Unsicherheit und Grenzen nicht zu verstecken.</li>
+<li>Gute Projektarbeit heißt: eine präzise Aussage verständlich machen.</li>
+</ul></section><section><h2>Noch ein persönliches Wort</h2><p>Uns hat die gemeinsame Zeit mit euch sehr viel Spaß gemacht. Wir wissen, wie</p>
+<p>viel Arbeit und Energie in euren Gruppenprojekten steckt, und schätzen euren</p>
+<p>Einsatz wirklich sehr.</p>
+<p>Vor allem sind wir dankbar, dass wir so motivierte, neugierige und offene</p>
+<p>Teilnehmende in unserer Gruppe haben durften. Ihr habt euch auf schwierige</p>
+<p>Fragen eingelassen, Dinge ausprobiert und euch gegenseitig unterstützt. Genau</p>
+<p>das hat die Tage für uns besonders gemacht.</p>
+<p>Und die Exkursion zur Bar gestern war natürlich auch sehr nice. Ein perfekter</p>
+<p>gemeinsamer Abschluss nach all den Modellen, Plots und Diskussionen.</p></section><section><h2>Danke für die gemeinsame Zeit</h2><p>Wir hoffen, dass ihr etwas gelernt habt, Spaß hattet und aus diesen Tagen</p>
+<p>etwas mitnehmt, das euch auch nach der Akademie weiter begleitet.</p>
+<p><strong>Danke für die gemeinsame Zeit!</strong></p></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({slideNumber:true,transition:'fade'});</script></body></html>

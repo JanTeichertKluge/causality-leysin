@@ -17,6 +17,7 @@ STATISCHE_SEITEN = [
     "views/streamlit_intro.py",
     "views/python_setup.py",
     "views/ablaufplan.py",
+    "views/abschluss.py",
     "views/ml/grundlagen.py",
     "views/ml/lineare_regression.py",
     "views/ml/regularisierung.py",

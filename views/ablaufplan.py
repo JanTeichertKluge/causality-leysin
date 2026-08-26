@@ -53,7 +53,11 @@ ablauf = [
         "Zeit": "09:00-10:00",
         "Programmpunkt": "LLM x Causality",
     },
-    {"Datum": "", "Zeit": "anschließend", "Programmpunkt": "Fazit, offene Fragen, Feedback"},
+    {
+        "Datum": "",
+        "Zeit": "anschließend",
+        "Programmpunkt": '<a href="slides/abschluss.html" target="_blank">Rückblick auf die Akademie, Folien</a>',
+    },
     {"Datum": "", "Zeit": "anschließend", "Programmpunkt": "Vorbereitung bunter Abend"},
 ]
 
