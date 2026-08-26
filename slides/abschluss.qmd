@@ -79,6 +79,45 @@ Die zentrale Frage lautet: **Welche Aussage erlauben unsere Daten und unsere
 Annahmen wirklich?**
 :::
 
+## Ein Weg durch kausale Designs
+
+Je weniger wir selbst kontrollieren können, desto wichtiger werden Annahmen,
+Vergleiche und ein gutes Verständnis der Datenentstehung.
+
+::: {.columns}
+::: {.column width="33%"}
+### 1. Kontrollierte Experimente
+
+Bei RCTs wird die Zuweisung zufällig bestimmt. Das schafft die stärkste Basis
+für einen direkten Vergleich.
+
+**Projekt:** RCTs und Non-Compliance
+:::
+
+::: {.column width="33%"}
+### 2. Quasi-Experimente
+
+DiD und RDD nutzen natürliche Schwellen oder zeitliche Veränderungen. Die
+Identifikation hängt an klaren Annahmen.
+
+**Projekt:** Hurricane Irma, DiD und RDD
+:::
+
+::: {.column width="33%"}
+### 3. Beobachtungsstudien
+
+Bei DAGs, Double ML und Bayesian Methods müssen wir Confounding und
+Unsicherheit besonders sorgfältig behandeln.
+
+**Projekte:** Kaffee, Impfung, Krankenhäuser
+:::
+:::
+
+::: {.callout-tip}
+Der Weg nach rechts macht die Daten nicht schlechter. Er macht nur sichtbarer,
+wie viel Arbeit in Design und Annahmen steckt.
+:::
+
 ## Von der Idee zur Projekt-App
 
 In den Gruppenprojekten wurde aus einem Konzept eine kleine Forschungsarbeit.
@@ -97,9 +136,9 @@ Annahme, einen Parameter oder einen Vergleich direkt erfahrbar.
 ### Kausale Designs
 
 - RCTs und Non-Compliance
-- Kaffeekonsum und kausale Strukturen
 - Difference-in-Differences und RDD
 - Causal Inference mit Double ML
+- Kaffeekonsum und kausale Strukturen
 :::
 
 ::: {.column width="50%"}
