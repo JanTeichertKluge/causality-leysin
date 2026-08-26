@@ -1,0 +1,191 @@
+---
+title: "KI und das Warum"
+subtitle: "Was wir in Leysin gemeinsam aufgebaut haben"
+author: "Arbeitsgruppe Maschinelles Lernen und Kausalität"
+date: "26. August 2026"
+format:
+  revealjs:
+    theme: [default, styles.scss]
+    slide-number: true
+    transition: fade
+    chalkboard: false
+    preview-links: true
+    footer: "Sommerakademie Leysin 2026"
+---
+
+## Unser Weg
+
+Wir sind von der Frage ausgegangen, wie Modelle aus Daten lernen und wie wir
+wissenschaftlich belastbare Aussagen über Ursache und Wirkung treffen können.
+
+::: {.incremental}
+- **Verstehen:** zentrale Ideen und Begriffe
+- **Ausprobieren:** Methoden an Beispielen und Simulationen
+- **Selbst bauen:** eine eigene interaktive Streamlit-App
+- **Erklären:** Ergebnisse, Annahmen und Grenzen sichtbar machen
+:::
+
+> Der rote Faden war nicht die Methode allein. Entscheidend war immer die
+> wissenschaftliche Frage dahinter.
+
+## Die Grundlagen: Maschinelles Lernen
+
+Wir haben Modelle nicht als Zauberkästen behandelt, sondern als Werkzeuge mit
+Stärken und Grenzen.
+
+::: {.columns}
+::: {.column width="50%"}
+### Modelle
+
+- lineare Regression
+- Regularisierung mit Lasso und Ridge
+- Bäume und Ensembles
+- neuronale Netze
+:::
+
+::: {.column width="50%"}
+### Fragen
+
+- Was soll ein Modell lernen?
+- Wie messen wir gute Vorhersagen?
+- Was passiert bei Überanpassung?
+- Wie können wir ein Modell erklären?
+:::
+:::
+
+## Die Grundlagen: Kausalität
+
+Vorhersage und Erklärung sind nicht dasselbe. Für kausale Aussagen mussten wir
+Annahmen explizit machen und die Datenentstehung mitdenken.
+
+::: {.columns}
+::: {.column width="50%"}
+- Korrelation und Kausalität
+- Potential Outcomes und RCTs
+- DAGs und Confounding
+- Difference-in-Differences und RDD
+:::
+
+::: {.column width="50%"}
+- kausales Machine Learning
+- Bayesian Methods
+- Identifikation vor Schätzung
+- Sensibilität für Annahmen
+:::
+:::
+
+::: {.callout-note}
+Die zentrale Frage lautet: **Welche Aussage erlauben unsere Daten und unsere
+Annahmen wirklich?**
+:::
+
+## Von der Idee zur Projekt-App
+
+In den Gruppenprojekten wurde aus einem Konzept eine kleine Forschungsarbeit.
+
+::: {.r-fit-text}
+**Frage → Konzept → Setup → Interaktive Analyse → Findings und Grenzen**
+:::
+
+Die Streamlit-App ist dabei mehr als eine hübsche Oberfläche. Sie macht eine
+Annahme, einen Parameter oder einen Vergleich direkt erfahrbar.
+
+## Sieben Fragen, sieben Perspektiven
+
+::: {.columns}
+::: {.column width="50%"}
+### Kausale Designs
+
+- RCTs und Non-Compliance
+- Kaffeekonsum und kausale Strukturen
+- Difference-in-Differences und RDD
+- Causal Inference mit Double ML
+:::
+
+::: {.column width="50%"}
+### Erklären und Denken
+
+- Explainable AI
+- Bayesian Shrinkage bei kleinen Kliniken
+- LLMs und kausales Denken
+:::
+:::
+
+Jede Gruppe hat einen anderen Zugang gewählt. Zusammen zeigen die Projekte,
+wie breit die gemeinsame Werkzeugkiste geworden ist.
+
+## Was wird durch Interaktion sichtbar?
+
+::: {.columns}
+::: {.column width="33%"}
+### Variieren
+
+Parameter, Cutoffs, Priors, Prompts oder Stichprobengrößen verändern.
+:::
+
+::: {.column width="33%"}
+### Vergleichen
+
+Modelle, Schätzer oder Auswertungen nebeneinander betrachten.
+:::
+
+::: {.column width="33%"}
+### Hinterfragen
+
+Fälle erzeugen, in denen eine Methode an ihre Grenze kommt.
+:::
+:::
+
+Das ist der besondere Wert unserer Projektseiten: Man sieht nicht nur ein
+Ergebnis, man kann herausfinden, warum es sich verändert.
+
+## Ein paar Zahlen zur App
+
+::: {.columns}
+::: {.column width="25%"}
+## 29
+
+Seiten in der Navigation
+:::
+
+::: {.column width="25%"}
+## 13
+
+Methodenkapitel zu ML und Kausalität
+:::
+
+::: {.column width="25%"}
+## 7
+
+Gruppenprojekte von Studierenden
+:::
+
+::: {.column width="25%"}
+## 8
+
+Projekt-Apps inklusive Beispielprojekt
+:::
+:::
+
+::: {.callout-tip}
+**Fun Fact:** In der Navigation treffen Grundlagen, sieben Projektfragen und
+acht interaktive Projektseiten aufeinander. Die App ist damit zugleich
+Lehrbuch, Galerie und Experimentierfeld.
+:::
+
+## Was bleibt?
+
+::: {.incremental}
+- Ein Modell ist nur so gut wie die Frage, die wir ihm stellen.
+- Kausale Aussagen brauchen Design, Annahmen und Transparenz.
+- Interaktion hilft, Unsicherheit und Grenzen nicht zu verstecken.
+- Gute Projektarbeit heißt: eine präzise Aussage verständlich machen.
+:::
+
+## Danke für die gemeinsame Arbeit
+
+Die Akademie ist vorbei. Die Fragen bleiben, und die Apps können weiter wachsen.
+
+::: {.r-fit-text}
+**Welche Annahme würdet ihr als Nächstes testen?**
+:::

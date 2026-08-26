@@ -1,0 +1,81 @@
+/* Visual language of the Streamlit website */
+
+:root {
+  --nacht: #1e3a5f;
+  --gletscher: #3e6db5;
+  --himmel: #7fa8d9;
+  --sonne: #e8804c;
+  --nebel: #f2f5fa;
+}
+
+.reveal {
+  font-family: "Source Sans Pro", "Aptos", sans-serif;
+  color: #22252a;
+  background: #ffffff;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: var(--nacht);
+  font-weight: 700;
+  text-transform: none;
+}
+
+.reveal h1 {
+  font-size: 2.2em;
+}
+
+.reveal h2 {
+  border-bottom: 3px solid #e3e8f0;
+  padding-bottom: 0.25em;
+}
+
+.reveal strong {
+  color: var(--gletscher);
+}
+
+.reveal blockquote {
+  width: 90%;
+  border-left: 5px solid var(--sonne);
+  background: #fff8f3;
+  box-shadow: none;
+  padding: 0.6em 1em;
+}
+
+.reveal .callout {
+  border-radius: 0.6rem;
+  border-left: 5px solid var(--gletscher);
+  background: var(--nebel);
+  padding: 0.6em 1em;
+}
+
+.reveal .callout-tip {
+  border-left-color: #4c956c;
+  background: #edf6f0;
+}
+
+.reveal .columns {
+  gap: 1.5em;
+}
+
+.reveal .column {
+  text-align: left;
+}
+
+.reveal .column h3 {
+  font-size: 1em;
+}
+
+.reveal li {
+  margin-bottom: 0.25em;
+}
+
+.reveal .r-fit-text {
+  color: var(--gletscher);
+  font-weight: 700;
+}
+
+.reveal .slides section > h2:first-child {
+  margin-bottom: 0.65em;
+}
