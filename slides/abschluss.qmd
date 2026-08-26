@@ -53,6 +53,22 @@ Stärken und Grenzen.
 :::
 :::
 
+## Vom Datensatz zur Vorhersage
+
+Der ML-Teil begann bei einer praktischen Frage: Wie wird aus einer Tabelle
+eine nachvollziehbare Vorhersage?
+
+1. **Daten verstehen:** Variablen, Zielgröße und Datenqualität
+2. **Modell wählen:** von der linearen Regression bis zum Ensemble
+3. **Güte prüfen:** Training, Testdaten und passende Metriken
+4. **Komplexität steuern:** Overfitting erkennen und regularisieren
+5. **Ergebnis erklären:** wichtige Variablen und plausible Grenzen
+
+::: {.callout-note}
+Eine gute Vorhersage ist noch keine kausale Erklärung. Ein Modell kann Muster
+finden, ohne den Mechanismus dahinter zu kennen.
+:::
+
 ## Die Grundlagen: Kausalität
 
 Vorhersage und Erklärung sind nicht dasselbe. Für kausale Aussagen mussten wir
@@ -118,6 +134,90 @@ Der Weg nach rechts macht die Daten nicht schlechter. Er macht nur sichtbarer,
 wie viel Arbeit in Design und Annahmen steckt.
 :::
 
+## 1. Kontrollierte Experimente
+
+Beim RCT wird die Behandlung per Zufall zugewiesen. Dadurch sind die Gruppen
+im Durchschnitt vergleichbar, bevor die Behandlung beginnt.
+
+::: {.columns}
+::: {.column width="50%"}
+### Was wird dadurch möglich?
+
+- ein klarer Treatment-Control-Vergleich
+- eine transparente Definition des Effekts
+- eine starke Basis für Identifikation
+:::
+
+::: {.column width="50%"}
+### Wo wird es schwierig?
+
+- nicht alle halten die Zuweisung ein
+- manche Personen fallen aus
+- Intention-to-Treat und Per-Protocol beantworten verschiedene Fragen
+:::
+:::
+
+Das RCT-Projekt machte sichtbar, dass selbst ein kontrolliertes Design eine
+präzise Analyse und klare Sprache braucht.
+
+## 2. Quasi-Experimente
+
+Wenn eine randomisierte Zuweisung nicht möglich ist, können institutionelle
+Regeln oder zeitliche Veränderungen einen plausiblen Vergleich schaffen.
+
+::: {.columns}
+::: {.column width="50%"}
+### Difference-in-Differences
+
+Wir vergleichen Veränderungen über die Zeit zwischen einer behandelten und
+einer Vergleichsgruppe.
+
+**Kritische Annahme:** Ohne Intervention hätten sich die Trends ähnlich
+entwickelt.
+:::
+
+::: {.column width="50%"}
+### Regression Discontinuity
+
+Eine Schwelle bestimmt, wer die Behandlung erhält. Direkt an dieser Schwelle
+werden sehr ähnliche Einheiten verglichen.
+
+**Kritische Annahme:** Es gibt keinen anderen Sprung genau an der Schwelle.
+:::
+:::
+
+Das Projekt zu Hurricane Irma verband beide Ideen mit simulierten Daten und
+einem konkreten Anwendungsfall.
+
+## 3. Beobachtungsstudien
+
+In Beobachtungsdaten entscheiden Menschen, Institutionen oder Prozesse selbst,
+wer welcher Behandlung ausgesetzt ist. Gruppen unterscheiden sich deshalb oft
+schon vor dem Vergleich.
+
+::: {.columns}
+::: {.column width="50%"}
+### Unsere Werkzeuge
+
+- DAGs für die Datenentstehung
+- Adjustierung für Confounder
+- Double ML für flexible Modelle
+- Bayesian Shrinkage bei kleinen Fallzahlen
+:::
+
+::: {.column width="50%"}
+### Unsere Vorsicht
+
+- Welche Variablen dürfen wir kontrollieren?
+- Welche Confounder fehlen vielleicht?
+- Wie groß ist die Unsicherheit?
+- Gilt das Ergebnis auch außerhalb der Stichprobe?
+:::
+:::
+
+Die Projekte zu Kaffee, Impfung und Krankenhäusern zeigten drei verschiedene
+Wege, mit solchen Unsicherheiten produktiv umzugehen.
+
 ## Von der Idee zur Projekt-App
 
 In den Gruppenprojekten wurde aus einem Konzept eine kleine Forschungsarbeit.
@@ -152,6 +252,32 @@ Annahme, einen Parameter oder einen Vergleich direkt erfahrbar.
 
 Jede Gruppe hat einen anderen Zugang gewählt. Zusammen zeigen die Projekte,
 wie breit die gemeinsame Werkzeugkiste geworden ist.
+
+## Die Projektgalerie im Überblick
+
+::: {.columns}
+::: {.column width="50%"}
+### Eine Kausalkette
+
+**RCTs** zeigen, wie Randomisierung Vergleichbarkeit schafft.
+
+**DiD und RDD** zeigen, wie wir plausible Vergleichsgruppen finden.
+
+**DAGs und Double ML** zeigen, wie wir Beobachtungsdaten strukturieren und
+Confounding adressieren.
+:::
+
+::: {.column width="50%"}
+### Ergänzende Perspektiven
+
+**Explainable AI** fragt, wie Modelle ihre Vorhersagen begründen.
+
+**Bayesian Methods** machen Unsicherheit und Shrinkage greifbar.
+
+**LLMs** werden darauf geprüft, ob sie logische Zusammenhänge wirklich
+verarbeiten oder nur plausible Muster reproduzieren.
+:::
+:::
 
 ## Was wird durch Interaktion sichtbar?
 
@@ -211,6 +337,21 @@ Projekt-Apps inklusive Beispielprojekt
 acht interaktive Projektseiten aufeinander. Die App ist damit zugleich
 Lehrbuch, Galerie und Experimentierfeld.
 :::
+
+## Statistik als Teil der Geschichte
+
+Die Zahlen der App erzählen nicht nur etwas über ihren Umfang. Sie zeigen auch,
+wie wir gearbeitet haben:
+
+- **Viele Seiten:** Grundlagen und Projekte stehen nebeneinander und lassen
+  sich direkt verknüpfen.
+- **Mehrere Designs:** Die Projektgalerie spannt den Bogen von Randomisierung
+  bis zu Beobachtungsdaten.
+- **Interaktive Apps:** Jede Gruppe übersetzt mindestens eine methodische Idee
+  in eine Variation, einen Vergleich oder ein sichtbares Gegenbeispiel.
+
+Die eigentliche Kennzahl ist deshalb nicht nur die Zahl der Seiten. Es ist die
+Zahl der Fragen, die man mit ihnen selbst weiter untersuchen kann.
 
 ## Was bleibt?
 
