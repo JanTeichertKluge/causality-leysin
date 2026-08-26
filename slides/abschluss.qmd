@@ -378,8 +378,9 @@ gemeinsamer Abschluss nach all den Modellen, Plots und Diskussionen.
 
 ## Danke für die gemeinsame Zeit
 
-Die Akademie ist vorbei. Die Fragen bleiben, und die Apps können weiter wachsen.
+Wir hoffen, dass ihr etwas gelernt habt, Spaß hattet und aus diesen Tagen
+etwas mitnehmt, das euch auch nach der Akademie weiter begleitet.
 
 ::: {.r-fit-text}
-**Welche Annahme würdet ihr als Nächstes testen?**
+**Danke für die gemeinsame Zeit!**
 :::
